@@ -4,12 +4,29 @@ import java.io.File;
 import java.io.FileInputStream; 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+
 public class Util {
 
-    public static Logger getLogger(final String path ){
+    static String url = "jdbc:mysql://localhost:3306/users";
+    static String user = "lindx";
+    static String pass = "MySql12345!";
+
+    public static String connect() throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        try(Connection conn = DriverManager.getConnection(url, user, pass)){
+            return "Connection to database Succsesfull";
+        }
+    }
+
+    public static Logger getLogger(final String path){
     
         try (FileInputStream logConfig = new FileInputStream(checkConfig(path))) {
             
