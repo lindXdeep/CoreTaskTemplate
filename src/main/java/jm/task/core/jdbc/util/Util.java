@@ -7,32 +7,49 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-
 public class Util {
 
-    static String url = "jdbc:mysql://localhost:3306/users";
-    static String user = "lindx";
-    static String pass = "MySql12345!";
+    private static String db      = "Users";
+    private static String address = "localhost:3306";
+    private static String user    = "lindx";
+    private static String pass    = "MySql12345!";
+    private static String param   = "?autoReconnect=true&useSSL=false";
 
-    public static String connect() throws ClassNotFoundException, SQLException {
+    private static String pathLogConfig = "./log/log.config";
 
-        Class.forName("com.mysql.jdbc.Driver");
+    public static Connection getConnection() throws SQLException{
 
-        try(Connection conn = DriverManager.getConnection(url, user, pass)){
-            return "Connection to database Succsesfull";
+        String url = "jdbc:mysql://".concat(address).concat("/").concat(db);
+        
+        Connection connection = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+        } catch (ClassNotFoundException e) {
+            Util.getLogger().warning(e.getMessage());
         }
+
+        connection = DriverManager.getConnection(url + param, user, pass);
+        connection.setAutoCommit(false);
+
+        Util.getLogger().fine("Connect to " + url + " successful");
+
+        
+        return connection;
     }
 
-    public static Logger getLogger(final String path){
+    public static Logger getLogger(){
     
-        try (FileInputStream logConfig = new FileInputStream(checkConfig(path))) {
-            
+        try (FileInputStream logConfig = new FileInputStream(checkConfig(pathLogConfig))) {
+        
             LogManager.getLogManager().readConfiguration(logConfig);
             
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
