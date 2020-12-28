@@ -26,11 +26,16 @@ public class Main {
             users.add(new User("Tom",  "Murrey",  (byte)55));
             users.add(new User("Lue",  "Depp",    (byte)55));
      
-        users.stream().forEach(x -> Util.getLogger().info("Create User: " + x.getName() + " " + x.getLastName() + " " + x.getAge() ));
+        users.stream().forEach(x -> Util.getLogger().info("Create User: " + x.toString() ));
 
         UserDao u = new UserDaoJDBCImpl();
+
         u.createUsersTable();
-       
+        u.dropUsersTable();
+
+
+
+        Util.getLogger().info("create table");
 
 
         

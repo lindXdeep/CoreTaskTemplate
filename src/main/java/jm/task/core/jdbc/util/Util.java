@@ -25,21 +25,18 @@ public class Util {
     public static Connection getConnection() throws SQLException{
 
         String url = "jdbc:mysql://".concat(address).concat("/").concat(db);
-        
-        Connection connection = null;
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
-
         } catch (ClassNotFoundException e) {
             Util.getLogger().warning(e.getMessage());
         }
 
-        connection = DriverManager.getConnection(url + param, user, pass);
-        connection.setAutoCommit(false);
+        Connection connection = DriverManager.getConnection(url + param, user, pass);
+                    connection.setAutoCommit(false);
 
         Util.getLogger().fine("Connect to " + url + " successful");
 
-        
         return connection;
     }
 

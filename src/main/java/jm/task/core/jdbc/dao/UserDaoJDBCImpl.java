@@ -10,48 +10,51 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private String usertable = "";
+    private String sqlCreateUsers = "CREATE TABLE IF NOT EXISTS Users.Users("+
+                                    "id       SERIAL,"+
+                                    "name     CHAR(64) NOT NULL,"+
+                                    "lastName CHAR(64) NOT NULL,"+
+                                    "age      TINYINT);";
 
-
+    private String sqlDropUsers = "DROP TABLE IF EXISTS Users;";
+                                   
     public UserDaoJDBCImpl() {
-
-    }
-
-    // Создание таблицы для User(ов) – не должно приводить к исключению, если такая таблица уже существует
-    public void createUsersTable() {
-
-        String query =  "CREATE TABLE IF NOT EXISTS Users.Users("+
-                            "id       LONG NOT NULL,"+
-                            "name     CHAR(64) NOT NULL,"+
-                            "lastName CHAR(64) NOT NULL,"+
-                            "age      TINYINT);";
-        try {
-            Connection connection = Util.getConnection();
-           
-            Statement statement = connection.createStatement();
-                      statement.executeUpdate(query);
-                      
-                      
-
-                      connection.commit();
-
-                      statement.close();
-
-                      connection.close();
-
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
        
     }
 
-    public void dropUsersTable() {
+    public void createUsersTable() {
 
+        try {
+            Connection connection = Util.getConnection();
+
+            Statement statement = connection.createStatement();
+                    statement.executeUpdate(sqlCreateUsers);
+
+            connection.commit();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            Util.getLogger().warning(e.getMessage());
+        }
+    }
+
+    public void dropUsersTable() {
+        try {
+            Connection connection = Util.getConnection();  
+
+            Statement statement = connection.createStatement();
+                    statement.executeUpdate(sqlDropUsers);
+                      
+            connection.commit();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            Util.getLogger().warning(e.getMessage());
+        }
     }
 
     public void saveUser(String name, String lastName, byte age) {
-
+        
     }
 
     public void removeUserById(long id) {
