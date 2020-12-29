@@ -33,8 +33,7 @@ public class Util {
         }
 
         Connection connection = DriverManager.getConnection(url + param, user, pass);
-                    connection.setAutoCommit(false);
-
+                   
         Util.getLogger().fine("Connect to " + url + " successful");
 
         return connection;
@@ -66,7 +65,6 @@ public class Util {
                                 "\n"+
                                 "java.util.logging.ConsoleHandler.level     = INFO\n"+
                                 "java.util.logging.ConsoleHandler.formatter = java.util.logging.SimpleFormatter";
-
         if(!p.exists()){
             try {
 

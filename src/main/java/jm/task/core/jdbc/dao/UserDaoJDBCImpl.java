@@ -7,13 +7,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    Connection connection;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet result = null;
+    private Savepoint savepoint = null;
     
     public UserDaoJDBCImpl() {
 
@@ -24,7 +28,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void createUsersTable() {
+    public void createUsersTable() throws SQLException{
 
         String sqlCreateUsers = "CREATE TABLE IF NOT EXISTS Users.Users("+
                                 "id       SERIAL,"+
@@ -32,104 +36,111 @@ public class UserDaoJDBCImpl implements UserDao {
                                 "lastName CHAR(64) NOT NULL,"+
                                 "age      TINYINT);";
         try {
-            Statement statement = connection.createStatement();
-                    statement.executeUpdate(sqlCreateUsers);
-
-            connection.commit();
-
-            statement.close();
+            connection.setAutoCommit(false);
+            savepoint = connection.setSavepoint("savepoint CREATE");
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlCreateUsers);
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
+            connection.rollback(savepoint);
+        }finally{
+            connection.setAutoCommit(true);
+            statement.close();
         }
     }
 
     public void dropUsersTable() {
 
         try {
-            Statement statement = connection.createStatement();
-                    statement.executeUpdate("DROP TABLE IF EXISTS Users;");
-                      
-            connection.commit();
-
+            statement = connection.createStatement();
+            statement.executeUpdate("DROP TABLE IF EXISTS Users;");
             statement.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) {
+    public void saveUser(String name, String lastName, byte age) throws SQLException {
         
         String query = "INSERT INTO Users(name, lastname, age)" + 
                         "VALUES('"+ name +"','"+ lastName + "'," + age +");"; 
-        
         try {
-            Statement statement = connection.createStatement();
-                    statement.executeUpdate(query);
-
-            connection.commit();
+            connection.setAutoCommit(false);
+            savepoint = connection.setSavepoint("savePoint INSERT");
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
 
             System.out.println("User с именем – " + name + " добавлен в базу данных");
 
-            statement.close();
+            connection.commit();
         } catch (SQLException e) {
-            Util.getLogger().warning(e.getMessage());
+            Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
+            connection.rollback(savepoint);
+        }finally{
+            connection.setAutoCommit(true);
+            statement.close();
         }
     }
 
-    public void removeUserById(long id) {
+    public void removeUserById(long id) throws SQLException {
+
         try {
-            Statement statement = connection.createStatement();
+            connection.setAutoCommit(false);
+            savepoint = connection.setSavepoint("savepiont DELETE");
+            statement = connection.createStatement();
                     statement.execute("DELETE FROM Users WHERE id=" + id);
 
             connection.commit();
-
-            statement.close();
         } catch (SQLException e) {
-            Util.getLogger().warning(e.getMessage());
+            Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
+            connection.rollback(savepoint);
+        }finally{
+            connection.setAutoCommit(true);
+            statement.close();
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
 
         List<User> users = new ArrayList<>();
 
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             
-            ResultSet res = statement.executeQuery("SELECT * From Users;");
+            result = statement.executeQuery("SELECT * From Users;");
 
-            connection.commit();
-
-            while(res.next()){
+            while(result.next()){
 
                 User user = new User();
-                    user.setId(res.getLong("id"));
-                    user.setName(res.getString("name"));
-                    user.setLastName(res.getString("lastname"));
-                    user.setAge(res.getByte("age"));
+                    user.setId(result.getLong("id"));
+                    user.setName(result.getString("name"));
+                    user.setLastName(result.getString("lastname"));
+                    user.setAge(result.getByte("age"));
     
                 users.add(user); 
             }
-
-            res.close();
-            statement.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
+        }finally{
+            result.close();
+            statement.close();
         }
-
         return users;
     }
 
-    public void cleanUsersTable() {
+    public void cleanUsersTable() throws SQLException {
+
         try {
-            Statement statement = connection.createStatement();
-                    statement.executeUpdate("TRUNCATE TABLE Users;");
-
+            connection.setAutoCommit(false);
+            savepoint = connection.setSavepoint("TRUNCATE");
+            statement = connection.createStatement();
+            statement.executeUpdate("TRUNCATE TABLE Users;");
             connection.commit();
-
-            statement.close();
         } catch (SQLException e) {
-            Util.getLogger().warning(e.getMessage());
+            Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
+            connection.rollback();
+        }finally{
+            statement.close();
         }
     }
 }

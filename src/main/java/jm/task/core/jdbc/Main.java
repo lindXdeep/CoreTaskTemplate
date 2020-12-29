@@ -26,7 +26,7 @@ public class Main {
 
             userService.createUsersTable();
 
-            users.stream().forEach( x -> userService.saveUser(x.getName(), x.getLastName(), x.getAge()));
+            users.stream().forEach(x -> userService.saveUser(x.getName(), x.getLastName(), x.getAge()));
 
             System.out.println(userService.getAllUsers()); 
 
