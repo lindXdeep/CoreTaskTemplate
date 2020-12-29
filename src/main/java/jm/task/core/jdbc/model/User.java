@@ -64,7 +64,7 @@ public class User {
 
     @Override
     public String toString() {
-
-        return "Id: " + (id == null? "" : id)  + " Name: " + name + " LastName: " + lastName + " Age: " +  age;
+        
+        return String.format("id: %d Name: %s Lastname: %s Age: %d\n", (id == null? "" : id),name,lastName,age);
     }
 }
