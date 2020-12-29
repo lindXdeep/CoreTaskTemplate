@@ -66,6 +66,7 @@ public class Util {
                                 "\n"+
                                 "java.util.logging.ConsoleHandler.level     = INFO\n"+
                                 "java.util.logging.ConsoleHandler.formatter = java.util.logging.SimpleFormatter";
+
         if(!p.exists()){
             try {
 
@@ -74,6 +75,7 @@ public class Util {
                 }
 
                 FileOutputStream out = new FileOutputStream(p.getCanonicalPath());
+                
                 out.write(defaultConfig.getBytes());
 
             } catch (Exception e) {
