@@ -89,7 +89,6 @@ public class UserDaoJDBCImpl implements UserDao {
             savepoint = connection.setSavepoint("savepiont DELETE");
             statement = connection.createStatement();
                     statement.execute("DELETE FROM Users WHERE id=" + id);
-
             connection.commit();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
