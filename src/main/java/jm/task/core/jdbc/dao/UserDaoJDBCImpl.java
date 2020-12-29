@@ -13,8 +13,15 @@ import java.util.ArrayList;
 
 public class UserDaoJDBCImpl implements UserDao {
 
+    Connection connection;
+    
     public UserDaoJDBCImpl() {
-       
+
+        try{
+            connection = Util.getConnection();
+        }catch(SQLException e){
+            Util.getLogger().warning(e.getMessage());
+        }
     }
 
     public void createUsersTable() {
@@ -25,14 +32,12 @@ public class UserDaoJDBCImpl implements UserDao {
                                 "lastName CHAR(64) NOT NULL,"+
                                 "age      TINYINT);";
         try {
-            Connection connection = Util.getConnection();
             Statement statement = connection.createStatement();
                     statement.executeUpdate(sqlCreateUsers);
 
             connection.commit();
 
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
@@ -41,14 +46,12 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
 
         try {
-            Connection connection = Util.getConnection();  
             Statement statement = connection.createStatement();
                     statement.executeUpdate("DROP TABLE IF EXISTS Users;");
                       
             connection.commit();
 
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
@@ -60,7 +63,6 @@ public class UserDaoJDBCImpl implements UserDao {
                         "VALUES('"+ name +"','"+ lastName + "'," + age +");"; 
         
         try {
-            Connection connection = Util.getConnection();
             Statement statement = connection.createStatement();
                     statement.executeUpdate(query);
 
@@ -69,7 +71,6 @@ public class UserDaoJDBCImpl implements UserDao {
             System.out.println("User с именем – " + name + " добавлен в базу данных");
 
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
@@ -77,14 +78,12 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) {
         try {
-            Connection connection = Util.getConnection();
             Statement statement = connection.createStatement();
                     statement.execute("DELETE FROM Users WHERE id=" + id);
 
             connection.commit();
 
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
@@ -95,7 +94,6 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> users = new ArrayList<>();
 
         try {
-            Connection connection = Util.getConnection();
             Statement statement = connection.createStatement();
             
             ResultSet res = statement.executeQuery("SELECT * From Users;");
@@ -115,7 +113,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
             res.close();
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
@@ -125,14 +122,12 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() {
         try {
-            Connection connection = Util.getConnection();
             Statement statement = connection.createStatement();
                     statement.executeUpdate("TRUNCATE TABLE Users;");
 
             connection.commit();
 
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }
