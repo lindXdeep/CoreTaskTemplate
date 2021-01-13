@@ -4,7 +4,6 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
@@ -28,7 +27,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void createUsersTable() throws SQLException{
+    public void createUsersTable(){
 
         String sqlCreateUsers = "CREATE TABLE IF NOT EXISTS Users.Users("+
                                 "id       SERIAL,"+
@@ -42,10 +41,19 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate(sqlCreateUsers);
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
-            connection.rollback(savepoint);
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }finally{
-            connection.setAutoCommit(true);
-            statement.close();
+            try {
+                connection.setAutoCommit(true);
+                statement.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,7 +68,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age){
         
         String query = "INSERT INTO Users(name, lastname, age)" + 
                         "VALUES('"+ name +"','"+ lastName + "'," + age +");"; 
@@ -74,15 +82,25 @@ public class UserDaoJDBCImpl implements UserDao {
 
             connection.commit();
         } catch (SQLException e) {
-            Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
-            connection.rollback(savepoint);
+            try {
+                Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+
+                e1.printStackTrace();
+            }
         }finally{
-            connection.setAutoCommit(true);
-            statement.close();
+            try {
+                connection.setAutoCommit(true);
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+           
         }
     }
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id){
 
         try {
             connection.setAutoCommit(false);
@@ -91,15 +109,25 @@ public class UserDaoJDBCImpl implements UserDao {
                     statement.execute("DELETE FROM Users WHERE id=" + id);
             connection.commit();
         } catch (SQLException e) {
-            Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
-            connection.rollback(savepoint);
+           
+            try {
+                Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }finally{
-            connection.setAutoCommit(true);
-            statement.close();
+            
+            try {
+                connection.setAutoCommit(true);
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers(){
 
         List<User> users = new ArrayList<>();
 
@@ -121,13 +149,18 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             Util.getLogger().warning(e.getMessage());
         }finally{
-            result.close();
-            statement.close();
+            try {
+                result.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            
         }
         return users;
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable(){
 
         try {
             connection.setAutoCommit(false);
@@ -136,10 +169,19 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate("TRUNCATE TABLE Users;");
             connection.commit();
         } catch (SQLException e) {
-            Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
-            connection.rollback();
+            try {
+                Util.getLogger().warning(e.getMessage() + " " + savepoint.getSavepointName() + " -> rollback");
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }finally{
-            statement.close();
+            
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
