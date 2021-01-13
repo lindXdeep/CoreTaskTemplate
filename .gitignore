@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-bin/
-log/
-out/
-target/
-.vscode/
-.settings/
-.project
-=======
 target/
 bin/
 log/
@@ -15,6 +6,3 @@ out/
 .settings/
 .project
 .classpath
-
-
->>>>>>> daojdbc
