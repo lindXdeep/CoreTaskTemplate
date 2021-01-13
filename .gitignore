@@ -2,7 +2,6 @@ target/
 bin/
 log/
 out/
-
 .vscode/
 .settings/
 .project
