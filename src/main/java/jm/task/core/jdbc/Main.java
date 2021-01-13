@@ -1,13 +1,10 @@
 package jm.task.core.jdbc;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.logging.Logger;
 
 import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.util.Util;
 public class Main {
