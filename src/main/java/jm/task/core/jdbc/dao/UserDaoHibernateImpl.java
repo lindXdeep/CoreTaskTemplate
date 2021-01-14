@@ -71,7 +71,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
 
-        String sql = "SELECT * FROM Users";
+        String sql = "SELECT * FROM Users;";
 
         SessionUtil.openTransactionSession();
 
@@ -88,5 +88,13 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void cleanUsersTable() {
 
+        String sql = "TRUNCATE TABLE Users;";
+
+        SessionUtil.openTransactionSession();
+
+        Query query = SessionUtil.getSession().createNativeQuery(sql);
+            query.executeUpdate();
+        
+        SessionUtil.closeTransactionSession();
     }
 }
