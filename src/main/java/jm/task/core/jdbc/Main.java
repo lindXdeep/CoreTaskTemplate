@@ -25,8 +25,10 @@ public class Main {
 
             users.stream().forEach(x -> userService.saveUser(x.getName(), x.getLastName(), x.getAge()));
 
-            System.exit(1);
-            System.out.println("stop");
+        
+            userService.removeUserById(5);
+          
+            System.out.println("show all:");
             System.out.println(userService.getAllUsers()); 
 
             userService.cleanUsersTable();
