@@ -51,7 +51,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 connection.setAutoCommit(true);
                 statement.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
