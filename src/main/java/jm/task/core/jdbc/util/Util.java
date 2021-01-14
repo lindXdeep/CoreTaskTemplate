@@ -23,7 +23,9 @@ public class Util {
         LoggerProperty.readConfiguration();
         configuration = HibernateProperty.getConfiguration();
 
+        //TODO: config for entity-classes there
         configuration.addAnnotatedClass(User.class);
+
         sessionFactory = buildSessionFactory();
     }
 

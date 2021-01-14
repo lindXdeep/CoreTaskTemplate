@@ -29,7 +29,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable(){
 
-        String sqlCreateUsers = "CREATE TABLE IF NOT EXISTS Users.Users("+
+        String sqlCreateUsers = "CREATE TABLE IF NOT EXISTS Users("+
                                 "id       SERIAL,"+
                                 "name     CHAR(64) NOT NULL,"+
                                 "lastName CHAR(64) NOT NULL,"+

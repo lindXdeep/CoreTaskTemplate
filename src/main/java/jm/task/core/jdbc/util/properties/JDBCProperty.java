@@ -3,7 +3,7 @@ package jm.task.core.jdbc.util.properties;
 import jm.task.core.jdbc.util.Util;
 
 public class JDBCProperty {
-    private static String db      = "Users";
+    private static String db      = "users";
     private static String address = "localhost:3306";
     private static String user    = "lindx";
     private static String pass    = "MySql12345!";

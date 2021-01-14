@@ -15,7 +15,7 @@ public class HibernateProperty {
         properties.setProperty(Environment.URL, JDBCProperty.getURL());
         properties.setProperty(Environment.USER, JDBCProperty.getUser());
         properties.setProperty(Environment.PASS, JDBCProperty.getPass());
-        properties.setProperty(Environment.POOL_SIZE, "1");
+        properties.setProperty(Environment.POOL_SIZE, "10");
         properties.setProperty(Environment.AUTOCOMMIT, "false");
         properties.setProperty(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
         properties.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
