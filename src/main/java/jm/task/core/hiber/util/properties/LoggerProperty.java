@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.util.properties;
+package jm.task.core.hiber.util.properties;
 
 import java.io.File;
 import java.io.FileInputStream;

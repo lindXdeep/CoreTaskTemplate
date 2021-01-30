@@ -1,4 +1,4 @@
-package jm.task.core.jdbc;
+package jm.task.core.hiber;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import jm.task.core.jdbc.config.AppConfig;
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.service.UserService;
-import jm.task.core.jdbc.util.Util;
+import jm.task.core.hiber.config.AppConfig;
+import jm.task.core.hiber.model.User;
+import jm.task.core.hiber.service.UserService;
+import jm.task.core.hiber.util.Util;
 
 public class MainApp {
 

@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.util;
+package jm.task.core.hiber.util;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

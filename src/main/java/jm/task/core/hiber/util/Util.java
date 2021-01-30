@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.util;
+package jm.task.core.hiber.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.properties.HibernateProperty;
-import jm.task.core.jdbc.util.properties.JDBCProperty;
-import jm.task.core.jdbc.util.properties.LoggerProperty;
+import jm.task.core.hiber.model.User;
+import jm.task.core.hiber.util.properties.HibernateProperty;
+import jm.task.core.hiber.util.properties.JDBCProperty;
+import jm.task.core.hiber.util.properties.LoggerProperty;
 
 public class Util {
 

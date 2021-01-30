@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.dao;
+package jm.task.core.hiber.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import jm.task.core.jdbc.model.User;
+import jm.task.core.hiber.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {

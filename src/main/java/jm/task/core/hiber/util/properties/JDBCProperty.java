@@ -1,6 +1,6 @@
-package jm.task.core.jdbc.util.properties;
+package jm.task.core.hiber.util.properties;
 
-import jm.task.core.jdbc.util.Util;
+import jm.task.core.hiber.util.Util;
 
 public class JDBCProperty {
     private static String db      = "users";

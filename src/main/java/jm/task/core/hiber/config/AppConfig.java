@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.config;
+package jm.task.core.hiber.config;
 
 import java.util.Properties;
 
@@ -15,12 +15,14 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import jm.task.core.jdbc.model.User;
+import jm.task.core.hiber.model.User;
+
+
 
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan(value = "jm.task.core.jdbc")
+@ComponentScan(value = "jm.task.core.hiber.")
 public class AppConfig {
     @Autowired
     private Environment env;

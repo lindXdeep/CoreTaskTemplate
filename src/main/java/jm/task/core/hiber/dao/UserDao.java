@@ -1,6 +1,6 @@
-package jm.task.core.jdbc.dao;
+package jm.task.core.hiber.dao;
 
-import jm.task.core.jdbc.model.User;
+import jm.task.core.hiber.model.User;
 
 import java.util.List;
 public interface UserDao {
