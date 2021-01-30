@@ -1,42 +1,28 @@
 package jm.task.core.jdbc.service;
 
 import jm.task.core.jdbc.dao.UserDao;
-import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
-// import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
-
 import jm.task.core.jdbc.model.User;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
 public class UserServiceImpl implements UserService {
 
-    UserDao userDao;
-
-    {
-        //userDao = new UserDaoJDBCImpl();
-        userDao = new UserDaoHibernateImpl();
+    @Autowired
+    private UserDao userDao;
+ 
+    @Transactional
+    @Override
+    public void add(User user) {
+       userDao.add(user);
     }
-    
-    public void createUsersTable() {
-        userDao.createUsersTable();
-    }
-
-    public void dropUsersTable() {
-        userDao.dropUsersTable();
-    }
-
-    public void saveUser(String name, String lastName, byte age) {
-        userDao.saveUser(name, lastName, age) ;
-    }
-
-    public void removeUserById(long id) {
-        userDao.removeUserById(id);
-    }
-
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
-    }
-
-    public void cleanUsersTable() {
-        userDao.cleanUsersTable();
+ 
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> listUsers() {
+       return userDao.listUsers();
     }
 }
