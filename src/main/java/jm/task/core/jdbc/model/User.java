@@ -1,10 +1,12 @@
 package jm.task.core.jdbc.model;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "Users")
 public class User {
@@ -13,23 +15,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "name")
-    private String name;
+    @Column(name = "name")
+    private String firstName;
 
-    @Column (name = "lastname")
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column (name = "age")
-    private Byte age;
+    @Column(name = "email")
+    private String email;
 
     public User() {
 
     }
 
-    public User(String name, String lastName, Byte age) {
-        this.name = name;
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.email = email;
     }
 
     public Long getId() {
@@ -40,12 +42,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -56,17 +58,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Byte getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(Byte age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        
-        return String.format("id: %d Name: %s Lastname: %s Age: %d\n", (id == null? "" : id),name,lastName,age);
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
