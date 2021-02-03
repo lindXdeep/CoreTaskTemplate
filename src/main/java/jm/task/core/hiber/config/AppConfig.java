@@ -17,13 +17,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import jm.task.core.hiber.model.User;
 
-
-
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 @ComponentScan(value = "jm.task.core.hiber.")
 public class AppConfig {
+    
     @Autowired
     private Environment env;
  

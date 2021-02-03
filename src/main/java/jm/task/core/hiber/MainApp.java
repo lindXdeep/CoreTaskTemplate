@@ -36,5 +36,7 @@ public class MainApp {
             System.out.println();
         }
         context.close();
+
+        Util.getLogger().info("test logger");
     }
 }

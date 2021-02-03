@@ -11,17 +11,12 @@
     <url>https://github.com/lindXdeep/lindxCoreTT</url>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <main.class>jm.task.core.hiber.MainApp</main.class>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-        <junit.version>4.13.1</junit.version>
-
-        <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
-        <persistence.jpa.version>2.2</persistence.jpa.version>
     </properties>
 
     <dependencies>
@@ -63,6 +58,32 @@
         <finalName>${project.name}</finalName>
 
         <plugins>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/resources</directory>
+                            <followSymlinks>false</followSymlinks>
+                            <useDefaultExcludes>true</useDefaultExcludes>
+                            <includes>
+                                <include>log.properties</include>
+                            </includes>
+                            <excludes>
+                                <exclude>bd.properties</exclude>
+                            </excludes>
+                        </fileset>
+                        <fileset>
+                            <directory>log</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>out</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
