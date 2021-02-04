@@ -16,6 +16,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.model.User;
 
 /**
@@ -59,6 +60,7 @@ public class AppConfig {
                 factoryBean.setHibernateProperties(properties);
 
                 factoryBean.setAnnotatedClasses(User.class);
+                factoryBean.setAnnotatedClasses(Car.class);
 
         return factoryBean;
     }

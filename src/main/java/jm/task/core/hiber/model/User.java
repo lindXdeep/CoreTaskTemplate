@@ -1,10 +1,13 @@
 package jm.task.core.hiber.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -29,6 +32,10 @@ public class User {
 
     @Column(name = "email")
     @Getter @Setter private String email;
+
+    @JoinColumn(name = "car_id")
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    private Car car;
 
     public User() {
     }
