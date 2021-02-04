@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import jm.task.core.hiber.model.User;
 
+/**
+ * UserDaoImpl
+ */
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -24,6 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
+
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }

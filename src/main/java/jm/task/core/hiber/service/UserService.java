@@ -1,9 +1,15 @@
 package jm.task.core.hiber.service;
 
+import java.util.List;
+
 import jm.task.core.hiber.model.User;
 
-import java.util.List;
+/**
+ * UserService
+ */
 public interface UserService {
+
     void add(User user);
+
     List<User> listUsers();
 }
