@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import jm.task.core.hiber.service.UserBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter private Long id;
 
     @Column(name = "name")
@@ -33,9 +34,9 @@ public class User {
     @Column(name = "email")
     @Getter @Setter private String email;
 
-    @JoinColumn(name = "car_id")
+    @JoinColumn(name = "cars_id")
     @OneToOne(optional = false, cascade = CascadeType.ALL)
-    private Car car;
+    @Getter @Setter private Car car;
 
     public User() {
     }
@@ -46,6 +47,13 @@ public class User {
         this.email = email;
     }
 
+    public User(final UserBuilder userBuilder){
+        this.firstName = userBuilder.getFirstName();
+        this.lastName = userBuilder.getLastName();
+        this.email = userBuilder.getEmail();
+        this.car = userBuilder.getCar();
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -53,6 +61,7 @@ public class User {
             ", First Name='" + getFirstName() + "'" +
             ", Last Name='" + getLastName() + "'" +
             ", Email='" + getEmail() + "'" +
+            ", Car='" + car.getModel() + ":" + car.getSeries() + "'" +
             "}";
     }
 }

@@ -29,4 +29,10 @@ public class UserServiceImpl implements UserService {
     public List<User> listUsers() {
         return userDao.listUsers();
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> getCarOwner(String model, int series) {
+        return getCarOwner(model, series);
+    }
 }

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import jm.task.core.hiber.service.CarBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,16 +29,20 @@ public class Car {
     @Column(name = "series")
     @Getter @Setter private Integer series;
 
-    @OneToOne(optional = false, mappedBy = "car" )
-    private User owner;
+    @OneToOne(optional = true, mappedBy = "car" )
+    @Getter @Setter private User owner;
 
     public Car() {
     }
 
-    public Car(Long id, String model, Integer series) {
-        this.id = id;
+    public Car(String model, int series) {
         this.model = model;
         this.series = series;
+    }
+
+    public Car(final CarBuilder carBuilder) {
+        this.model = carBuilder.getModel();
+        this.series = carBuilder.getSeries();
     }
 
     @Override
@@ -46,6 +51,7 @@ public class Car {
             " Id='" + getId() + "'" +
             ", Model='" + getModel() + "'" +
             ", Series='" + getSeries() + "'" +
+            ", User='" + owner.getFirstName() + ":" + owner.getLastName() + "'" +
             "}";
     }
 }
