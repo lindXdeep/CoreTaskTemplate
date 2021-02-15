@@ -47,15 +47,14 @@ public class AppConfig implements WebMvcConfigurer {
     @Autowired
     private Environment environment;
 
-    /* ------------------- MVC ------------------- */
-
-    
     private final ApplicationContext applicationContext;
 
     @Autowired
     public AppConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
+
+    /* ------------------- MVC ------------------- */
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
@@ -81,6 +80,8 @@ public class AppConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
+    /* ------------------- DataSource ------------------- */
+
     @Bean
     public DataSource getDataSource() {
 
@@ -93,6 +94,7 @@ public class AppConfig implements WebMvcConfigurer {
         return dataSource;
     }
 
+    /* ------------------- Hibernate ------------------- */
 
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
