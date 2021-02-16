@@ -34,7 +34,7 @@ public class MainApp {
     //     Map<String, Car> cars = new LinkedHashMap<>();
     //         cars.put("User1", car.model("modelA").series(101).build());
     //         cars.put("User2", car.model("modelB").series(202).build());
-    //         cars.put("User3mvn", car.model("modelC").series(303).build());
+    //         cars.put("User3", car.model("modelC").series(303).build());
     //         cars.put("User4", car.model("modelD").series(404).build());
 
     //     List<User> users = Arrays.asList(

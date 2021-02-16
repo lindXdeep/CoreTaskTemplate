@@ -2,7 +2,9 @@ package jm.task.core.hiber.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,11 @@ public class CarDaoImpl implements CarDao {
 
         TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car");
         return query.getResultList();
+    }
+
+    @Override
+    public Car getCarById(Long id) {
+
+        return sessionFactory.getCurrentSession().get(Car.class, id);
     }
 }

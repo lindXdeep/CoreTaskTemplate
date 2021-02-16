@@ -3,13 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Hello Controller</title>
+    <style>
+        html {
+            background-color: #2d2d2d;
+        }
+        
+        p {
+            color: rgb(21, 255, 0);
+        }
+        
+        .outer {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #8C959D;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 
 <body>
-    <div th:each=" msg : ${messages}">
-        <p th:text="${msg}"></p>
+
+    <div class="outer">
+        <div class="inner">
+
+            <div th:each=" msg : ${messages}">
+                <p th:text="${msg}">message</p>
+            </div>
+
+            <div>
+                <p>
+                    <a class="btn" href="/create">Create Cars and Users</a>
+                    <a class="btn" href="/cars">Go to Cars</a>
+                    <a class="btn" href="/users">Go to Users</a>
+                </p>
+            </div>
+
+        </div>
     </div>
+
 </body>
 
 </html>

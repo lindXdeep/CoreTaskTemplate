@@ -35,4 +35,10 @@ public class UserServiceImpl implements UserService {
     public List<User> getCarOwner(String model, int series) {
         return getCarOwner(model, series);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
+    }
 }

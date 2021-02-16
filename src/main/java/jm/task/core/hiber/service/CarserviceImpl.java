@@ -18,10 +18,23 @@ public class CarserviceImpl implements CarService {
     @Autowired
     private CarDao carDao;
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Car> listCars() {
        
         return carDao.listCars();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Car getCarbyId(Long id) {
+    
+        return carDao.getCarById(id);
+    }
+
+    @Override
+    @Transactional
+    public void add(Car car) {
+       carDao.add(car);
     }
 }

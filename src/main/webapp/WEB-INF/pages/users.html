@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Controller</title>
+    <style>
+        html {
+            background-color: #2d2d2d;
+            text-align: center;
+        }
+        
+        a,
+        p,
+        td,
+        tr,
+        caption {
+            color: rgb(21, 255, 0);
+            font-style: normal;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: medium;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        td {
+            width: 10%;
+        }
+        
+        table,
+        td {
+            border: 1px;
+            border-style: dashed;
+            border-color: white;
+        }
+        
+        th {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: larger;
+        }
+        
+        caption {
+            border-radius: 20% !important;
+            font-size: large;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #8C959D;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+            <a class="btn" href="/">Go to Main</a>
+            <a class="btn" href="/cars">Go to Cars</a>
+        </p>
+    </div>
+
+    <table>
+        <caption> All Users</caption>
+
+        <head>
+            <tr>
+                <th>id</th>
+                <th>First name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Car</th>
+            </tr>
+        </head>
+
+        <body>
+
+            <tr th:each=" user : ${users}">
+                <td>
+                    <span th:text="${user.getId()}">id</span>
+                </td>
+                <td>
+                    <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getFirstName()}">name</a>
+                </td>
+                <td>
+                    <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getLastName()}">last</a>
+                </td>
+                <td>
+                    <p th:text="${user.getEmail()}"> email </p>
+                </td>
+                <td>
+                    <a th:href="@{/car/{id} (id=${user.getCar().getId()}) }" th:text="${user.getCar().getModel() + ' ' + user.getCar().getSeries()}"> car </a>
+                </td>
+
+            </tr>
+
+        </body>
+
+    </table>
+
+</body>
+
+</html>

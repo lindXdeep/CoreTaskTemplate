@@ -10,4 +10,6 @@ import jm.task.core.hiber.model.Car;
 public interface CarService {
 
     List<Car> listCars();
+    Car getCarbyId(Long id);
+    void add(Car car);
 }

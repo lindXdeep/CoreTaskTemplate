@@ -12,4 +12,6 @@ public interface CarDao {
     void add(Car car);
 
     List<Car> listCars();
+
+    Car getCarById(Long id);
 }

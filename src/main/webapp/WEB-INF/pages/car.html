@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car</title>
+    <style>
+        html {
+            background-color: #2d2d2d;
+        }
+        
+        p,
+        caption {
+            color: rgb(21, 255, 0);
+            font-style: normal;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: medium;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        a {
+            color: rgb(255, 0, 255);
+            text-decoration: none;
+        }
+        
+        table,
+        td {
+            border: 0px;
+        }
+        
+        th,
+        h1 {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: larger;
+        }
+        
+        td {
+            width: 30%;
+            color: rgb(0, 243, 0);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        caption {
+            border-radius: 20% !important;
+            font-size: large;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #8C959D;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+
+            <a class="btn" href="/">Go to Main</a>
+            <a class="btn" href="/cars">Go to Cars</a>
+            <a class="btn" href="/users">Go to Users</a>
+
+        </p>
+    </div>
+
+    <h1 th:text="'Car: ' + ${car.getId()}"> Car </h1>
+
+    <table>
+
+        <head>
+
+        </head>
+
+        <body>
+
+            <tr>
+                <td>Model: </td>
+                <td> <span th:text="${car.getModel()}"></span></td>
+            </tr>
+            <tr>
+                <td>Series: </td>
+                <td> <span th:text="${car.getSeries()}"></span></td>
+            </tr>
+
+            <tr>
+                <td>Owner: </td>
+                <td>
+                    <a th:href="@{/user/{id} (id=${car.getOwner().getId()}) }" th:text="${car.getOwner().getFirstName() + ' ' + car.getOwner().getLastName()}"> owner </a>
+                </td>
+            </tr>
+
+        </body>
+
+    </table>
+
+</body>
+
+</html>
