@@ -7,15 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.service.CarService;
-import jm.task.core.hiber.service.UserService;
-
 @Controller
 public class CarController {
 
@@ -45,7 +41,7 @@ public class CarController {
             model.addAttribute("cars", cars);
         }
 
-        return "cars";
+        return "index";
     }
 
     @GetMapping("car/{id}")
@@ -57,18 +53,6 @@ public class CarController {
         return "/car";
     }
 
-    @GetMapping("/car/add")
-    public String createCar(@ModelAttribute("car") Car car) {
 
-        return "create_car";
-    }
-
-    @PostMapping("car/add")
-    public String create(@ModelAttribute("car") Car car) {
-
-        carService.add(car);
-
-        return "redirect:/user/add";
-    }
 
 }

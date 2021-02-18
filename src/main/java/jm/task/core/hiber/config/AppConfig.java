@@ -18,6 +18,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -118,5 +119,17 @@ public class AppConfig implements WebMvcConfigurer {
         transactionManager.setSessionFactory(getSessionFactory().getObject());
 
         return transactionManager;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(
+            "/img/**",
+            "/css/**",
+            "/libs/**")
+            .addResourceLocations(
+                    "classpath:/static/img/",
+                    "classpath:/static/css/",
+                    "classpath:/static/libs/");
     }
 }

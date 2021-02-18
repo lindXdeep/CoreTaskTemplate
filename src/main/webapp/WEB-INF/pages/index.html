@@ -1,52 +1,134 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>Hello Controller</title>
-    <style>
-        html {
-            background-color: #2d2d2d;
-        }
-        
-        p {
-            color: rgb(21, 255, 0);
-        }
-        
-        .outer {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #8C959D;
-            color: #fff;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            border-radius: 3px;
-        }
-    </style>
+    <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" />
 </head>
 
 <body>
 
-    <div class="outer">
+    <div id="outer">
         <div class="inner">
 
-            <div th:each=" msg : ${messages}">
-                <p th:text="${msg}">message</p>
+            <div th:each=" msg : ${messages}" style="padding-top: 5%;">
+                <p style="font-size: x-large;" th:text="${msg}">message</p>
             </div>
 
             <div>
                 <p>
-                    <a class="btn" href="/create">Create Cars and Users</a>
-                    <a class="btn" href="/cars">Go to Cars</a>
-                    <a class="btn" href="/users">Go to Users</a>
+                    <a id="btn" href="/create">Create Cars and Users</a>
+                    <a id="btn" href="/">Main</a>
                 </p>
+            </div>
+
+            <div>
+                <p>
+                    <a id="btn" href="/users/new">New User</a>
+                    <a id="btn" href="/users">All Users</a>
+                    <a id="btn" href="/cars">All Cars</a>
+                </p>
+            </div>
+
+            <div>
+
+                <span>Car filter: </span>
+
+                <a id="btn" th:href="@{/cars?count={x} (x=1) }"> 1 </a>
+                <a id="btn" th:href="@{/cars?count={x} (x=2) }"> 2 </a>
+                <a id="btn" th:href="@{/cars?count={x} (x=3) }"> 3 </a>
+                <a id="btn" th:href="@{/cars?count={x} (x=4) }"> 4 </a>
+                <a id="btn" th:href="@{/cars?count={x} (x=5) }"> 5 </a>
+
+                <br/>
+
+
+            </div>
+
+
+            <div th:if="${cars != null}" id="main">
+
+                <table>
+                    <caption> All Cars</caption>
+
+                    <head>
+                        <tr>
+                            <th>id</th>
+                            <th>Model</th>
+                            <th>Series</th>
+                            <th> <a id="ath" href="/users">Owner</a></th>
+                        </tr>
+                    </head>
+
+                    <body>
+
+                        <tr th:each=" car : ${cars}">
+                            <td>
+                                <span th:text="${car.getId()}">id</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/car/{id} ( id=${car.getId()} ) }" th:text="${car.getModel()}">model</a>
+                            </td>
+
+                            <td>
+                                <a th:href="@{/car/{id} ( id=${car.getId()} ) }" th:text="${car.getSeries()}">series</a>
+                            </td>
+
+                            <td>
+                                <a th:href="@{/user/{id} (id=${car.getOwner().getId() } ) }" th:text="${car.getOwner().getFirstName() + ' ' + car.getOwner().getLastName()}"> owner </a>
+                            </td>
+                        </tr>
+
+                    </body>
+
+                </table>
+
+
+            </div>
+
+            <div th:if="${users != null}" id="main">
+
+                <table>
+                    <caption> All Users</caption>
+
+                    <head>
+                        <tr>
+                            <th>id</th>
+                            <th>First name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th> <a id="ath" href="/cars">Car</a></th>
+                        </tr>
+                    </head>
+
+                    <body>
+
+                        <tr th:each=" user : ${users}">
+                            <td>
+                                <span th:text="${user.getId()}">id</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getFirstName()}">name</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getLastName()}">last</a>
+                            </td>
+                            <td>
+                                <span th:text="${user.getEmail()}"> email </span>
+                            </td>
+                            <td>
+                                <a th:href="@{/car/{id} (id=${user.getCar().getId()}) }" th:text="${user.getCar().getModel() + ' ' + user.getCar().getSeries()}"> car </a>
+                            </td>
+
+                        </tr>
+
+                    </body>
+
+                </table>
+
+
+
             </div>
 
         </div>

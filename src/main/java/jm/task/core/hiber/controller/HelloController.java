@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,6 @@ import jm.task.core.hiber.service.UserBuilder;
 import jm.task.core.hiber.service.UserService;
 import jm.task.core.hiber.util.Util;
 
-
 @Controller
 @RequestMapping("/")
 public class HelloController {
@@ -30,7 +30,7 @@ public class HelloController {
 
     private final UserBuilder user;
     private final CarBuilder car;
-    
+
     @Autowired
     public HelloController(UserService userService, CarService carService, UserBuilder user, CarBuilder car) {
         this.userService = userService;
@@ -56,7 +56,7 @@ public class HelloController {
     }
 
     @GetMapping(value = "/create")
-    public String create(){
+    public String create(ModelMap model){
        
         Map<String, Car> cars = new LinkedHashMap<>();
             cars.put("User1", car.model("modelA").series(101).build());
@@ -79,9 +79,15 @@ public class HelloController {
 
         carService.listCars().stream().forEach(
             car -> Util.getLogger().info(car.toString()));
-
-        return "redirect:/cars";
+    
+        return "redirect:/index";
     }
 
+    @GetMapping("/index")
+    public String cars(ModelMap model) {
 
+        model.addAttribute("users", userService.listUsers());
+    
+        return "index";
+    }
 }

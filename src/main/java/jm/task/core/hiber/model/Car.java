@@ -9,28 +9,27 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import jm.task.core.hiber.service.CarBuilder;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
 /**
  * Car
  */
+@Data
 @Entity
 @Table(name = "cars")
 public class Car {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter private Long id;
+    private Long id;
 
     @Column(name="model")
-    @Getter @Setter private String model;
+    private String model;
 
     @Column(name = "series")
-    @Getter @Setter private Integer series;
+    private Integer series;
 
     @OneToOne(optional = true, mappedBy = "car" )
-    @Getter @Setter private User owner;
+    private User owner;
 
     public Car() {
     }

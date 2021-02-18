@@ -11,32 +11,32 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import jm.task.core.hiber.service.UserBuilder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * User
  */
+@Data
 @Entity
 @Table(name="users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter private Long id;
+    private Long id;
 
     @Column(name = "name")
-    @Getter @Setter private String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
-    @Getter @Setter private String lastName;
+    private String lastName;
 
     @Column(name = "email")
-    @Getter @Setter private String email;
+    private String email;
 
     @JoinColumn(name = "cars_id")
     @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @Getter @Setter private Car car;
+    private Car car;
 
     public User() {
     }

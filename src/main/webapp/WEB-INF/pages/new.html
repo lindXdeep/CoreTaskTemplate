@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>User</title>
+    <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="header-btn">
+
+            <div>
+                <p>
+                    <a id="btn" href="/">Go to Main</a>
+                    <a id="btn" href="/cars">Go to Cars</a>
+                    <a id="btn" href="/users">Go to Users</a>
+                </p>
+            </div>
+
+            <div id="main-body">
+
+                <nav aria-label="lindx" id="header">
+                    <ol class="lindx"> New User: </ol>
+                </nav>
+
+                <div>
+                    <div style="float: left; text-align: center;">
+
+                        <form th:method="post" th:action="@{/users/new}" modelAttribute="user">
+
+
+                            <div style="float: left; padding-left: 50px;">
+
+                                <div>
+                                    <div style="text-align: left;">
+                                        <h3>First Name: </h3>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:value="${user.firstName}" name="firstName">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div>
+                                    <div style="text-align: left;">
+                                        <h3>Last Name: </h3>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:value="${user.lastName}" name="lastName">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div>
+                                    <div style="text-align: left;">
+                                        <h3>Email</h3>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:value="${user.email}" name="email">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div style="text-align: center;">
+                                    <div style="text-align: left;">
+                                        <h3>Car: </h3>
+                                    </div>
+                                    <div>
+                                        <label for="model"> Model:</label>
+                                        <input type="text" th:value="${car.model}" name="model" value="Model">
+                                    </div>
+                                    <div>
+                                        <label for="series"> Series:</label>
+                                        <input type="text" th:value="${car.series}" name="series" value="Modele">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                <div style="text-align: center; padding-top: 10%;">
+                                    <button id="btn" th:href="@{/users/new}" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
