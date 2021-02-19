@@ -120,6 +120,11 @@
                             <td>
                                 <a th:href="@{/car/{id} (id=${user.getCar().getId()}) }" th:text="${user.getCar().getModel() + ' ' + user.getCar().getSeries()}"> car </a>
                             </td>
+                            <td>
+                                <form th:method="delete" th:action="@{/user/{id} (id = ${user.getId()})}">
+                                    <input id="xx" type="submit" value="X" />
+                                </form>
+                            </td>
 
                         </tr>
 

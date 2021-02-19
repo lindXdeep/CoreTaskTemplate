@@ -226,6 +226,25 @@ span {
     font-size: larger;
 }
 
+#xx {
+    color: red;
+    background: #1b1b1b;
+    font-family: fantasy;
+    display: inline-block;
+    padding: 15px 15px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 1px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+#xx:hover {
+    color: white;
+    background-color: #000000;
+    font-size: larger;
+}
+
 p {
     color: rgb(21, 255, 0);
     font-family: 'Courier New', Courier, monospace;

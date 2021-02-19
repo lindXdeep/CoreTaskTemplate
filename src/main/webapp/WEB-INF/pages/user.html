@@ -38,22 +38,27 @@
                     <div style="float: left; text-align: center;">
 
                         <img src="/img/userpic.png" alt="Admin" width="200" style="size: 200%;">
-                        <div style="text-align: left; padding-top: 10%;">
+
+                        <form th:method="delete" th:action="@{
+                            
+                                                        /user/{id} (id = ${user.getId()})
+
+                                        }" style="text-align: left; padding-top: 10%;">
+
+
                             <h3>
                                 <p th:text="${user.getFirstName() + ' ' + user.getLastName()}"> owner </p>
                             </h3>
                             <p>Full Stack Developer</p>
+
                             <a id="btn" th:href="@{
 
                                                 /user/{id}/edit (id= ${user.getId()})
 
                                                 }">Edit</a>
-                            <a id="btn" th:href="@{
-                                
-                                                /user/{id} (id = ${user.getId()})
-                            
-                                                }">Delete</a>
-                        </div>
+
+                            <input id="btn" type="submit" value="Delete" />
+                        </form>
                     </div>
 
                     <div style="float: left; padding-left: 50px;">

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -101,16 +102,25 @@ public class UserController {
                             @PathVariable("id") Long id,
                             RedirectAttributes redirectAttributes
     ){
-            System.out.println(user.getFirstName());
-            System.out.println(user.getLastName());
-            System.out.println(user.getEmail());
-           
-            user.setCar(car);
-            userService.update(user);
+          
+        user.setCar(car);
+        userService.update(user);
 
-            redirectAttributes.addAttribute("id", user.getId())
-            .addFlashAttribute("msg", "User: " + user.getId() + " Updated!");          
+        redirectAttributes.addAttribute("id", user.getId())
+        .addFlashAttribute("msg", "User: " + user.getId() + " Updated!");          
 
         return "redirect:/user/{id}";      
+    }
+
+    @DeleteMapping("/user/{id}")
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+
+        User user = userService.getUserById(id);
+        userService.delete(userService.getUserById(id));
+
+        redirectAttributes.addAttribute("id", user.getId())
+        .addFlashAttribute("msg", "User: " + user.getId() + " Delete!");     
+
+        return "redirect:/users";
     }
 }

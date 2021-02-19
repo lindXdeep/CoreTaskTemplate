@@ -42,30 +42,37 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> getCarOwner(String model, int series) {
 
-        TypedQuery<User> query = getSession().createQuery("from User where car.model =: model and car.series =: series");
-                query.setParameter("model", model);
-                query.setParameter("series", series);
+        TypedQuery<User> query = getSession()
+                .createQuery("from User where car.model =: model and car.series =: series");
+        query.setParameter("model", model);
+        query.setParameter("series", series);
 
         return query.getResultList();
     }
 
     @Override
     public User getUserById(Long id) {
-        
+
         return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override
     public void update(User user) {
 
-        Query query = getSession().createQuery("UPDATE User SET name =: name, last_name =: lastname, email =: email WHERE id =: id ");
+        Query query = getSession()
+                .createQuery("UPDATE User SET name =: name, last_name =: lastname, email =: email WHERE id =: id ");
 
-            query.setParameter("name", user.getFirstName());
-            query.setParameter("lastname", user.getLastName());
-            query.setParameter("email", user.getEmail());
-            //query.setParameter("car_id", user.getCar().getId());
-            query.setParameter("id", user.getId());
+        query.setParameter("name", user.getFirstName());
+        query.setParameter("lastname", user.getLastName());
+        query.setParameter("email", user.getEmail());
+        query.setParameter("id", user.getId());
 
-           query.executeUpdate();
+        query.executeUpdate();
+    }
+
+    @Override
+    public void delete(User user) {
+        
+        getSession().delete(user);
     }
 }
