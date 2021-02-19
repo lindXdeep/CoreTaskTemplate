@@ -2,6 +2,7 @@ package jm.task.core.hiber.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
@@ -52,5 +53,19 @@ public class UserDaoImpl implements UserDao {
     public User getUserById(Long id) {
         
         return sessionFactory.getCurrentSession().get(User.class, id);
+    }
+
+    @Override
+    public void update(User user) {
+
+        Query query = getSession().createQuery("UPDATE User SET name =: name, last_name =: lastname, email =: email WHERE id =: id ");
+
+            query.setParameter("name", user.getFirstName());
+            query.setParameter("lastname", user.getLastName());
+            query.setParameter("email", user.getEmail());
+            //query.setParameter("car_id", user.getCar().getId());
+            query.setParameter("id", user.getId());
+
+           query.executeUpdate();
     }
 }

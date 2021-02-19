@@ -12,4 +12,5 @@ public interface CarService {
     List<Car> listCars();
     Car getCarbyId(Long id);
     void add(Car car);
+    void update(Car car);
 }

@@ -22,6 +22,10 @@
 
             <div id="main-body">
 
+                <div>
+                    <p th:text="${msg}" style="font-size: x-large; font-family: 'Courier New', Courier, monospace;"> msg </p>
+                </div>
+
                 <nav aria-label="lindx" id="header">
                     <ol class="lindx">
                         <li class="lindx-item"> <a href="/">Main</a></li>
@@ -30,16 +34,31 @@
                     </ol>
                 </nav>
 
-                <form th:method="post" th:action="@{/users/new}" modelAttribute="user">
+                <form th:method="patch" th:action="@{
+
+                                                    /user/{id}(id = ${user.getId()})
+
+                                                }" th:object="${user}">
+
                     <div style="float: left; text-align: center;">
                         <img src="/img/userpic.png" alt="Admin" width="200" style="size: 200%;">
-                        <div class="mt-3" style="text-align: left; padding-top: 10%;">
+                        <div style="text-align: left; padding-top: 10%;">
                             <h3>
                                 <p th:text="${user.getFirstName() + ' ' + user.getLastName()}"> owner </p>
                             </h3>
                             <p class="text-secondary mb-1">Full Stack Developer</p>
-                            <a id="btn" th:href="@{/user/delete}">Delete</a>
-                            <a id="btn" th:href="@{/edit}" type="submit">Save</a>
+
+                            <a id="btn" th:href="@{
+
+                                                    /user/{id}(id = ${user.getId()})
+
+                                                }">Cancel</a>
+
+                            <button id="btn" type="submit">Update</button>
+
+
+
+
 
                         </div>
                     </div>
@@ -51,7 +70,8 @@
                                 <h3>First Name</h3>
                             </div>
                             <div class="col">
-                                <input type="text" th:value="${user.firstName}" name="firstName">
+                                <input type="text" th:value="${user.firstName}" name="firstName" style="background-color: #2d2d2d; color: white;
+                                        width: 200px; border: none; font-size: larger;">
                             </div>
                         </div>
                         <hr>
@@ -59,8 +79,9 @@
                             <div style="text-align: left;">
                                 <h3>Last Name</h3>
                             </div>
-                            <div class="col">
-                                <input type="text" th:value="${user.lastName}" name="lastName">
+                            <div class="col" id="input">
+                                <input id="input" type="text" th:value="${user.lastName}" name="lastName" style="background-color: #2d2d2d; color: white;
+                                width: 200px; border: none; font-size: larger;">
                             </div>
                         </div>
                         <hr>
@@ -69,7 +90,7 @@
                                 <h3>Email</h3>
                             </div>
                             <div class="col">
-                                <input type="text" th:value="${user.email}" name="email">
+                                <input type="text" th:value="${user.email}" name="email" style="background-color: #2d2d2d; color: white; width: 200px; border: none; font-size: larger;">
                             </div>
                         </div>
                         <hr>
@@ -78,15 +99,13 @@
                             <div style="text-align: left;">
                                 <h3>Owner</h3>
                             </div>
-                            <div class="col">
+                            <div class="col" style="text-align: left;">
                                 <a th:href="@{/car/{id} (id=${user.getCar().getId()}) }" th:text="${user.getCar().getModel() + ' ' + user.getCar().getSeries()}"> car </a>
                             </div>
                         </div>
                     </div>
 
-
-                </form>>
-
+                </form>
 
             </div>
         </div>

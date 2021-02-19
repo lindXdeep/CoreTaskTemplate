@@ -9,24 +9,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.model.User;
+import jm.task.core.hiber.service.CarService;
 import jm.task.core.hiber.service.UserService;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final CarService carService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CarService carService) {
         this.userService = userService;
+        this.carService = carService;
     }
-
+   
     @GetMapping("/users")
     public String users(ModelMap model) {
 
@@ -70,19 +74,43 @@ public class UserController {
         user.setCar(car);                         
         userService.add(user);   
 
-    
-        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg", "User Created!");
+        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg", "User: " + user.getId() + " Created!");
         
         return "redirect:/user/{id}";                                                                                                                                                                                                                                                                 
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap model) {
+    @GetMapping("/user/{id}/edit")
+    public String edit(@PathVariable("id") Long id, 
+                        ModelMap model) {
 
-        model.addAttribute("user", userService.getUserById(id));
+        User user = userService.getUserById(id);
+        Car car = carService.getCarbyId(user.getCar().getId());
 
-        System.out.println(userService.getUserById(id).toString());
+        model.addAttribute("user", user);
+        model.addAttribute("car", car);
+        
+        System.out.println("edit; " + user.toString());
+        System.out.println("edit; " + car.toString());          
 
         return "edit";
+    }
+
+    @PatchMapping("/user/{id}")
+    public String update(@ModelAttribute User user,
+                            @ModelAttribute Car car,
+                            @PathVariable("id") Long id,
+                            RedirectAttributes redirectAttributes
+    ){
+            System.out.println(user.getFirstName());
+            System.out.println(user.getLastName());
+            System.out.println(user.getEmail());
+           
+            user.setCar(car);
+            userService.update(user);
+
+            redirectAttributes.addAttribute("id", user.getId())
+            .addFlashAttribute("msg", "User: " + user.getId() + " Updated!");          
+
+        return "redirect:/user/{id}";      
     }
 }

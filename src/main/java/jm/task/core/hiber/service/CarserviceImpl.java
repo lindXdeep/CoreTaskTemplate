@@ -37,4 +37,10 @@ public class CarserviceImpl implements CarService {
     public void add(Car car) {
        carDao.add(car);
     }
+
+    @Override
+    @Transactional
+    public void update(Car car) {
+        carDao.update(car);
+    }
 }

@@ -14,4 +14,6 @@ public interface CarDao {
     List<Car> listCars();
 
     Car getCarById(Long id);
+
+    void update(Car car);
 }
