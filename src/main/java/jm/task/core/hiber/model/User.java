@@ -11,7 +11,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import jm.task.core.hiber.service.UserBuilder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * User
@@ -19,6 +21,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -37,15 +41,6 @@ public class User {
     @JoinColumn(name = "cars_id")
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     private Car car;
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 
     public User(final UserBuilder userBuilder){
         this.firstName = userBuilder.getFirstName();

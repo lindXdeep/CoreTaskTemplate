@@ -9,37 +9,29 @@
 
 <body>
     <div id="container">
-
         <div id="header-btn">
-
-            <div>
-                <p>
-                    <a id="btn" href="/">Go to Main</a>
-                    <a id="btn" href="/cars">Go to Cars</a>
-                    <a id="btn" href="/users">Go to Users</a>
-                </p>
-            </div>
-
+            <p>
+                <a id="btn" href="/">Main</a>
+                <a id="btn" href="/users">All Users</a>
+                <a id="btn" href="/cars">All Cars</a>
+            </p>
             <div id="main-body">
-
                 <nav aria-label="lindx" id="header">
-                    <ol class="lindx"> New User: </ol>
+                    <ol class="lindx">
+                        <li class="lindx-item"> <a href="/">Main</a></li>
+                        <li class="lindx-item"> New User :</li>
+                    </ol>
                 </nav>
-
                 <div>
                     <div style="float: left; text-align: center;">
-
-                        <form th:method="post" th:action="@{/users/new}" modelAttribute="user">
-
-
+                        <form th:method="post" th:action="@{/users/new}" th:object="${user}">
                             <div style="float: left; padding-left: 50px;">
-
                                 <div>
                                     <div style="text-align: left;">
                                         <h3>First Name: </h3>
                                     </div>
                                     <div class="col">
-                                        <input type="text" th:value="${user.firstName}" name="firstName">
+                                        <input type="text" name="firstName" th:value="${user.firstName}" id="input-1">
                                     </div>
                                 </div>
                                 <hr>
@@ -48,42 +40,41 @@
                                         <h3>Last Name: </h3>
                                     </div>
                                     <div class="col">
-                                        <input type="text" th:value="${user.lastName}" name="lastName">
+                                        <input type="text" name="lastName" th:value="${user.lastName}" id="input-1">
                                     </div>
                                 </div>
                                 <hr>
                                 <div>
                                     <div style="text-align: left;">
-                                        <h3>Email</h3>
+                                        <h3>Email:</h3>
                                     </div>
                                     <div class="col">
-                                        <input type="text" th:value="${user.email}" name="email">
+                                        <input id="input-1" type="text" th:value="${user.email}" name="email">
                                     </div>
                                 </div>
                                 <hr>
-
                                 <div style="text-align: center;">
                                     <div style="text-align: left;">
                                         <h3>Car: </h3>
                                     </div>
                                     <div>
                                         <label for="model"> Model:</label>
-                                        <input type="text" th:value="${car.model}" name="model" value="Model">
+                                        <input type="text" th:value="${car.model}" name="model" value="Model" id="input-1">
                                     </div>
                                     <div>
                                         <label for="series"> Series:</label>
-                                        <input type="text" th:value="${car.series}" name="series" value="Modele">
+                                        <input type="text" th:value="${car.series}" name="series" value="Modele" id="input-1">
                                     </div>
+                                    <hr>
                                 </div>
                             </div>
-
                             <div style="text-align: center;">
                                 <div style="text-align: center; padding-top: 10%;">
+                                    <a id="btn-1" href="/">Cancel</a>
                                     <button id="btn" th:href="@{/users/new}" type="submit">Save</button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

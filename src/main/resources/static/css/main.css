@@ -212,7 +212,7 @@ span {
     display: inline-block;
     background: #1b1b1b;
     color: #00ff15;
-    padding: 1rem 2rem;
+    padding: 14px 30px;
     text-decoration: none;
     border-radius: 3px;
     border: 1px;
@@ -221,6 +221,24 @@ span {
 }
 
 #btn:hover {
+    color: white;
+    background-color: #000000;
+    font-size: larger;
+}
+
+#btn-1 {
+    display: inline-block;
+    background: #1b1b1b;
+    color: #00ff15;
+    padding: 10px 22px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 1px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+#btn-1:hover {
     color: white;
     background-color: #000000;
     font-size: larger;
@@ -253,10 +271,23 @@ p {
     margin-bottom: 1rem
 }
 
-#input {
+#input-1 {
+    color: rgb(187, 187, 187);
     background-color: #2d2d2d;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+    width: 250px;
+    border: none;
+}
+
+input {
+    background-color: #2d2d2d;
+    color: white;
     width: 200px;
     border: none;
-    color: white;
     font-size: larger;
+}
+
+#pic {
+    background: url(/img/del.png);
 }

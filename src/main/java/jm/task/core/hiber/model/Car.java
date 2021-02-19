@@ -9,13 +9,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import jm.task.core.hiber.service.CarBuilder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 /**
  * Car
  */
 @Data
 @Entity
 @Table(name = "cars")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car {
     
     @Id
@@ -30,14 +34,6 @@ public class Car {
 
     @OneToOne(optional = true, mappedBy = "car" )
     private User owner;
-
-    public Car() {
-    }
-
-    public Car(String model, int series) {
-        this.model = model;
-        this.series = series;
-    }
 
     public Car(final CarBuilder carBuilder) {
         this.model = carBuilder.getModel();

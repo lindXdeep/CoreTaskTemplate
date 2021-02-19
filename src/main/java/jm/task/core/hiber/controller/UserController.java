@@ -1,12 +1,14 @@
 package jm.task.core.hiber.controller;
 
-import java.net.http.HttpClient.Redirect;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +33,7 @@ public class UserController {
         this.userService = userService;
         this.carService = carService;
     }
-   
+
     @GetMapping("/users")
     public String users(ModelMap model) {
 
@@ -57,59 +59,55 @@ public class UserController {
     }
 
     @GetMapping("/users/new")
-    public String create( 
-                            ModelMap model
-                            
-                            ){
-         model.addAttribute("user", new User());                          
-         model.addAttribute("car", new Car());                          
+    public String create(ModelMap model
+
+    ) {
+        model.addAttribute("user", new User());
+        model.addAttribute("car", new Car());
 
         return "new";
     }
 
     @PostMapping("/users/new")
     public String newUser(@ModelAttribute User user,
-                            @ModelAttribute Car car,
-                            RedirectAttributes redirectAttributes){
+                            @ModelAttribute Car car, 
+                            
+                            RedirectAttributes redirectAttributes) {
 
-        user.setCar(car);                         
-        userService.add(user);   
+        user.setCar(car);
+        userService.add(user);
 
-        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg", "User: " + user.getId() + " Created!");
-        
-        return "redirect:/user/{id}";                                                                                                                                                                                                                                                                 
+        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",
+                "User: " + user.getId() + " Created!");
+
+        return "redirect:/user/{id}";
     }
 
     @GetMapping("/user/{id}/edit")
-    public String edit(@PathVariable("id") Long id, 
-                        ModelMap model) {
+    public String edit(@PathVariable("id") Long id, ModelMap model) {
 
         User user = userService.getUserById(id);
         Car car = carService.getCarbyId(user.getCar().getId());
 
         model.addAttribute("user", user);
         model.addAttribute("car", car);
-        
-        System.out.println("edit; " + user.toString());
-        System.out.println("edit; " + car.toString());          
 
         return "edit";
     }
 
     @PatchMapping("/user/{id}")
-    public String update(@ModelAttribute User user,
-                            @ModelAttribute Car car,
+    public String update(@ModelAttribute User user, 
+                            @ModelAttribute Car car, 
                             @PathVariable("id") Long id,
-                            RedirectAttributes redirectAttributes
-    ){
-          
+                            RedirectAttributes redirectAttributes) {
+
         user.setCar(car);
         userService.update(user);
 
-        redirectAttributes.addAttribute("id", user.getId())
-        .addFlashAttribute("msg", "User: " + user.getId() + " Updated!");          
+        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",
+                "User: " + user.getId() + " Updated!");
 
-        return "redirect:/user/{id}";      
+        return "redirect:/user/{id}";
     }
 
     @DeleteMapping("/user/{id}")
@@ -118,8 +116,8 @@ public class UserController {
         User user = userService.getUserById(id);
         userService.delete(userService.getUserById(id));
 
-        redirectAttributes.addAttribute("id", user.getId())
-        .addFlashAttribute("msg", "User: " + user.getId() + " Delete!");     
+        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",
+                "User: " + user.getId() + " Delete!");
 
         return "redirect:/users";
     }

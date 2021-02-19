@@ -9,69 +9,50 @@
 
 <body>
     <div id="container">
-
         <div id="header-btn">
-
             <div>
                 <p>
-                    <a id="btn" href="/">Go to Main</a>
-                    <a id="btn" href="/cars">Go to Cars</a>
-                    <a id="btn" href="/users">Go to Users</a>
+                    <a id="btn" href="/">Main</a>
+                    <a id="btn" href="/cars">All Cars</a>
+                    <a id="btn" href="/users">All Users</a>
                 </p>
             </div>
-
             <div id="main-body">
-
                 <div>
                     <p th:text="${msg}" style="font-size: x-large; font-family: 'Courier New', Courier, monospace;"> msg </p>
                 </div>
-
                 <nav aria-label="lindx" id="header">
                     <ol class="lindx">
                         <li class="lindx-item"> <a href="/">Main</a></li>
                         <li class="lindx-item"> <a href="/users">User</a></li>
-                        <li class="lindx-item active" th:text="' id: ' + ${user.getId()}"> User </li>
+                        <li class="lindx-item" th:text="' id: ' + ${user.getId()}"> User </li>
                     </ol>
                 </nav>
 
                 <form th:method="patch" th:action="@{
-
                                                     /user/{id}(id = ${user.getId()})
-
                                                 }" th:object="${user}">
 
                     <div style="float: left; text-align: center;">
-                        <img src="/img/userpic.png" alt="Admin" width="200" style="size: 200%;">
+                        <img src="/img/userpic0.png" alt="Admin" width="200" style="size: 200%;">
                         <div style="text-align: left; padding-top: 10%;">
                             <h3>
                                 <p th:text="${user.getFirstName() + ' ' + user.getLastName()}"> owner </p>
                             </h3>
-                            <p class="text-secondary mb-1">Full Stack Developer</p>
-
-                            <a id="btn" th:href="@{
-
+                            <p>Full Stack Developer</p>
+                            <a id="btn-1" th:href="@{
                                                     /user/{id}(id = ${user.getId()})
-
                                                 }">Cancel</a>
-
                             <button id="btn" type="submit">Update</button>
-
-
-
-
-
                         </div>
                     </div>
-
                     <div style="float: left; padding-left: 50px;">
-
                         <div>
                             <div style="text-align: left;">
                                 <h3>First Name</h3>
                             </div>
                             <div class="col">
-                                <input type="text" th:value="${user.firstName}" name="firstName" style="background-color: #2d2d2d; color: white;
-                                        width: 200px; border: none; font-size: larger;">
+                                <input type="text" th:value="${user.firstName}" name="firstName" id="input" />
                             </div>
                         </div>
                         <hr>
@@ -80,8 +61,7 @@
                                 <h3>Last Name</h3>
                             </div>
                             <div class="col" id="input">
-                                <input id="input" type="text" th:value="${user.lastName}" name="lastName" style="background-color: #2d2d2d; color: white;
-                                width: 200px; border: none; font-size: larger;">
+                                <input type="text" th:value="${user.lastName}" name="lastName" id="input" />
                             </div>
                         </div>
                         <hr>
@@ -90,11 +70,10 @@
                                 <h3>Email</h3>
                             </div>
                             <div class="col">
-                                <input type="text" th:value="${user.email}" name="email" style="background-color: #2d2d2d; color: white; width: 200px; border: none; font-size: larger;">
+                                <input type="text" th:value="${user.email}" name="email" id="input" />
                             </div>
                         </div>
                         <hr>
-
                         <div>
                             <div style="text-align: left;">
                                 <h3>Owner</h3>

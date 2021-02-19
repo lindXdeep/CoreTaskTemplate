@@ -8,47 +8,31 @@
 </head>
 
 <body>
-
     <div id="outer">
         <div class="inner">
-
             <div th:each=" msg : ${messages}" style="padding-top: 5%;">
                 <p style="font-size: x-large;" th:text="${msg}">message</p>
             </div>
-
             <div>
                 <p>
                     <a id="btn" href="/create">Create Cars and Users</a>
-                    <a id="btn" href="/">Main</a>
                 </p>
             </div>
-
             <div>
                 <p>
+                    <a id="btn" href="/">Main</a>
                     <a id="btn" href="/users/new">New User</a>
                     <a id="btn" href="/users">All Users</a>
                     <a id="btn" href="/cars">All Cars</a>
                 </p>
             </div>
-
-            <div>
-
-                <span>Car filter: </span>
-
-                <a id="btn" th:href="@{/cars?count={x} (x=1) }"> 1 </a>
-                <a id="btn" th:href="@{/cars?count={x} (x=2) }"> 2 </a>
-                <a id="btn" th:href="@{/cars?count={x} (x=3) }"> 3 </a>
-                <a id="btn" th:href="@{/cars?count={x} (x=4) }"> 4 </a>
-                <a id="btn" th:href="@{/cars?count={x} (x=5) }"> 5 </a>
-
-                <br/>
-
-
-            </div>
-
-
             <div th:if="${cars != null}" id="main">
-
+                <span>Car filter: </span>
+                <th:block th:each="i: ${#numbers.sequence(1, 5)}">
+                    <a id="btn-1" th:href="@{/cars?count={x}(x=${i})}" th:text="${i}"> </a>
+                </th:block>
+            </div>
+            <div th:if="${cars != null}" id="main">
                 <table>
                     <caption> All Cars</caption>
 
@@ -62,7 +46,6 @@
                     </head>
 
                     <body>
-
                         <tr th:each=" car : ${cars}">
                             <td>
                                 <span th:text="${car.getId()}">id</span>
@@ -70,30 +53,22 @@
                             <td>
                                 <a th:href="@{/car/{id} ( id=${car.getId()} ) }" th:text="${car.getModel()}">model</a>
                             </td>
-
                             <td>
                                 <a th:href="@{/car/{id} ( id=${car.getId()} ) }" th:text="${car.getSeries()}">series</a>
                             </td>
-
                             <td>
                                 <a th:href="@{/user/{id} (id=${car.getOwner().getId() } ) }" th:text="${car.getOwner().getFirstName() + ' ' + car.getOwner().getLastName()}"> owner </a>
                             </td>
                             <td>
                                 <form th:method="delete" th:action="@{/user/{id} (id = ${car.getOwner().getId()})}">
-                                    <input id="xx" type="submit" value="X" />
+                                    <input id="pic" type="image" name="submit" src="/img/del0.png" border="0" alt="Submit" style="width: 24px;" />
                                 </form>
                             </td>
                         </tr>
-
                     </body>
-
                 </table>
-
-
             </div>
-
             <div th:if="${users != null}" id="main">
-
                 <table>
                     <caption> All Users</caption>
 
@@ -108,7 +83,6 @@
                     </head>
 
                     <body>
-
                         <tr th:each=" user : ${users}">
                             <td>
                                 <span th:text="${user.getId()}">id</span>
@@ -127,23 +101,15 @@
                             </td>
                             <td>
                                 <form th:method="delete" th:action="@{/user/{id} (id = ${user.getId()})}">
-                                    <input id="xx" type="submit" value="X" />
+                                    <input id="pic" type="image" name="submit" src="/img/del0.png" border="0" alt="Submit" style="width: 24px;" />
                                 </form>
                             </td>
-
                         </tr>
-
                     </body>
-
                 </table>
-
-
-
             </div>
-
         </div>
     </div>
-
 </body>
 
 </html>

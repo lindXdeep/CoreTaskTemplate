@@ -9,65 +9,41 @@
 
 <body>
     <div id="container">
-
         <div id="header-btn">
-
             <div>
                 <p>
-                    <a id="btn" href="/">Go to Main</a>
-                    <a id="btn" href="/cars">Go to Cars</a>
-                    <a id="btn" href="/users">Go to Users</a>
+                    <a id="btn" href="/">Main</a>
+                    <a id="btn" href="/cars">All Cars</a>
+                    <a id="btn" href="/users">All Users</a>
                 </p>
             </div>
-
             <div id="main-body">
-
                 <nav aria-label="lindx" id="header">
                     <ol class="lindx">
                         <li class="lindx-item"> <a href="/">Main</a></li>
                         <li class="lindx-item"> <a href="/cars">Car</a></li>
-                        <li class="lindx-item active" th:text="' id: ' + ${car.getId()}"> id </li>
+                        <li class="lindx-item" th:text="' id: ' + ${car.getId()}"> id </li>
                     </ol>
                 </nav>
-
-
-                <form th:method="patch" th:action="@{
-                                                
-                    /car/{id}(id = ${ car.getId()})}">
+                <form th:method="patch" th:action="@{/car/{id}(id = ${ car.getId()})}">
 
                     <div style="float: left; text-align: center;">
                         <img src="/img/carpic.png" alt="Admin" width="200" style="size: 200%; width: 300px;">
-
-
-
                         <div>
-
-
                             <h3>
                                 <p th:text="${car.getModel() + ' ' + car.getSeries()}"> owner </p>
                             </h3>
-
-                            <a id="btn" th:href="@{
-
-                                /car/{id}(id= ${car.getId()})
-
-                                }">Cansel</a>
-
-
-
-                            <input id="btn" type="submit" value="Update" />
+                            <a id="btn-1" th:href="@{/car/{id}(id= ${car.getId()})}">Cansel</a>
+                            <button id="btn" type="submit">Update </button>
                         </div>
-
                     </div>
-
                     <div style="float: left; padding-left: 50px;">
                         <div class="col">
                             <div>
                                 <h3>Model</h3>
                             </div>
                             <div>
-                                <input id="input" type="text" th:value="${car.model}" name="model" style="background-color: #2d2d2d; color: white;
-                                width: 200px; border: none; font-size: larger;">
+                                <input type="text" th:value="${car.model}" name="model" id="input">
                             </div>
                         </div>
                         <hr>
@@ -76,29 +52,20 @@
                                 <h3>Series</h3>
                             </div>
                             <div class="col">
-                                <input id="input" type="text" th:value="${car.series}" name="series" style="background-color: #2d2d2d; color: white;
-                                width: 200px; border: none; font-size: larger;">
+                                <input type="text" th:value="${car.series}" name="series" id="input">
                             </div>
                         </div>
-
-
                         <hr>
-
                         <div>
                             <div class="col">
-                                <h3 class="mb-0">Owner</h3>
+                                <h3>Owner</h3>
                             </div>
                             <div class="col">
                                 <a th:href="@{/user/{id} (id=${car.getOwner().getId()}) }" th:text="${car.getOwner().getFirstName() + ' ' + car.getOwner().getLastName()}"> owner </a>
                             </div>
                         </div>
                     </div>
-
-
-
                 </form>
-
-
             </div>
         </div>
 </body>

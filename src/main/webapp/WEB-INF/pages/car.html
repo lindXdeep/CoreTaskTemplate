@@ -9,23 +9,16 @@
 
 <body>
     <div id="container">
-
         <div id="header-btn">
-
-            <div>
-                <p>
-                    <a id="btn" href="/">Go to Main</a>
-                    <a id="btn" href="/cars">Go to Cars</a>
-                    <a id="btn" href="/users">Go to Users</a>
-                </p>
-            </div>
-
+            <p>
+                <a id="btn" href="/">Go to Main</a>
+                <a id="btn" href="/cars">Go to Cars</a>
+                <a id="btn" href="/users">Go to Users</a>
+            </p>
             <div id="main-body">
-
                 <div>
                     <p th:text="${msg}" style="font-size: x-large; font-family: 'Courier New', Courier, monospace;"> msg </p>
                 </div>
-
                 <nav aria-label="lindx" id="header">
                     <ol class="lindx">
                         <li class="lindx-item"> <a href="/">Main</a></li>
@@ -33,49 +26,26 @@
                         <li class="lindx-item active" th:text="' id: ' + ${car.getId()}"> id </li>
                     </ol>
                 </nav>
-
-
                 <div>
-
                     <div style="float: left; text-align: center;">
                         <img src="/img/carpic.png" alt="Admin" width="200" style="size: 200%; width: 300px;">
 
-
-
                         <form th:method="delete" th:action="@{
-                            
-                                /user/{id} (id = ${ car.getOwner().getId()})
-
-                }" style="text-align: left; padding-top: 10%;">
-
-
+                                                        /user/{id} (id = ${ car.getOwner().getId()})
+                                            }" style="text-align: left; padding-top: 10%;">
                             <h3>
                                 <p th:text="${car.getModel() + ' ' + car.getSeries()}"> owner </p>
                             </h3>
-
-                            <a id="btn" th:href="@{
-
-                                /car/{id}/edit (id= ${car.getId()})
-
-                                }">Edit</a>
-
-
-
-                            <input id="btn" type="submit" value="Delete" />
+                            <a id="btn-1" th:href="@{
+                                                /car/{id}/edit (id= ${car.getId()})
+                                            }">Edit</a>
+                            <button id="btn" type="submit">Delete</button>
                         </form>
-
-
-
-
-
-
-
                     </div>
-
                     <div style="float: left; padding-left: 50px;">
                         <div class="col">
                             <div>
-                                <h3>Model</h3>
+                                <h3>Model: </h3>
                             </div>
                             <div>
                                 <span th:text="${car.getModel()}"></span>
@@ -84,19 +54,16 @@
                         <hr>
                         <div>
                             <div class="col">
-                                <h3>Series</h3>
+                                <h3>Series: </h3>
                             </div>
                             <div class="col">
                                 <span th:text="${car.getSeries()}"></span>
                             </div>
                         </div>
-
-
                         <hr>
-
                         <div>
                             <div class="col">
-                                <h3 class="mb-0">Owner</h3>
+                                <h3>Owner: </h3>
                             </div>
                             <div class="col">
                                 <a th:href="@{/user/{id} (id=${car.getOwner().getId()}) }" th:text="${car.getOwner().getFirstName() + ' ' + car.getOwner().getLastName()}"> owner </a>
