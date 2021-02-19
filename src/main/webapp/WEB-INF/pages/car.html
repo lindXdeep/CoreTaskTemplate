@@ -22,6 +22,10 @@
 
             <div id="main-body">
 
+                <div>
+                    <p th:text="${msg}" style="font-size: x-large; font-family: 'Courier New', Courier, monospace;"> msg </p>
+                </div>
+
                 <nav aria-label="lindx" id="header">
                     <ol class="lindx">
                         <li class="lindx-item"> <a href="/">Main</a></li>
@@ -30,19 +34,42 @@
                     </ol>
                 </nav>
 
+
                 <div>
-                    <form th:method="patch" th:action="@{/car}" th:object="${object}">
-                        body
-                    </form>
+
                     <div style="float: left; text-align: center;">
                         <img src="/img/carpic.png" alt="Admin" width="200" style="size: 200%; width: 300px;">
-                        <div class="mt-3" style="text-align: left; padding-top: 10%;">
+
+
+
+                        <form th:method="delete" th:action="@{
+                            
+                                /user/{id} (id = ${ car.getOwner().getId()})
+
+                }" style="text-align: left; padding-top: 10%;">
+
+
                             <h3>
                                 <p th:text="${car.getModel() + ' ' + car.getSeries()}"> owner </p>
                             </h3>
-                            <a id="btn" th:href="@{/user/edit}">Edit</a>
-                            <a id="btn" th:href="@{/user/delete}">Delete</a>
-                        </div>
+
+                            <a id="btn" th:href="@{
+
+                                /car/{id}/edit (id= ${car.getId()})
+
+                                }">Edit</a>
+
+
+
+                            <input id="btn" type="submit" value="Delete" />
+                        </form>
+
+
+
+
+
+
+
                     </div>
 
                     <div style="float: left; padding-left: 50px;">

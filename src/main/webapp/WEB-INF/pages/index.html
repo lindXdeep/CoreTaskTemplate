@@ -78,6 +78,11 @@
                             <td>
                                 <a th:href="@{/user/{id} (id=${car.getOwner().getId() } ) }" th:text="${car.getOwner().getFirstName() + ' ' + car.getOwner().getLastName()}"> owner </a>
                             </td>
+                            <td>
+                                <form th:method="delete" th:action="@{/user/{id} (id = ${car.getOwner().getId()})}">
+                                    <input id="xx" type="submit" value="X" />
+                                </form>
+                            </td>
                         </tr>
 
                     </body>
