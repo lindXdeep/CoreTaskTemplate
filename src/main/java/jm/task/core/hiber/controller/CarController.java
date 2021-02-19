@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.service.CarService;
@@ -51,6 +54,32 @@ public class CarController {
         System.out.println(carService.getCarbyId(id).toString());
 
         return "/car";
+    }
+
+    @GetMapping("/car/{id}/edit")
+    public String edit(@PathVariable("id") Long id, 
+                        ModelMap model) {
+
+        Car car = carService.getCarbyId(id);
+
+        model.addAttribute("car", car);
+        
+        System.out.println("edit; " + car.toString());          
+
+        return "edit_car";
+    }
+
+    @PatchMapping("/car/{id}")
+    public String update( @ModelAttribute Car car,
+                            @PathVariable("id") Long id,
+                            RedirectAttributes redirectAttributes
+    ){
+          carService.update(car);
+       
+        redirectAttributes.addAttribute("id", car.getId())
+        .addFlashAttribute("msg", "Car: " + car.getId() + " Updated!");          
+
+        return "redirect:/car/{id}";      
     }
 
 
