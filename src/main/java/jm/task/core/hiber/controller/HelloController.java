@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +24,11 @@ import jm.task.core.hiber.util.Util;
 @RequestMapping("/")
 public class HelloController {
 
-    private final UserService userService;
-    private final CarService carService;
+    private UserService userService;
+    private CarService carService;
 
-    private final UserBuilder user;
-    private final CarBuilder car;
+    private UserBuilder user;
+    private CarBuilder car;
 
     @Autowired
     public HelloController(UserService userService, CarService carService, UserBuilder user, CarBuilder car) {
@@ -74,13 +73,7 @@ public class HelloController {
 
         users.stream().forEach(x -> userService.add(x)); 
 
-        userService.listUsers().stream().forEach(
-            user -> Util.getLogger().info(user.toString()));
-
-        carService.listCars().stream().forEach(
-            car -> Util.getLogger().info(car.toString()));
-    
-        return "redirect:/index";
+        return "redirect:/users";
     }
 
     @GetMapping("/index")
