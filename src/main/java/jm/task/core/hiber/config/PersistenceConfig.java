@@ -20,11 +20,11 @@ public class PersistenceConfig {
             jpaVendorAdapter.setGenerateDdl(true);
             jpaVendorAdapter.setShowSql(true);
 
-            LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-                entityManagerFactory.setDataSource(dataSource);
-                entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-                entityManagerFactory.setPackagesToScan("jm.task.core.hiber");
-                entityManagerFactory.afterPropertiesSet();
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+            entityManagerFactory.setDataSource(dataSource);
+            entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
+            entityManagerFactory.setPackagesToScan("jm.task.core.hiber");
+            entityManagerFactory.afterPropertiesSet();
 
         return entityManagerFactory.getObject();
     }
@@ -33,12 +33,14 @@ public class PersistenceConfig {
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
+
         return transactionManager;
     }
 
     // Exception
     @Bean
     public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslation(){
+        
         return new PersistenceExceptionTranslationPostProcessor();
     }
 }

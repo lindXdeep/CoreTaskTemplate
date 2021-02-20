@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import jm.task.core.hiber.model.Car;
 
-@Repository
+//@Repository
 public class CarDaoImpl implements CarDao {
 
-    @Autowired
+    //@Autowired
     private SessionFactory sessionFactory;
 
     public Session getSession() {

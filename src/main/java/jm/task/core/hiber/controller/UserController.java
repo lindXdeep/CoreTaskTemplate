@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,11 +23,11 @@ import jm.task.core.hiber.service.UserService;
 @Controller
 public class UserController {
 
-    private final UserService userService;
-    private final CarService carService;
+    private  UserService userService;
+    private  CarService carService;
 
     @Autowired
-    public UserController(UserService userService, CarService carService) {
+    public UserController( UserService userService, CarService carService) {
         this.userService = userService;
         this.carService = carService;
     }
