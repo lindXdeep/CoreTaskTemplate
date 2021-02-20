@@ -4,35 +4,37 @@ import org.springframework.stereotype.Service;
 
 import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.model.User;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
+@Data
 @Service
-public class UserBuilder{
+public class UserBuilder {
 
-    @Getter @Setter String firstName;
-    @Getter @Setter String lastName;
-    @Getter @Setter String email;
-    @Getter @Setter Car car;
-    
-    public UserBuilder firstName(final String firstName){
+    String firstName;
+    String lastName;
+    String email;
+    Car car;
+
+    public UserBuilder firstName(final String firstName) {
         this.firstName = firstName;
         return this;
     }
-    public UserBuilder lastName(final String lastName){
+
+    public UserBuilder lastName(final String lastName) {
         this.lastName = lastName;
         return this;
     }
-    public UserBuilder email(final String email){
+
+    public UserBuilder email(final String email) {
         this.email = email;
         return this;
     }
-    public UserBuilder car(final Car car){
+
+    public UserBuilder car(final Car car) {
         this.car = car;
         return this;
     }
 
-    public User build(){
+    public User build() {
         return new User(this);
     }
 }

@@ -10,10 +10,7 @@ import jm.task.core.hiber.model.Car;
 public interface CarDao {
 
     void add(Car car);
-
     List<Car> listCars();
-
     Car getCarById(Long id);
-
     void update(Car car);
 }

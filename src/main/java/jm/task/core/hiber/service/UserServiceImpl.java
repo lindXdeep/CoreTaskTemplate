@@ -14,31 +14,29 @@ import jm.task.core.hiber.model.User;
  * UserServiceImpl
  */
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
 
-    @Transactional
     @Override
+    @Transactional
     public void add(User user) {
         userDao.add(user);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> listUsers() {
         return userDao.listUsers();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getCarOwner(String model, int series) {
         return getCarOwner(model, series);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User getUserById(Long id) {
         return userDao.getUserById(id);
     }
@@ -49,8 +47,8 @@ public class UserServiceImpl implements UserService {
         userDao.update(user);
     }
     
-    @Transactional
     @Override
+    @Transactional
     public void delete(User user) {
         userDao.delete(user);
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +20,16 @@ import jm.task.core.hiber.service.CarService;
 @Controller
 public class CarController {
 
-    private final CarService carService;
+    private CarService carService;
 
     @Autowired
     public CarController(CarService carService) {
+
         this.carService = carService;
     }
 
     @GetMapping("/cars")
-    public String cars(ModelMap model, 
-                        @RequestParam(value = "count", defaultValue = "1000") int count) {
+    public String cars(ModelMap model, @RequestParam(value = "count", defaultValue = "1000") int count) {
 
         List<Car> allcars = carService.listCars();
 
@@ -71,9 +72,7 @@ public class CarController {
     }
 
     @PatchMapping("/car/{id}")
-    public String update(@ModelAttribute Car car, 
-                            @PathVariable("id") Long id,
-                            RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute Car car, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
 
         carService.update(car);
 

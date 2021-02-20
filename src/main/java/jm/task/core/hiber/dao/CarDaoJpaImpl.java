@@ -35,7 +35,7 @@ public class CarDaoJpaImpl implements CarDao {
     public Car getCarById(Long id) {
         
         TypedQuery<Car> query = entityManager.createQuery(
-                "selset c from Car c where c.id =: id", Car.class   
+                "select c from Car c where c.id =: id", Car.class   
         );
 
         return query.setParameter("id", id).getResultList()

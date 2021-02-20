@@ -23,11 +23,12 @@ import jm.task.core.hiber.service.UserService;
 @Controller
 public class UserController {
 
-    private  UserService userService;
-    private  CarService carService;
+    private UserService userService;
+    private CarService carService;
 
     @Autowired
-    public UserController( UserService userService, CarService carService) {
+    public UserController(UserService userService, CarService carService) {
+
         this.userService = userService;
         this.carService = carService;
     }
@@ -36,10 +37,6 @@ public class UserController {
     public String users(ModelMap model) {
 
         List<User> users = new ArrayList<>();
-
-        for (User user : users) {
-            System.out.println(user.toString());
-        }
 
         model.addAttribute("users", userService.listUsers());
 
@@ -57,9 +54,8 @@ public class UserController {
     }
 
     @GetMapping("/users/new")
-    public String create(ModelMap model
+    public String create(ModelMap model) {
 
-    ) {
         model.addAttribute("user", new User());
         model.addAttribute("car", new Car());
 
@@ -67,10 +63,10 @@ public class UserController {
     }
 
     @PostMapping("/users/new")
-    public String newUser(@ModelAttribute User user,
-                            @ModelAttribute Car car, 
-                            
-                            RedirectAttributes redirectAttributes) {
+    public String newUser(  @ModelAttribute User user, 
+                            @ModelAttribute Car car,
+
+            RedirectAttributes redirectAttributes) {
 
         user.setCar(car);
         userService.add(user);
@@ -94,10 +90,9 @@ public class UserController {
     }
 
     @PatchMapping("/user/{id}")
-    public String update(@ModelAttribute User user, 
-                            @ModelAttribute Car car, 
-                            @PathVariable("id") Long id,
-                            RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute User user, @ModelAttribute Car car, @PathVariable("id") Long id,
+
+            RedirectAttributes redirectAttributes) {
 
         user.setCar(car);
         userService.update(user);
