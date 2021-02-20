@@ -144,7 +144,6 @@
                     </executable>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
