@@ -14,22 +14,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.model.User;
-import jm.task.core.hiber.service.CarService;
 import jm.task.core.hiber.service.UserService;
 
 @Controller
 public class UserController {
 
     private UserService userService;
-    private CarService carService;
 
     @Autowired
-    public UserController(UserService userService, CarService carService) {
+    public UserController(UserService userService) {
 
         this.userService = userService;
-        this.carService = carService;
     }
 
     @GetMapping("/users")
@@ -56,21 +52,18 @@ public class UserController {
     public String create(ModelMap model) {
 
         model.addAttribute("user", new User());
-        model.addAttribute("car", new Car());
 
         return "new";
     }
 
     @PostMapping("/users/new")
     public String newUser(  @ModelAttribute User user, 
-                            @ModelAttribute Car car,
+                            RedirectAttributes redirectAttributes) {
 
-            RedirectAttributes redirectAttributes) {
-
-        user.setCar(car);
         userService.add(user);
 
-        redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",
+        redirectAttributes.addAttribute(
+                "id", user.getId()).addFlashAttribute("msg",
                 "User: " + user.getId() + " Created!");
 
         return "redirect:/user/{id}";
@@ -80,20 +73,17 @@ public class UserController {
     public String edit(@PathVariable("id") Long id, ModelMap model) {
 
         User user = userService.getUserById(id);
-        Car car = carService.getCarbyId(user.getCar().getId());
-
+    
         model.addAttribute("user", user);
-        model.addAttribute("car", car);
 
         return "edit";
     }
 
     @PatchMapping("/user/{id}")
-    public String update(@ModelAttribute User user, @ModelAttribute Car car, @PathVariable("id") Long id,
+    public String update(@ModelAttribute User user, @PathVariable("id") Long id,
 
             RedirectAttributes redirectAttributes) {
 
-        user.setCar(car);
         userService.update(user);
 
         redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",

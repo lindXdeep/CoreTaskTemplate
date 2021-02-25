@@ -31,11 +31,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getCarOwner(String model, int series) {
-        return getCarOwner(model, series);
-    }
-
-    @Override
     public User getUserById(Long id) {
         return userDao.getUserById(id);
     }

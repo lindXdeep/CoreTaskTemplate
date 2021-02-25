@@ -2,7 +2,6 @@ package jm.task.core.hiber.service;
 
 import org.springframework.stereotype.Service;
 
-import jm.task.core.hiber.model.Car;
 import jm.task.core.hiber.model.User;
 import lombok.Data;
 @Data
@@ -12,7 +11,6 @@ public class UserBuilder {
     String firstName;
     String lastName;
     String email;
-    Car car;
 
     public UserBuilder firstName(final String firstName) {
         this.firstName = firstName;
@@ -26,11 +24,6 @@ public class UserBuilder {
 
     public UserBuilder email(final String email) {
         this.email = email;
-        return this;
-    }
-
-    public UserBuilder car(final Car car) {
-        this.car = car;
         return this;
     }
 

@@ -38,15 +38,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @JoinColumn(name = "cars_id")
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    private Car car;
-
     public User(final UserBuilder userBuilder){
         this.firstName = userBuilder.getFirstName();
         this.lastName = userBuilder.getLastName();
         this.email = userBuilder.getEmail();
-        this.car = userBuilder.getCar();
     }
 
     @Override
@@ -56,7 +51,6 @@ public class User {
             ", First Name='" + getFirstName() + "'" +
             ", Last Name='" + getLastName() + "'" +
             ", Email='" + getEmail() + "'" +
-            ", Car='" + car.getModel() + ":" + car.getSeries() + "'" +
             "}";
     }
 }
