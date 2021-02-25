@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map;;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,11 +59,11 @@ public class HelloController {
     public String create(ModelMap model) {
 
         Map<String, Car> cars = new LinkedHashMap<>();
-                cars.put("User1", car.model("modelA").series(101).build());
-                cars.put("User2", car.model("modelB").series(202).build());
-                cars.put("User3", car.model("modelC").series(303).build());
-                cars.put("User4", car.model("modelD").series(404).build());
-                cars.put("User5", car.model("modelE").series(404).build());
+        cars.put("User1", car.model("modelA").series(101).build());
+        cars.put("User2", car.model("modelB").series(202).build());
+        cars.put("User3", car.model("modelC").series(303).build());
+        cars.put("User4", car.model("modelD").series(404).build());
+        cars.put("User5", car.model("modelE").series(404).build());
 
         List<User> users = Arrays.asList(
                 user.firstName("User1").lastName("Lastname1").email("user1@mail.ru").car(cars.get("User1")).build(),
