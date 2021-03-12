@@ -2,15 +2,14 @@ package jm.task.core.hiber.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 import jm.task.core.hiber.model.User;
 import jm.task.core.hiber.service.UserBuilder;
@@ -32,12 +31,12 @@ public class HelloController {
     }
 
     @GetMapping(value = "/")
-    public String printWelcome(ModelMap model) {
+    public String printwelcome(ModelMap model) {
 
         List<String> messages = new ArrayList<>();
 
-        messages.add("Hello!");
-        messages.add("I'm Spring MVC application");
+        messages.add("hello!");
+        messages.add("i'm spring mvc application");
         messages.add("5.2.0 version by sep'19 ");
 
         messages.stream().forEach(s -> Util.getLogger().info(s));
@@ -51,11 +50,11 @@ public class HelloController {
     public String create(ModelMap model) {
 
         List<User> users = Arrays.asList(
-                user.firstName("User1").lastName("Lastname1").email("user1@mail.ru").build(),
-                user.firstName("User2").lastName("Lastname2").email("user2@mail.ru").build(),
-                user.firstName("User3").lastName("Lastname3").email("user3@mail.ru").build(),
-                user.firstName("User4").lastName("Lastname4").email("user4@mail.ru").build(),
-                user.firstName("User5").lastName("Lastname5").email("user5@mail.ru").build());
+                    user.firstName("user1").lastName("lastname1").email("user1@mail.ru").build(),
+                    user.firstName("user2").lastName("lastname2").email("user2@mail.ru").build(),
+                    user.firstName("user3").lastName("lastname3").email("user3@mail.ru").build(),
+                    user.firstName("user4").lastName("lastname4").email("user4@mail.ru").build(),
+                    user.firstName("user5").lastName("lastname5").email("user5@mail.ru").build());
 
         users.stream().forEach(x -> userService.add(x));
 

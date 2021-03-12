@@ -1,11 +1,10 @@
 package jm.task.core.hiber.config;
 
+import java.util.LinkedHashSet;
 import java.util.Properties;
-
 import javax.sql.DataSource;
-
+import jm.task.core.hiber.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,60 +15,52 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import jm.task.core.hiber.model.User;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySources;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-/**
- * AppConfig
- */
 @Configuration
-@PropertySources(
-                    { 
-                        @PropertySource("classpath:db.properties"),
-                        @PropertySource("classpath:hiber.properties") 
-                    }
-                )
-@EnableTransactionManagement
+@PropertySource("classpath:db.properties")
 public class AppConfig {
+  @Autowired private Environment environment;
 
-    @Autowired
-    private Environment environment;
+  @Bean
+  public DataSource getDataSource() {
 
-    /* ------------------- DataSource ------------------- */
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName(environment.getProperty("db.driver"));
+    dataSource.setUrl(environment.getProperty("db.url"));
+    dataSource.setUsername(environment.getProperty("db.username"));
+    dataSource.setPassword(environment.getProperty("db.password"));
 
-    @Bean
-    public DataSource getDataSource() {
+    return dataSource;
+  }
 
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("db.driver"));
-        dataSource.setUrl(environment.getProperty("db.url"));
-        dataSource.setUsername(environment.getProperty("db.username"));
-        dataSource.setPassword(environment.getProperty("db.password"));
+  /* ------------------- Hibernate ------------------- */
+  @Bean
+  public LocalSessionFactoryBean getSessionFactory() {
 
-        return dataSource;
-    }
+    Properties properties = new Properties();
+    properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+    properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
 
-    /* ------------------- Hibernate ------------------- */
-    @Bean
-    public LocalSessionFactoryBean getSessionFactory() {
+    LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+    factoryBean.setDataSource(getDataSource());
+    factoryBean.setHibernateProperties(properties);
 
-        Properties properties = new Properties();
-        properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+    factoryBean.setAnnotatedClasses(User.class);
 
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setDataSource(getDataSource());
-        factoryBean.setHibernateProperties(properties);
+    return factoryBean;
+  }
 
-        factoryBean.setAnnotatedClasses(User.class);
+  @Bean
+  public HibernateTransactionManager transactionManager() {
+    HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+    transactionManager.setSessionFactory(getSessionFactory().getObject());
 
-        return factoryBean;
-    }
-
-    @Bean
-    public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(getSessionFactory().getObject());
-
-        return transactionManager;
-    }
+    return transactionManager;
+  }
 }
