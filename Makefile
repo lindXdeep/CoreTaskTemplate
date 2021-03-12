@@ -1,23 +1,41 @@
-.DEFAULT_GOAL := compile-deploy
+.DEFAULT_GOAL := build
 
-webapps=${CATALINA_BASE}/webapps/myapp
+setup:
+	mvn -N io.takari:maven:wrapper -Dmaven=3.6.3
 
-reformat:
-	mvn spring-javaformat:apply
+lint-default:
+	./mvnw checkstyle:checkstyle
 
-lint:
-	mvn checkstyle:check
+lint-google:
+	./mvnw checkstyle:check -Dcheckstyle.config.location=./checkstyle/google_checks.xml
+
+clean:
+	./mvnw clean
+	rm -R ${CATALINA_BASE}/webapps/myapp/*
 
 compile:
-	mvn clean compile
+	./mvnw compiler:compile
 
 deploy:
-	rm -r $(webapps)/* & mvn war:war
+	./mvnw package war:war
+
+redeploy:
+	rm -R ${CATALINA_BASE}/webapps/myapp/*
+	./mvnw package war:war
 
 build:
-	mvn clean package
+	./mvnw package war:exploded 
 
-run:
-	mvn validate
+lint: lint-default lint-google
 
-compile-deploy: compile deploy
+open-chrome:
+	google-chrome --incognito --new-window http://localhost:8080
+
+open-firefox:
+	firefox --incognito --new-window http://localhost:8080
+
+browse:
+	browse http://localhost:8080
+
+code:
+	code-oss $@
