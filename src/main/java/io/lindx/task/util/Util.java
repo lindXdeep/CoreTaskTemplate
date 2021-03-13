@@ -4,18 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class Util {
 
-  @Autowired
-  private static Logger logger;
+	@Autowired
+	private Logger logger;
 
-  private Util() {
-  }
+	private Util() {
+		logger.readConfiguration();
+	}
 
-  static {
-    logger.readConfiguration();
-  }
-
-  public static java.util.logging.Logger getLogger() {
-    return java.util.logging.Logger.getLogger(Util.class.getSuperclass().getName());
-  }
+	public static java.util.logging.Logger getLogger() {
+		return java.util.logging.Logger.getLogger(Util.class.getSuperclass().getName());
+	}
 
 }

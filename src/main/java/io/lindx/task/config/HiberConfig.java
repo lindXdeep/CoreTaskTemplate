@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import io.lindx.task.model.User;
 
@@ -23,6 +24,7 @@ import io.lindx.task.model.User;
  */
 @Configuration
 @PropertySource("classpath:hiber.properties")
+@EnableTransactionManagement
 public class HiberConfig {
 
 	@Autowired

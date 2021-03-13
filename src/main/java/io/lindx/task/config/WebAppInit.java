@@ -1,8 +1,11 @@
 package io.lindx.task.config;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -40,12 +43,12 @@ public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitial
 		return new String[] { "/*" };
 	}
 
-	/**
-	 * Перенаправление входящих HTTP-запросов на нужные методы контроллера.
-	 */
 	@Override
-	protected Filter[] getServletFilters() {
-		return new Filter[] { new CharacterEncodingFilter("UTF-8", true) };
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+
+		servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null,
+				true, "/*");
 	}
 
 }

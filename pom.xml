@@ -113,17 +113,6 @@
         <configuration>
           <filesets>
             <fileset>
-              <directory>src/main/resources</directory>
-              <followSymlinks>false</followSymlinks>
-              <useDefaultExcludes>true</useDefaultExcludes>
-              <includes>
-                <include>log.properties</include>
-              </includes>
-              <excludes>
-                <exclude>bd.properties</exclude>
-              </excludes>
-            </fileset>
-            <fileset>
               <directory>log</directory>
             </fileset>
             <fileset>

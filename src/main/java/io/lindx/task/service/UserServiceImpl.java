@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.lindx.task.dao.UserDao;
 import io.lindx.task.model.User;
-import io.lindx.task.util.Util;
 
 /**
  * Implementation for {@link UserService}.
