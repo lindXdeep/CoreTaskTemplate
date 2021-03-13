@@ -1,4 +1,4 @@
-package jm.task.core.hiber.service;
+package io.lindx.task.service;
 
 import java.util.List;
 
@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jm.task.core.hiber.dao.UserDao;
-import jm.task.core.hiber.model.User;
+import io.lindx.task.dao.UserDao;
+import io.lindx.task.model.User;
+import io.lindx.task.util.Util;
 
 /**
- * UserServiceImpl
+ * Implementation for {@link UserService}.
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-03-13
  */
 @Service
 @Transactional(readOnly = true)

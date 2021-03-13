@@ -1,11 +1,15 @@
-package jm.task.core.hiber.service;
+package io.lindx.task.service;
 
 import java.util.List;
 
-import jm.task.core.hiber.model.User;
+import io.lindx.task.model.User;
 
 /**
- * UserService
+ * UserService.
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-03-13
  */
 public interface UserService {
 

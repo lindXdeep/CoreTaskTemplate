@@ -1,10 +1,17 @@
-package jm.task.core.hiber.service;
+package io.lindx.task.service;
 
 import org.springframework.stereotype.Service;
 
-import jm.task.core.hiber.model.User;
+import io.lindx.task.model.User;
 import lombok.Data;
 
+/**
+ * Builder for {@link User}.
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-03-13
+ */
 @Data
 @Service
 public class UserBuilder {

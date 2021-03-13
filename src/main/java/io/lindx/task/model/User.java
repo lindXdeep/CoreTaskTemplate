@@ -1,4 +1,4 @@
-package jm.task.core.hiber.model;
+package io.lindx.task.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,13 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import jm.task.core.hiber.service.UserBuilder;
+import io.lindx.task.service.UserBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * User
+ * Model for User
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-03-13
  */
 @Data
 @Entity

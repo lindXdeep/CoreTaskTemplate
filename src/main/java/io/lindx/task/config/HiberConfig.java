@@ -12,6 +12,15 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
+import io.lindx.task.model.User;
+
+/**
+ * Hibernate Configuration.
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-03-13
+ */
 @Configuration
 @PropertySource("classpath:hiber.properties")
 public class HiberConfig {

@@ -9,6 +9,13 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+/**
+ * Application Configuration.
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-03-13
+ */
 @Configuration
 @PropertySource("classpath:db.properties")
 public class AppConfig {
