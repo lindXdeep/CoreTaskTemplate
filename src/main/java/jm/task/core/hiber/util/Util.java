@@ -1,14 +1,16 @@
 package jm.task.core.hiber.util;
+
 public class Util {
 
-    private Util() {
-    }
+	private Util() {
+	}
 
-    static{
-        Logger.readConfiguration();
-    }
+	static {
+		Logger.readConfiguration();
+	}
 
-    public static java.util.logging.Logger getLogger(){
-        return java.util.logging.Logger.getLogger(Util.class.getSuperclass().getName());
-    }
+	public static java.util.logging.Logger getLogger() {
+		return java.util.logging.Logger.getLogger(Util.class.getSuperclass().getName());
+	}
+
 }

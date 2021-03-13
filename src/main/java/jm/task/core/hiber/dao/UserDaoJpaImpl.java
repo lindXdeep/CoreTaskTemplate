@@ -16,60 +16,55 @@ import jm.task.core.hiber.model.User;
 @Repository
 public class UserDaoJpaImpl implements UserDao {
 
-    @PersistenceContext(unitName = "entityManagerFactory")
-    private EntityManager entityManager;
+	@PersistenceContext(unitName = "entityManagerFactory")
+	private EntityManager entityManager;
 
-    @Override
-    public void add(User user) {
-        entityManager.persist(user);
-    }
+	@Override
+	public void add(User user) {
+		entityManager.persist(user);
+	}
 
-    @Override
-    public List<User> listUsers() {
-        
-        return entityManager.createQuery(
+	@Override
+	public List<User> listUsers() {
 
-                "select u from User u", User.class
+		return entityManager.createQuery(
 
-        ).getResultList();
-    }
+				"select u from User u", User.class
 
-    @Override
-    public List<User> getCarOwner(String model, int series) {
-        
-        TypedQuery<User> query = entityManager.createQuery(
+		).getResultList();
+	}
 
-            "select u from User u where u.car.model =: model and u.car.series =: series", User.class
-        );
-        
-        return query.setParameter("model", model)
-                    .setParameter("series", series)
-                    .getResultList();
-    }
+	@Override
+	public List<User> getCarOwner(String model, int series) {
 
-    @Override
-    public User getUserById(Long id) {
+		TypedQuery<User> query = entityManager.createQuery(
 
-        TypedQuery<User> query = entityManager.createQuery(
+				"select u from User u where u.car.model =: model and u.car.series =: series", User.class);
 
-                "select u from User u where u.id =: id ", User.class
-        );
-        
-        return query.setParameter("id", id)
-                    .getResultList().stream().findAny().orElse(null);
-    }
+		return query.setParameter("model", model).setParameter("series", series).getResultList();
+	}
 
-    @Override
-    public void update(User user) {
-        entityManager.merge(user);
-    }
+	@Override
+	public User getUserById(Long id) {
 
-    @Override
-    public void delete(User user) {
+		TypedQuery<User> query = entityManager.createQuery(
 
-        entityManager.remove(
+				"select u from User u where u.id =: id ", User.class);
 
-            getUserById(user.getId())
-        );
-    }
+		return query.setParameter("id", id).getResultList().stream().findAny().orElse(null);
+	}
+
+	@Override
+	public void update(User user) {
+		entityManager.merge(user);
+	}
+
+	@Override
+	public void delete(User user) {
+
+		entityManager.remove(
+
+				getUserById(user.getId()));
+	}
+
 }

@@ -17,47 +17,42 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @EnableWebMvc
 @ComponentScan(value = "jm.task.core.hiber")
 public class WebConfig implements WebMvcConfigurer {
-    
-    private final ApplicationContext applicationContext;
 
-    @Autowired
-    public WebConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+	private final ApplicationContext applicationContext;
 
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/pages/");
-        templateResolver.setSuffix(".html");
-        return templateResolver;
-    }
+	@Autowired
+	public WebConfig(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
 
-    @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setEnableSpringELCompiler(true);
-        return templateEngine;
-    }
+	@Bean
+	public SpringResourceTemplateResolver templateResolver() {
+		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+		templateResolver.setApplicationContext(applicationContext);
+		templateResolver.setPrefix("/WEB-INF/pages/");
+		templateResolver.setSuffix(".html");
+		return templateResolver;
+	}
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        registry.viewResolver(resolver);
-    }
-    
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(
-            "/img/**",
-            "/css/**",
-            "/libs/**")
-            .addResourceLocations(
-                    "classpath:/static/img/",
-                    "classpath:/static/css/",
-                    "classpath:/static/libs/");
-    }
+	@Bean
+	public SpringTemplateEngine templateEngine() {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver());
+		templateEngine.setEnableSpringELCompiler(true);
+		return templateEngine;
+	}
+
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+		resolver.setTemplateEngine(templateEngine());
+		registry.viewResolver(resolver);
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/img/**", "/css/**", "/libs/**").addResourceLocations("classpath:/static/img/",
+				"classpath:/static/css/", "classpath:/static/libs/");
+	}
+
 }

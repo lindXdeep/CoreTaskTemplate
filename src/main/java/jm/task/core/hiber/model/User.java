@@ -19,35 +19,32 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @Column(name = "name")
-    private String firstName;
+	@Column(name = "name")
+	private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "email")
+	private String email;
 
-    public User(final UserBuilder userBuilder){
-        this.firstName = userBuilder.getFirstName();
-        this.lastName = userBuilder.getLastName();
-        this.email = userBuilder.getEmail();
-    }
+	public User(final UserBuilder userBuilder) {
+		this.firstName = userBuilder.getFirstName();
+		this.lastName = userBuilder.getLastName();
+		this.email = userBuilder.getEmail();
+	}
 
-    @Override
-    public String toString() {
-        return "{" +
-            " Id='" + getId() + "'" +
-            ", First Name='" + getFirstName() + "'" +
-            ", Last Name='" + getLastName() + "'" +
-            ", Email='" + getEmail() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "{" + " Id='" + getId() + "'" + ", First Name='" + getFirstName() + "'" + ", Last Name='" + getLastName()
+				+ "'" + ", Email='" + getEmail() + "'" + "}";
+	}
+
 }

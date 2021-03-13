@@ -9,6 +9,12 @@ lint-default:
 lint-google:
 	./mvnw checkstyle:check -Dcheckstyle.config.location=./checkstyle/google_checks.xml
 
+lint-spring:
+	./mvnw checkstyle:check -Dcheckstyle.config.location=./checkstyle/spring-checkstyle.xml
+
+format-spring:
+	./mvnw spring-javaformat:apply
+
 clean:
 	./mvnw clean
 	rm -R ${CATALINA_BASE}/webapps/myapp/*
@@ -26,7 +32,7 @@ redeploy:
 build:
 	./mvnw package war:exploded 
 
-lint: lint-default lint-google
+lint: lint-default lint-google lint-spring
 
 open-chrome:
 	google-chrome --incognito --new-window http://localhost:8080

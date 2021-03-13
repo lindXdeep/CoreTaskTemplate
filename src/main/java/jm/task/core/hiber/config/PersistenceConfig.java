@@ -14,35 +14,36 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 @Configuration
 @PropertySource("classpath:hiber.properties")
 public class PersistenceConfig {
-    
-    @Bean
-    public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
 
-        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-            jpaVendorAdapter.setGenerateDdl(true);
-            jpaVendorAdapter.setShowSql(true);
+	@Bean
+	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
 
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-            entityManagerFactory.setDataSource(dataSource);
-            entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-            entityManagerFactory.setPackagesToScan("jm.task.core.hiber");
-            entityManagerFactory.afterPropertiesSet();
+		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+		jpaVendorAdapter.setGenerateDdl(true);
+		jpaVendorAdapter.setShowSql(true);
 
-        return entityManagerFactory.getObject();
-    }
+		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+		entityManagerFactory.setDataSource(dataSource);
+		entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
+		entityManagerFactory.setPackagesToScan("jm.task.core.hiber");
+		entityManagerFactory.afterPropertiesSet();
 
-    @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
+		return entityManagerFactory.getObject();
+	}
 
-        return transactionManager;
-    }
+	@Bean
+	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
 
-    // Exception
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslation(){
-        
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+		return transactionManager;
+	}
+
+	// Exception
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslation() {
+
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
+
 }
