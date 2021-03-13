@@ -1,37 +1,27 @@
-package jm.task.core.hiber.config;
+package io.lindx.task.config;
 
 import java.util.Properties;
+
 import javax.sql.DataSource;
-import jm.task.core.hiber.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-// @Configuration
-// @PropertySource("classpath:db.properties")
-public class AppConfig {
+@Configuration
+@PropertySource("classpath:hiber.properties")
+public class HiberConfig {
 
 	@Autowired
 	private Environment environment;
 
-	@Bean
-	public DataSource getDataSource() {
+	@Autowired
+	private DataSource dataSource;
 
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(environment.getProperty("db.driver"));
-		dataSource.setUrl(environment.getProperty("db.url"));
-		dataSource.setUsername(environment.getProperty("db.username"));
-		dataSource.setPassword(environment.getProperty("db.password"));
-
-		return dataSource;
-	}
-
-	/* ------------------- Hibernate ------------------- */
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
 
@@ -40,7 +30,7 @@ public class AppConfig {
 		properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
 
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-		factoryBean.setDataSource(getDataSource());
+		factoryBean.setDataSource(dataSource);
 		factoryBean.setHibernateProperties(properties);
 
 		factoryBean.setAnnotatedClasses(User.class);
