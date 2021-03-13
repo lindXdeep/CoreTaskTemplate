@@ -9,31 +9,34 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 /**
  * WebAppInitializer
  */
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInitializer /*
+								 * extends
+								 * AbstractAnnotationConfigDispatcherServletInitializer
+								 */ {
 
 	// Метод, указывающий на класс конфигурации
-	@Override
+
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] {};
 	}
 
 	// Добавление конфигурации, в которой инициализируем ViewResolver, для
 	// корректного отображения jsp.
-	@Override
+
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[] { WebConfig.class };
 	}
 
 	/* Данный метод указывает url, на котором будет базироваться приложение */
-	@Override
+
 	protected String[] getServletMappings() {
 		return new String[] { "/*" };
 	}
 
 	/* Перенаправление входящих HTTP-запросов на нужные методы контроллера */
-	@Override
+
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		super.onStartup(servletContext);
+		// super.onStartup(servletContext);
 		registerHiddenFieldFilter(servletContext);
 	}
 

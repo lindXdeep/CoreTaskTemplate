@@ -11,8 +11,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-@Configuration
-@PropertySource("classpath:hiber.properties")
+// @Configuration
+// @PropertySource("classpath:hiber.properties")
 public class PersistenceConfig {
 
 	@Bean

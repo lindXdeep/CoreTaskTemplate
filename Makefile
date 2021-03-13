@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := build-execute
 
 setup:
 	mvn -N io.takari:maven:wrapper -Dmaven=3.6.3
@@ -32,8 +32,6 @@ redeploy:
 build:
 	./mvnw package war:exploded 
 
-lint: lint-default lint-google lint-spring
-
 open-chrome:
 	google-chrome --incognito --new-window http://localhost:8080
 
@@ -45,3 +43,8 @@ browse:
 
 code:
 	code-oss $@
+
+
+lint: lint-default lint-google lint-spring
+
+build-execute: lint format-spring build open-chrome
