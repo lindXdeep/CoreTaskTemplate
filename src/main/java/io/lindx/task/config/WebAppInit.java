@@ -43,12 +43,16 @@ public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitial
 		return new String[] { "/*" };
 	}
 
+	/* Перенаправление входящих HTTP-запросов на нужные методы контроллера */
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 
-		servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null,
-				true, "/*");
+		servletContext
+
+				.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
+
+				.addMappingForUrlPatterns(null, true, "/*");
 	}
 
 }

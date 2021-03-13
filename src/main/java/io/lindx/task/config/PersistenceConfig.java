@@ -27,7 +27,7 @@ public class PersistenceConfig {
 		entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-		entityManagerFactory.setPackagesToScan("jm.task.core.hiber");
+		entityManagerFactory.setPackagesToScan("io.lindx.task");
 		entityManagerFactory.afterPropertiesSet();
 
 		return entityManagerFactory.getObject();

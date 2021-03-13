@@ -17,7 +17,7 @@ import io.lindx.task.model.User;
  * @version 1.0
  * @since 2021-03-13
  */
-@Repository
+// @Repository
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
