@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
-  <artifactId>my-app</artifactId>
+  <groupId>io.lindx.task</groupId>
+  <artifactId>my-web-app</artifactId>
   <packaging>war</packaging>
 
   <version>1.0-SNAPSHOT</version>
@@ -12,9 +12,12 @@
   <url>https://github.com/lindXdeep/lindxCoreTT</url>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!--Project settings-->
     <java.version>14</java.version>
+    <maven.version>3.6.3</maven.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
   <dependencies>
@@ -86,30 +89,21 @@
         <configuration>
           <verbose>false</verbose>
           <executable>
-                        ${JAVA_HOME}/bin/javac
-                    </executable>
+            ${JAVA_HOME}/bin/javac
+          </executable>
         </configuration>
       </plugin>
 
       <plugin>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-war-plugin -->
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.3.1</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <webappDirectory>
-                        ${CATALINA_BASE}/webapps/myapp
-                    </webappDirectory>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.2</version>
-        <configuration>
-          <url>http://localhost:8080/manager/text</url>
-          <server>TomcatServer</server>
-          <path>/myapp</path>
+            ${CATALINA_BASE}/webapps/myapp
+          </webappDirectory>
         </configuration>
       </plugin>
 
@@ -139,8 +133,36 @@
         </configuration>
       </plugin>
 
-
+      <plugin>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.2</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>8.40</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <configLocation>src/test/resources/checkstyle/checkstyle.xml</configLocation>
+          <suppressionsLocation>src/test/resources/checkstyle/checkstyle_suppressions.xml</suppressionsLocation>
+          <encoding>UTF-8</encoding>
+          <consoleOutput>true</consoleOutput>
+          <failsOnError>true</failsOnError>
+          <linkXRef>false</linkXRef>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
 </project>
