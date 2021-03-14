@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -38,6 +37,16 @@ public class User {
 
 	@Column(name = "email")
 	private String email;
+
+	@Column(name = "password")
+	private String password;
+
+	public User(Long id, String firstName, String lastName, String email) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
 	public User(final UserBuilder userBuilder) {
 		this.firstName = userBuilder.getFirstName();

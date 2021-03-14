@@ -1,10 +1,9 @@
 package io.lindx.task.config;
 
-import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -16,7 +15,8 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * @version 1.0
  * @since 2021-03-13
  */
-public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+@Order(1)
+public class InitWebApp extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	/**
 	 * Метод, указывающий на класс конфигурации.
@@ -32,7 +32,7 @@ public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitial
 	 */
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { WebAppConfig.class };
+		return new Class[] { ConfigWebMvc.class, ConfigSecurity.class };
 	}
 
 	/**
@@ -54,5 +54,4 @@ public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitial
 
 				.addMappingForUrlPatterns(null, true, "/*");
 	}
-
 }

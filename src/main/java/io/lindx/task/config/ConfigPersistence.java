@@ -11,7 +11,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
-public class PersistenceConfig {
+public class ConfigPersistence {
 
 	@Bean
 	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {

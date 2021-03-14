@@ -63,4 +63,10 @@ public class UserDaoImpl implements UserDao {
 		return query.getResultList();
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

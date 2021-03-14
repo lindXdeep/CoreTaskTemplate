@@ -37,7 +37,7 @@
       </nav>
       <div>
         <div style="float: left; text-align: center;">
-          <form th:method="post" th:action="@{/users/new}" th:object="${user}">
+          <form th:method="post" th:action="@{/users/sign_up}" th:object="${user}">
             <div style="float: left; padding-left: 50px;">
               <div>
                 <div style="text-align: left;">
@@ -66,11 +66,20 @@
                 </div>
               </div>
               <hr>
+              <div>
+                <div style="text-align: left;">
+                  <h3>Password:</h3>
+                </div>
+                <div class="col">
+                  <input id="input-1" type="password" th:value="${user.password}" name="password">
+                </div>
+              </div>
+              <hr>
             </div>
             <div style="text-align: center;">
               <div style="text-align: center; padding-top: 10%;">
                 <a id="btn-1" href="/">Cancel</a>
-                <button id="btn" th:href="@{/users/new}" type="submit">Save</button>
+                <button id="btn" th:href="@{/users/sign_up}" type="submit">Save</button>
               </div>
             </div>
           </form>

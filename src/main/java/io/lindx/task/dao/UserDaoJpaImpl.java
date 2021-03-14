@@ -51,4 +51,14 @@ public class UserDaoJpaImpl implements UserDao {
 		).getResultList();
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+
+		TypedQuery<User> query = entityManager.createQuery(
+
+				"select u from User u where u.email =: email ", User.class);
+
+		return query.setParameter("email", email).getResultList().stream().findAny().orElse(null);
+	}
+
 }
