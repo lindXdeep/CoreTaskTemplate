@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>User</title>
+  <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header style="position: relative; padding: 1%;">
+
+    <div style="float: left; width: 48%;">
+      <a id="btn" href="/">Main</a>
+      <a id="btn" href="/users">All Users</a>
+    </div>
+    <div style="float: left; width: 48%;">
+      <div style="text-align: right;">
+
+        <a id="btn" href="/sign_in">Sign in</a>
+      </div>
+    </div>
+
+
+  </header>
+
+
+  <div id="container">
+
+
+    <div id="main-body">
+      <nav aria-label="lindx" id="header">
+        <ol class="lindx">
+          <li class="lindx-item"> <a href="/">Main</a></li>
+          <li class="lindx-item"> New User :</li>
+        </ol>
+      </nav>
+      <div>
+        <div style="float: left; text-align: center;">
+          <form th:method="post" th:action="@{/users/new}" th:object="${user}">
+            <div style="float: left; padding-left: 50px;">
+              <div>
+                <div style="text-align: left;">
+                  <h3>First Name: </h3>
+                </div>
+                <div class="col">
+                  <input type="text" name="firstName" th:value="${user.firstName}" id="input-1">
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div style="text-align: left;">
+                  <h3>Last Name: </h3>
+                </div>
+                <div class="col">
+                  <input type="text" name="lastName" th:value="${user.lastName}" id="input-1">
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div style="text-align: left;">
+                  <h3>Email:</h3>
+                </div>
+                <div class="col">
+                  <input id="input-1" type="text" th:value="${user.email}" name="email">
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div style="text-align: center;">
+              <div style="text-align: center; padding-top: 10%;">
+                <a id="btn-1" href="/">Cancel</a>
+                <button id="btn" th:href="@{/users/new}" type="submit">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

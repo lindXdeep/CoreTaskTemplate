@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import io.lindx.task.model.User;
@@ -21,7 +20,6 @@ public class UserController {
 
 	@Autowired
 	public UserController(UserService userService) {
-
 		this.userService = userService;
 	}
 
@@ -33,46 +31,27 @@ public class UserController {
 		return "index";
 	}
 
-	@GetMapping("user/{id}")
+	@GetMapping("/user/{id}") // после регистрации
 	public String user(@PathVariable("id") Long id, ModelMap model) {
 
 		model.addAttribute("user", userService.getUserById(id));
 
 		System.out.println(userService.getUserById(id).toString());
 
-		return "user";
+		return "pages/user";
 	}
 
-	@GetMapping("/users/new")
-	public String create(ModelMap model) {
-
-		model.addAttribute("user", new User());
-
-		return "new";
-	}
-
-	@PostMapping("/users/new")
-	public String newUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-
-		userService.add(user);
-
-		redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",
-				"User: " + user.getId() + " Created!");
-
-		return "redirect:/user/{id}";
-	}
-
-	@GetMapping("/user/{id}/edit")
+	@GetMapping("/user/{id}/edit") // после регистрации
 	public String edit(@PathVariable("id") Long id, ModelMap model) {
 
 		User user = userService.getUserById(id);
 
 		model.addAttribute("user", user);
 
-		return "edit";
+		return "pages/edit";
 	}
 
-	@PatchMapping("/user/{id}")
+	@PatchMapping("/user/{id}") // после регистрации
 	public String update(@ModelAttribute User user, @PathVariable("id") Long id,
 
 			RedirectAttributes redirectAttributes) {
@@ -85,7 +64,7 @@ public class UserController {
 		return "redirect:/user/{id}";
 	}
 
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/user/{id}") // после регистрации
 	public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
 
 		User user = userService.getUserById(id);

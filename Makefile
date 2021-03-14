@@ -48,3 +48,5 @@ code:
 lint: lint-default lint-google lint-spring
 
 build-execute: lint format-spring build open-chrome
+
+open: open-chrome
