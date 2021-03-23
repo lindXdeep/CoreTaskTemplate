@@ -15,7 +15,6 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * @version 1.0
  * @since 2021-03-13
  */
-@Order(1)
 public class InitWebApp extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	/**
@@ -32,7 +31,7 @@ public class InitWebApp extends AbstractAnnotationConfigDispatcherServletInitial
 	 */
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { ConfigWebMvc.class, ConfigSecurity.class };
+		return new Class[] { ConfigWebMvc.class };
 	}
 
 	/**

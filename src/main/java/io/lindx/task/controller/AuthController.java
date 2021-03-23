@@ -2,7 +2,6 @@ package io.lindx.task.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,14 +36,14 @@ public class AuthController {
 		return "redirect:/pages/user/{id}";
 	}
 
-	@GetMapping("/sign_in")
+	@GetMapping("/login")
 	public String sign_in(ModelMap model) {
 
 		model.addAttribute("user", new User());
 		return "/auth/sign_in.html";
 	}
 
-	@PostMapping("/sign_in")
+	@PostMapping("/login")
 	public String sign_in(@ModelAttribute User user) {
 		return "/auth/sign_in.html";
 	}

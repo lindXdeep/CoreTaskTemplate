@@ -33,5 +33,4 @@ public class ConfigApp {
 		dataSource.setPassword(environment.getProperty("db.password"));
 		return dataSource;
 	}
-
 }
