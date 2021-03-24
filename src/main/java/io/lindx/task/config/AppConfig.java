@@ -18,7 +18,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  */
 @Configuration
 @PropertySource("classpath:db.properties")
-public class ConfigApp {
+public class AppConfig {
 
 	@Autowired
 	private Environment environment;

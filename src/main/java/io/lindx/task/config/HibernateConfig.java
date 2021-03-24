@@ -25,7 +25,7 @@ import io.lindx.task.model.User;
 @Configuration
 @PropertySource("classpath:hiber.properties")
 @EnableTransactionManagement
-public class ConfigHibernate {
+public class HibernateConfig {
 
 	@Autowired
 	private Environment environment;
