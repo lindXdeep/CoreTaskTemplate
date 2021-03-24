@@ -28,20 +28,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
       .authorizeRequests()
         .antMatchers("/").permitAll()
-        .antMatchers("/users/sign_up").permitAll()
+        .antMatchers("/users/sign_up").anonymous()
+        .antMatchers("/login").anonymous()
         .antMatchers("/users/").hasAnyRole("ROLE_ADMIN")
         .anyRequest().authenticated();
       
     http
       .formLogin()
-        .loginPage("/login").permitAll()
+        .loginPage("/login")
         .loginProcessingUrl("/login/process")
         .usernameParameter("email")
         .passwordParameter("password");
+
       
     http
       .logout()
         .logoutUrl("/logout");
+
+    http
+      .exceptionHandling()
+        .accessDeniedPage("/")
   }
 
   @Override
