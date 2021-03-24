@@ -40,14 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .usernameParameter("email")
         .passwordParameter("password");
 
-      
     http
       .logout()
         .logoutUrl("/logout");
 
     http
       .exceptionHandling()
-        .accessDeniedPage("/")
+        .accessDeniedPage("/");
   }
 
   @Override
