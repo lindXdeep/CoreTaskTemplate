@@ -30,6 +30,11 @@
           <li class="lindx-item"> Authentication :</li>
         </ol>
       </nav>
+
+      <div th:if="${error}" >
+        <p style="background-color: #FFD6CD; color: #ff0000; text-align: center;">Bad Credentials</p>
+      </div>
+
       <div>
         <div style="float: left; text-align: center;">
           <form th:method="post" th:action="@{/login/process}">

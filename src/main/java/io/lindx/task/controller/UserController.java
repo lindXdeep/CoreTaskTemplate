@@ -58,8 +58,9 @@ public class UserController {
 
 		userService.update(user);
 
-		redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg",
-				"User: " + user.getId() + " Updated!");
+		redirectAttributes
+      .addAttribute("id", user.getId())
+        .addFlashAttribute("msg", "User: " + user.getId() + " Updated!");
 
 		return "redirect:/user/{id}";
 	}
