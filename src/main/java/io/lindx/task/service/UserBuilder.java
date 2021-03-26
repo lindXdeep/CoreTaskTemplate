@@ -1,10 +1,12 @@
 package io.lindx.task.service;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
+import io.lindx.task.model.Role;
 import io.lindx.task.model.User;
 import lombok.Data;
-
 /**
  * Builder for {@link User}.
  *
@@ -13,6 +15,7 @@ import lombok.Data;
  * @since 2021-03-13
  */
 @Data
+
 @Service
 public class UserBuilder {
 
@@ -21,6 +24,10 @@ public class UserBuilder {
 	String lastName;
 
 	String email;
+
+	String password;
+
+  Set<Role> roles;
 
 	public UserBuilder firstName(final String firstName) {
 		this.firstName = firstName;
@@ -37,8 +44,17 @@ public class UserBuilder {
 		return this;
 	}
 
+  public UserBuilder password(final String password) {
+    this.password = password;
+    return this;
+  }
+
+  public UserBuilder roles(final Set<Role> roles) {
+    this.roles = roles;
+    return this;
+  }
+
 	public User build() {
 		return new User(this);
 	}
-
 }

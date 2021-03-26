@@ -52,9 +52,9 @@ public class UserController {
 	}
 
 	@PatchMapping("/user/{id}") // после регистрации
-	public String update(@ModelAttribute User user, @PathVariable("id") Long id,
-
-			RedirectAttributes redirectAttributes) {
+	public String update(@ModelAttribute User user, 
+                       @PathVariable("id") Long id,
+                       RedirectAttributes redirectAttributes) {
 
 		userService.update(user);
 
@@ -76,5 +76,11 @@ public class UserController {
 
 		return "redirect:/users";
 	}
+
+  @GetMapping("/admin")
+  public String admin(){
+      
+    return "admin";
+  }
 
 }

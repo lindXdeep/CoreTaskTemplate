@@ -20,17 +20,23 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @PropertySource("classpath:db.properties")
 public class AppConfig {
 
-	@Autowired
 	private Environment environment;
+
+  @Autowired
+  public AppConfig(Environment environment) {
+    this.environment = environment;
+  }
 
 	@Bean
 	public DataSource getDataSource() {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl(environment.getProperty("db.url"));
-		dataSource.setDriverClassName(environment.getProperty("db.driver"));
-		dataSource.setUsername(environment.getProperty("db.username"));
-		dataSource.setPassword(environment.getProperty("db.password"));
+
+      dataSource.setUrl(environment.getProperty("db.url"));
+      dataSource.setDriverClassName(environment.getProperty("db.driver"));
+      dataSource.setUsername(environment.getProperty("db.username"));
+      dataSource.setPassword(environment.getProperty("db.password"));
+
 		return dataSource;
 	}
 }

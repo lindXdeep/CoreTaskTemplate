@@ -54,13 +54,6 @@ public class AuthController {
 		return "/auth/sign_in.html";
 	}
 
-
-  // name = "error" - имя параметра котрый тут ожидаем
-  // required = false - занчение по умолчаниюесли ничего не прилетает 
-  // final Boolean error - сам тип параметра
-
-
-
   @GetMapping("/logout")
   public String logout(HttpServletRequest request){
 
