@@ -1,5 +1,6 @@
 package io.lindx.task.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,9 @@ import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import io.lindx.task.service.UserBuilder;
 import lombok.AllArgsConstructor;
@@ -35,7 +39,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,11 +60,11 @@ public class User {
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(
-    name = "user_roles",      // третья таблица  в кторой будекм мапить id таблиц user'а и его ролей.
+    name = "user_roles",      
     joinColumns        = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
   )
-  private Set<Role> roles;    // Set - поле для набора ролей 
+  private Set<Role> roles;
 
 	public User(final UserBuilder userBuilder) {
 		this.firstName = userBuilder.getFirstName();
@@ -69,4 +73,35 @@ public class User {
 		this.email = userBuilder.getEmail();
     this.roles = userBuilder.getRoles();
 	}
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles;
+  }
+
+  @Override
+  public String getUsername() {
+    return firstName;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

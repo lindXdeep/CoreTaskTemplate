@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +25,8 @@ import lombok.Data;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "roles")
+public class Role implements GrantedAuthority{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +36,12 @@ public class Role {
   @Column(name = "role_name")
   private final String role_name;
 
+  @Transient
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   private Set<User> users;
+
+  @Override
+  public String getAuthority() {
+    return role_name;
+  }
 }
