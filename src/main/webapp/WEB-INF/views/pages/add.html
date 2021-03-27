@@ -13,19 +13,20 @@
     <div style="float: left; width: 48%;">
       <a id="btn" href="/">Main</a>
     </div>
-    <div style="float: left; width: 48%;">
-      <div style="text-align: right;">
 
+    <div style="text-align: right;">
+      <div th:if="!${login}">
         <a id="btn" href="/login">Sign in</a>
+      </div>
+      <div th:if="${login}">
+        <a id="btn" th:href="@{/logout}">Logout</a>
+        <a id="pic" th:href="@{/user/{id} ( id=${principal.getId()} ) }"><img src="/img/icon_user.png" width="65" height="65" alt=""></a>
       </div>
     </div>
 
-
   </header>
 
-
   <div id="container">
-
 
     <div id="main-body">
       <nav aria-label="lindx" id="header">
@@ -36,7 +37,7 @@
       </nav>
       <div>
         <div style="float: left; text-align: center;">
-          <form th:method="post" th:action="@{/users/sign_up}" th:object="${user}">
+          <form th:method="post" th:action="@{/admin/users/create}" th:object="${user}">
             <div style="float: left; padding-left: 50px;">
               <div>
                 <div style="text-align: left;">
@@ -77,8 +78,8 @@
             </div>
             <div style="text-align: center;">
               <div style="text-align: center; padding-top: 10%;">
-                <a id="btn-1" href="/">Cancel</a>
-                <button id="btn" th:href="@{/users/sign_up}" type="submit">Save</button>
+                <a id="btn-1" href="/admin">Cancel</a>
+                <button id="btn"  type="submit">Save</button>
               </div>
             </div>
           </form>

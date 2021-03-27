@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>User</title>
+  <meta charset="UTF-8">
+  <title>Hello Controller</title>
   <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" />
 </head>
 
@@ -12,80 +12,72 @@
 
     <div style="float: left; width: 48%;">
       <a id="btn" href="/">Main</a>
-      <a id="btn" href="/users">All Users</a>
     </div>
     <div style="float: left; width: 48%;">
       <div style="text-align: right;">
-        <a id="btn" th:href="@{/user/{id}(id= ${user.getId()})}" th:text="${user.getFirstName()}"></a>
-        <a id="btn" th:href="@{/logout}" th:text="${Logout}"></a>
+        <div th:if="!${login}">
+          <a id="btn" href="/login">Sign in</a>
+        </div>
+        <div th:if="${login}">
+          <a id="btn" href="/logout">Logout</a>
+          <a id="pic" th:href="@{/user/{id} ( id=${principal.getId()} ) }"><img src="/img/icon_user.png" width="65" height="65" alt=""></a>
+        </div>
       </div>
     </div>
-
+    
   </header>
 
-  <div id="container">
-    <div id="main-body">
-      <div>
-        <p th:text="${msg}" style="font-size: x-large; font-family: 'Courier New', Courier, monospace;"> msg </p>
+  <div id="outer">
+    <div class="inner">
+      <div th:each=" msg : ${messages}" style="padding-top: 5%;">
+        <p style="font-size: x-large;" th:text="${msg}">message</p>
       </div>
-      <nav aria-label="lindx" id="header">
-        <ol class="lindx">
-          <li class="lindx-item"> <a href="/">Main</a></li>
-          <li class="lindx-item"> <a href="/users">User</a></li>
-          <li class="lindx-item" th:text="' id: ' + ${user.getId()}"> user </li>
-        </ol>
-      </nav>
       <div>
-        <div style="float: left; text-align: center;">
-          <img src="/img/user.png" alt="Admin" width="70%" style="size: 70%;">
+        <p>
+          <a id="btn" href="/admin/users/create">Add User</a>
+        </p>
+      </div>
 
-          <form th:method="delete" th:action="@{
-                                                        /user/{id} (id = ${user.getId()})
-                                        }" style="text-align: left; padding-top: 10%;">
-            <h3>
-              <p th:text="${user.getFirstName() + ' ' + user.getLastName()}"> owner </p>
-            </h3>
-            <p>Full Stack Developer</p>
+      <div th:if="${users != null}" id="main">
+        <table>
 
-            <a id="btn-1" th:href="@{
-                                                /user/{id}/edit (id= ${user.getId()})
-                                        }">Edit</a>
+          <head>
+            <tr>
+              <th>id</th>
+              <th>First name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Password</th>
+            </tr>
+          </head>
 
-            <button id="btn" type="submit">Delete </button>
-          </form>
-        </div>
-        <div style="float: left; padding-left: 50px;">
-          <div>
-            <div style="text-align: left;">
-              <h3 style="padding-right: 140px;">First Name</h3>
-            </div>
-            <div class="col" style="text-align: left;">
-              <span th:text="${user.getFirstName()}"></span>
-            </div>
-          </div>
-          <hr>
-          <div>
-            <div style="text-align: left;">
-              <h3>Last Name</h3>
-            </div>
-            <div class="col" style="text-align: left;">
-              <span th:text="${user.getLastName()}"></span>
-            </div>
-          </div>
-          <hr>
-          <div>
-            <div style="text-align: left;">
-              <h3>Email</h3>
-            </div>
-            <div class="col" style="text-align: left;">
-              <span th:text="${user.getEmail()}"></span>
-            </div>
-          </div>
-          <hr>
-        </div>
+          <body>
+            <tr th:each=" user : ${users}">
+              <td>
+                <span th:text="${user.getId()}">id</span>
+              </td>
+              <td>
+                <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getFirstName()}">name</a>
+              </td>
+              <td>
+                <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getLastName()}">last</a>
+              </td>
+              <td>
+                <span th:text="${user.getEmail()}">email</span>
+              </td>
+              <td>
+                <span th:text="${user.getPassword()}">pass</span>
+              </td>
+              <td>
+                <form th:method="delete" th:action="@{/admin/user/{id} (id = ${user.getId()})}">
+                  <input id="pic" type="image" name="submit" src="/img/del0.png" border="0" alt="Submit" style="width: 24px;" />
+                </form>
+              </td>
+            </tr>
+          </body>
+        </table>
       </div>
     </div>
-
   </div>
 </body>
 

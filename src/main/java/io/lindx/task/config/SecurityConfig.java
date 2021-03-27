@@ -43,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
       .authorizeRequests()
         .antMatchers("/").permitAll()
-        .antMatchers("/users/sign_up").anonymous()
         .antMatchers("/login").anonymous()
-        .antMatchers("/users/").hasAnyRole("ROLE_ADMIN")
+        .antMatchers("/admin/**", "/user/**").access("hasAnyRole('ROLE_ADMIN')")
+        .antMatchers("/user/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
         .anyRequest().authenticated();
       
     http
@@ -60,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http
       .logout()
-        .logoutUrl("/logout");
+        .logoutUrl("/logout")
+;
 
     http
       .exceptionHandling()

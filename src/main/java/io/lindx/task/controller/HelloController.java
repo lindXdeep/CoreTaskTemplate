@@ -1,10 +1,7 @@
 package io.lindx.task.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.lindx.task.model.User;
-import io.lindx.task.service.UserBuilder;
 import io.lindx.task.service.UserService;
 import io.lindx.task.util.Util;
 
@@ -23,20 +19,22 @@ import io.lindx.task.util.Util;
 @RequestMapping("/")
 public class HelloController {
 
+  private User admin;
+
 	private final UserService userService;
-	private final UserBuilder user;
-
+	
 	@Autowired
-	public HelloController(UserService userService, UserBuilder user) {
-
+	public HelloController(UserService userService) {
 		this.userService = userService;
-		this.user = user;
 	}
 
 	@GetMapping(value = "/")
 	public String printwelcome(ModelMap model) {
 
-   
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    String username = principal instanceof UserDetails ? 
+                ((UserDetails)principal).getUsername() : principal.toString();
 
 		List<String> messages = new ArrayList<>();
 
@@ -48,31 +46,14 @@ public class HelloController {
 
 		model.addAttribute("messages", messages);
 
-
+    admin = userService.getUserByEmail("admin@admin");
+    model.addAttribute("setadmin", admin == null ? false : true);
+    model.addAttribute("admin", admin);
+    
+    model.addAttribute("login", principal instanceof UserDetails? true : false);
+    
+    model.addAttribute("principal", !username.equals("anonymousUser") ? 
+                                 userService.getUserByEmail(username) : null);
 		return "index";
 	}
-
-	@GetMapping(value = "/create")
-	public String create(ModelMap model) {
-
-		List<User> users = Arrays.asList(
-        user.firstName("user1").lastName("lastname1").email("user1@mail.ru").build(),
-				user.firstName("user2").lastName("lastname2").email("user2@mail.ru").build(),
-				user.firstName("user3").lastName("lastname3").email("user3@mail.ru").build(),
-				user.firstName("user4").lastName("lastname4").email("user4@mail.ru").build(),
-				user.firstName("user5").lastName("lastname5").email("user5@mail.ru").build());
-
-		users.stream().forEach(x -> userService.add(x));
-
-		return "redirect:/users";
-	}
-
-	@GetMapping("/index")
-	public String cars(ModelMap model) {
-
-    model.addAttribute("users", userService.listUsers());
-
-		return "index";
-	}
-
 }
