@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import io.lindx.task.model.Role;
 import io.lindx.task.model.User;
 
 /**
@@ -48,7 +49,7 @@ public class HibernateConfig {
       factoryBean.setDataSource(dataSource);
       factoryBean.setHibernateProperties(properties);
 
-		  factoryBean.setAnnotatedClasses(User.class);
+		  factoryBean.setAnnotatedClasses(User.class, Role.class);
 
 		return factoryBean;
 	}
