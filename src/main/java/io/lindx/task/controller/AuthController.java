@@ -1,5 +1,7 @@
 package io.lindx.task.controller;
 
+import java.util.Collections;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import io.lindx.task.model.Role;
 import io.lindx.task.model.User;
 import io.lindx.task.service.UserService;
 
@@ -63,6 +66,39 @@ public class AuthController {
       request.getSession().invalidate();
     }
     
+    return "redirect:/login";
+  }
+
+  /**
+   * service method
+   * @return
+   */
+  @GetMapping("/setadmin")
+  public String setadmin(
+        @RequestParam(name = "n", defaultValue = "admin",       required = false) final String name,
+        @RequestParam(name = "l", defaultValue = "admin",       required = false) final String last,
+        @RequestParam(name = "m", defaultValue = "admin@admin", required = false) final String mail,
+        @RequestParam(name = "p", defaultValue = "admin",       required = false) final String pass,
+        final Model model
+  ){
+      
+    if(userService.getUserByEmail(mail) != null) {
+      
+      return "redirect:/";
+    }
+
+    Role role = new Role();
+     role.setTitle("ROLE_ADMIN");
+
+     User admin = new User();
+      admin.setFirstName(name);
+      admin.setLastName(last);
+      admin.setEmail(mail);
+      admin.setPassword(pass);
+      admin.setRoles(Collections.singleton(role));
+
+      userService.add(admin);
+
     return "redirect:/login";
   }
 }

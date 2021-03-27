@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Role
@@ -23,6 +24,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "roles")
@@ -31,10 +33,10 @@ public class Role implements GrantedAuthority{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false, updatable = false)
-  private final Long id;
+  private Long id;
 
   @Column(name = "role_name")
-  private final String role_name;
+  private String title;
 
   @Transient
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
@@ -42,6 +44,6 @@ public class Role implements GrantedAuthority{
 
   @Override
   public String getAuthority() {
-    return role_name;
+    return title;
   }
 }
