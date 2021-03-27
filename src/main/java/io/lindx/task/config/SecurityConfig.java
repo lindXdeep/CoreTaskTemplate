@@ -12,17 +12,22 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import io.lindx.task.security.SuccessUserHandler;
+
 @Component
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private UserDetailsService userDetailsService;
+  private SuccessUserHandler successUserHandler;
 
   @Autowired
-  public SecurityConfig(UserDetailsService userDetailsService) {
+  public SecurityConfig( UserDetailsService userDetailsService, 
+                        SuccessUserHandler successUserHandler) {
     this.userDetailsService = userDetailsService;
+    this.successUserHandler = successUserHandler;
   }
-
+  
 
   @Override
   public void configure(WebSecurity web) throws Exception {
@@ -49,7 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .loginProcessingUrl("/login/process")
         .usernameParameter("email")
         .passwordParameter("password")
-        .failureUrl("/login?error=true");
+        .failureUrl("/login?error=true")
+        .defaultSuccessUrl("/", true)
+        .successHandler(successUserHandler);
 
     http
       .logout()
