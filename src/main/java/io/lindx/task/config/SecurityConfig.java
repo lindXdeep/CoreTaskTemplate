@@ -20,7 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private UserDetailsService userDetailsService;
   private SuccessUserHandler successUserHandler;
-=
+
+  @Autowired
+  public SecurityConfig( UserDetailsService userDetailsService, 
+                        SuccessUserHandler successUserHandler) {
+    this.userDetailsService = userDetailsService;
     this.successUserHandler = successUserHandler;
   }
   
