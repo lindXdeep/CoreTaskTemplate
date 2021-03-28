@@ -20,11 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private UserDetailsService userDetailsService;
   private SuccessUserHandler successUserHandler;
-
-  @Autowired
-  public SecurityConfig( UserDetailsService userDetailsService, 
-                        SuccessUserHandler successUserHandler) {
-    this.userDetailsService = userDetailsService;
+=
     this.successUserHandler = successUserHandler;
   }
   
@@ -60,8 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http
       .logout()
-        .logoutUrl("/logout")
-;
+        .logoutUrl("/logout");
 
     http
       .exceptionHandling()
