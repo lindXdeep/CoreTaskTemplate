@@ -1,12 +1,13 @@
 package io.lindx.task.dao;
 
 import java.util.List;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import io.lindx.task.model.User;
 
