@@ -1,6 +1,7 @@
 package io.lindx.task.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private SuccessUserHandler successUserHandler;
 
   @Autowired
-  public SecurityConfig( UserDetailsService userDetailsService, 
+  public SecurityConfig(@Qualifier("userDetailsService") UserDetailsService userDetailsService, 
                         SuccessUserHandler successUserHandler) {
     this.userDetailsService = userDetailsService;
     this.successUserHandler = successUserHandler;

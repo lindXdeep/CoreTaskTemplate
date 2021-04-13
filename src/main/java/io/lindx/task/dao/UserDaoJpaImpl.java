@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import io.lindx.task.model.User;
 
-@Repository
+// @Repository
 public class UserDaoJpaImpl implements UserDao {
 
 	@PersistenceContext(unitName = "entityManagerFactory")

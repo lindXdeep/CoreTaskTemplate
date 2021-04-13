@@ -1,10 +1,12 @@
 package io.lindx.task.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -22,7 +24,8 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(value = "io.lindx.task")
+@EnableJpaRepositories(basePackages = "io.lindx.task")
+@SpringBootApplication
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	private final ApplicationContext applicationContext;

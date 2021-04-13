@@ -20,7 +20,7 @@ import io.lindx.task.model.User;
 // @Repository
 public class UserDaoImpl implements UserDao {
 
-	@Autowired
+	//@Autowired
 	private SessionFactory sessionFactory;
 
 	private Session getSession() {

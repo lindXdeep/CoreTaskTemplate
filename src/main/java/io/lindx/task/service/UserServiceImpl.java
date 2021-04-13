@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.lindx.task.dao.UserDao;
+import io.lindx.task.dao.UserRepository;
 import io.lindx.task.model.User;
 
 /**
@@ -21,43 +22,60 @@ import io.lindx.task.model.User;
  */
 
 @Service
-@Transactional(readOnly = true)
+// @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-	@Autowired
-	private UserDao userDao;
+  private final UserRepository repository;
+
+  @Autowired
+  public UserServiceImpl(UserRepository repository) {
+    this.repository = repository;
+  }
 
 	@Override
-	@Transactional
+//	@Transactional
 	public void add(User user) {
-		userDao.add(user);
+
+    repository.save(user);
 	}
 
 	@Override
 	public List<User> listUsers() {
-		return userDao.listUsers();
+
+    return repository.findAll();
 	}
 
 	@Override
 	public User getUserById(Long id) {
-		return userDao.getUserById(id);
+
+    return repository.getOne(id);
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public void update(User user) {
-		userDao.update(user);
+
+    repository.setUserInfoById(
+
+        user.getFirstName(), 
+        user.getLastName(), 
+        user.getEmail(), 
+        user.getPassword(), 
+        user.getId()
+    );
 	}
 
 	@Override
-	@Transactional
+	// @Transactional
 	public void delete(User user) {
-		userDao.delete(user);
+
+		repository.delete(user);
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
-		return userDao.getUserByEmail(email);
+
+    return repository.findByEmail(email);
 	}
 
   @Override
