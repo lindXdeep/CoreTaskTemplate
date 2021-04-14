@@ -2,18 +2,20 @@ package io.lindx.task.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import io.lindx.task.dao.UserDao;
 import io.lindx.task.dao.UserRepository;
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
 import io.lindx.task.model.User;
 import io.lindx.task.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Implementation for {@link UserService}.
@@ -23,10 +25,13 @@ import io.lindx.task.repository.UserRepository;
  * @since 2021-03-13
  */
 
+@RequiredArgsConstructor
+
 @Service
 // @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+<<<<<<< HEAD
   private final UserRepository repository;
 
   @Autowired
@@ -36,6 +41,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
   @Autowired
   private UserRepository userRepo;
+=======
+  private final UserRepository userRepo;
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
 
 	@Override
 //	@Transactional
@@ -48,9 +56,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	//	userDao.add(user);
 =======
 
+<<<<<<< HEAD
 	  // userDao.add(user);
 
 >>>>>>> change from dao to repository
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
     userRepo.save(user);
 >>>>>>> add repository save mithod
 	}
@@ -59,10 +70,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public List<User> listUsers() {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     return repository.findAll();
 =======
 		// return userDao.listUsers();
 
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
     return userRepo.findAll();
 >>>>>>> change from dao to repository
 	}
@@ -71,10 +85,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public User getUserById(Long id) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     return repository.getOne(id);
 =======
 		//return userDao.getUserById(id);
 
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
     return userRepo.findById(id).stream().findAny().orElse(null);
 >>>>>>> change from dao to repository
 	}
@@ -82,6 +99,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 //	@Transactional
 	public void update(User user) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     repository.setUserInfoById(
@@ -95,6 +113,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 =======
 		
     //userDao.update(user);
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
 
     userRepo.save(user);
 >>>>>>> change from dao to repository
@@ -105,10 +125,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public void delete(User user) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		repository.delete(user);
 =======
 		//userDao.delete(user);
 
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
     userRepo.delete(user);
 >>>>>>> change from dao to repository
 	}
@@ -117,10 +140,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public User getUserByEmail(String email) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     return repository.findByEmail(email);
 =======
 		//return userDao.getUserByEmail(email);
     
+=======
+>>>>>>> delete DataSource config, HibernateConfig, PersistenceConfig
     return userRepo.findByEmail(email);
 >>>>>>> change from dao to repository
 	}
