@@ -41,10 +41,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //	@Transactional
 	public void add(User user) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     repository.save(user);
 =======
 	//	userDao.add(user);
+=======
+
+	  // userDao.add(user);
+
+>>>>>>> change from dao to repository
     userRepo.save(user);
 >>>>>>> add repository save mithod
 	}
@@ -52,18 +58,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public List<User> listUsers() {
 
+<<<<<<< HEAD
     return repository.findAll();
+=======
+		// return userDao.listUsers();
+
+    return userRepo.findAll();
+>>>>>>> change from dao to repository
 	}
 
 	@Override
 	public User getUserById(Long id) {
 
+<<<<<<< HEAD
     return repository.getOne(id);
+=======
+		//return userDao.getUserById(id);
+
+    return userRepo.findById(id).stream().findAny().orElse(null);
+>>>>>>> change from dao to repository
 	}
 
 	@Override
 //	@Transactional
 	public void update(User user) {
+<<<<<<< HEAD
 
     repository.setUserInfoById(
 
@@ -73,19 +92,37 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getPassword(), 
         user.getId()
     );
+=======
+		
+    //userDao.update(user);
+
+    userRepo.save(user);
+>>>>>>> change from dao to repository
 	}
 
 	@Override
 	// @Transactional
 	public void delete(User user) {
 
+<<<<<<< HEAD
 		repository.delete(user);
+=======
+		//userDao.delete(user);
+
+    userRepo.delete(user);
+>>>>>>> change from dao to repository
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
 
+<<<<<<< HEAD
     return repository.findByEmail(email);
+=======
+		//return userDao.getUserByEmail(email);
+    
+    return userRepo.findByEmail(email);
+>>>>>>> change from dao to repository
 	}
 
   @Override
