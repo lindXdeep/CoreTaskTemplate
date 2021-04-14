@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import io.lindx.task.model.User;
 import io.lindx.task.service.UserService;
 import io.lindx.task.util.Util;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 
 @Controller
 @RequestMapping("/")
@@ -25,6 +22,11 @@ public class HelloController {
   private User admin;
 
 	private final UserService userService;
+	
+	@Autowired
+	public HelloController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@GetMapping(value = "/")
 	public String printwelcome(ModelMap model) {
