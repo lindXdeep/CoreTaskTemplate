@@ -3,6 +3,7 @@ package io.lindx.task.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.lindx.task.dao.UserDao;
 import io.lindx.task.model.User;
+import io.lindx.task.repository.UserRepository;
 
 /**
  * Implementation for {@link UserService}.
@@ -27,10 +29,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 
+  @Autowired
+  private UserRepository userRepo;
+
 	@Override
 	@Transactional
 	public void add(User user) {
-		userDao.add(user);
+	//	userDao.add(user);
+    userRepo.save(user);
 	}
 
 	@Override
