@@ -35,35 +35,52 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional
 	public void add(User user) {
-	//	userDao.add(user);
+
+	  // userDao.add(user);
+
     userRepo.save(user);
 	}
 
 	@Override
 	public List<User> listUsers() {
-		return userDao.listUsers();
+
+		// return userDao.listUsers();
+
+    return userRepo.findAll();
 	}
 
 	@Override
 	public User getUserById(Long id) {
-		return userDao.getUserById(id);
+
+		//return userDao.getUserById(id);
+
+    return userRepo.findById(id).stream().findAny().orElse(null);
 	}
 
 	@Override
 	@Transactional
 	public void update(User user) {
-		userDao.update(user);
+		
+    //userDao.update(user);
+
+    userRepo.save(user);
 	}
 
 	@Override
 	@Transactional
 	public void delete(User user) {
-		userDao.delete(user);
+
+		//userDao.delete(user);
+
+    userRepo.delete(user);
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
-		return userDao.getUserByEmail(email);
+
+		//return userDao.getUserByEmail(email);
+    
+    return userRepo.findByEmail(email);
 	}
 
   @Override
