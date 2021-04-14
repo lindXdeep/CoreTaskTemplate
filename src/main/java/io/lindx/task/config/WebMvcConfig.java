@@ -13,6 +13,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Web configuration implements {@link WebMvcConfigurer}
  *
@@ -20,17 +22,15 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
  * @version 1.0
  * @since 2021-03-13
  */
+
+@RequiredArgsConstructor
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(value = "io.lindx.task")
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	private final ApplicationContext applicationContext;
-
-	@Autowired
-	public WebMvcConfig(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
-	}
 
 	/**
 	 * @return ResourceTemplateResolver.
