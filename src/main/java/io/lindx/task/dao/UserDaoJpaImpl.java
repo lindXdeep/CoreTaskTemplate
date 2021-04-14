@@ -10,7 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import io.lindx.task.model.User;
 
+<<<<<<< HEAD
 // @Repository
+=======
+@Repository("userDaoJpaImpl")
+>>>>>>> add repository save mithod
 public class UserDaoJpaImpl implements UserDao {
 
 	@PersistenceContext(unitName = "entityManagerFactory")
