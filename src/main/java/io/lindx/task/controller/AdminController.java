@@ -17,20 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import io.lindx.task.model.Role;
 import io.lindx.task.model.User;
-import io.lindx.task.service.UserBuilder;
 import io.lindx.task.service.UserService;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 
 @Controller
 public class AdminController {
 
   private final UserService userService;
 	
-	@Autowired
-	public AdminController(UserService userService) {
-
-		this.userService = userService;
-	}
-  
   @GetMapping("/admin")
   public String admin(ModelMap model){
 
