@@ -1,6 +1,5 @@
 package io.lindx.task.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -9,16 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import io.lindx.task.service.UserService;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 
 @Controller
 public class UserController {
 
-	private UserService userService;
-
-	@Autowired
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
+	private final UserService userService;
 
 	@GetMapping("/user/{id}")
 	public String user(@PathVariable("id") Long id, ModelMap model) {
