@@ -16,8 +16,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  * @version 1.0
  * @since 2021-03-13
  */
-@Configuration
-@PropertySource("classpath:db.properties")
+// @Configuration
+// @PropertySource("classpath:db.properties")
 public class AppConfig {
 
 	private Environment environment;

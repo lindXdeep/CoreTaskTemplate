@@ -24,9 +24,9 @@ import io.lindx.task.model.User;
  * @version 1.0
  * @since 2021-03-13
  */
-@Configuration
-@PropertySource("classpath:hiber.properties")
-@EnableTransactionManagement
+// @Configuration
+// @PropertySource("classpath:hiber.properties")
+// @EnableTransactionManagement
 public class HibernateConfig {
 
 	private Environment environment;
