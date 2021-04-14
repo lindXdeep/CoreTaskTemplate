@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import io.lindx.task.model.Role;
 import io.lindx.task.model.User;
 import io.lindx.task.service.UserService;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 
 @Controller
 public class AuthController {
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
 
 	@RequestMapping("/login")
 	public String sign_in(@RequestParam(name = "error", required = false) final Boolean error,
