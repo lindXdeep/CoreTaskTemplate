@@ -9,14 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import io.lindx.task.service.UserService;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 
 @Controller
 public class UserController {
 
-	private final UserService userService;
+	private UserService userService;
+
+	@Autowired
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@GetMapping("/user/{id}")
 	public String user(@PathVariable("id") Long id, ModelMap model) {
