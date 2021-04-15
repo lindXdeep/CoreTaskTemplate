@@ -65,13 +65,13 @@ public class User implements UserDetails {
   )
   private Set<Role> roles;
 
-  public User(final UserBuilder userBuilder) {
-    this.firstName = userBuilder.getFirstName();
-    this.lastName = userBuilder.getLastName();
+	public User(final UserBuilder userBuilder) {
+		this.firstName = userBuilder.getFirstName();
+		this.lastName = userBuilder.getLastName();
     this.password = userBuilder.getPassword();
-    this.email = userBuilder.getEmail();
+		this.email = userBuilder.getEmail();
     this.roles = userBuilder.getRoles();
-  }
+	}
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
