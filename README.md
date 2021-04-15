@@ -9,5 +9,5 @@
 # how to build and run?
 
 ```bash
-make
+ make
 ```
