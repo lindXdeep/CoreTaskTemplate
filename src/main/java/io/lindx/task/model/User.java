@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Model for User
+ * Model for User.
  *
  * @author Linder Igor
  * @version 1.0
@@ -40,38 +40,35 @@ import lombok.ToString;
 @Table(name = "users")
 public class User implements UserDetails {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false, updatable = false)
-	private Long id;
+  private Long id;
 
-	@Column(name = "name",      length = 100, nullable = false)
-	private String firstName;
+  @Column(name = "name", length = 100, nullable = false)
+  private String firstName;
 
-	@Column(name = "last_name", length = 150, nullable = false)
-	private String lastName;
+  @Column(name = "last_name", length = 150, nullable = false)
+  private String lastName;
 
-	@Column(name = "email",     length = 150, nullable = false, unique = true)
-	private String email;
+  @Column(name = "email", length = 150, nullable = false, unique = true)
+  private String email;
 
-	@Column(name = "password",  length = 255, nullable = false)
-	private String password;
+  @Column(name = "password", length = 255, nullable = false)
+  private String password;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinTable(
-    name = "user_roles",      
-    joinColumns        = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-  )
+  @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles;
 
-	public User(final UserBuilder userBuilder) {
-		this.firstName = userBuilder.getFirstName();
-		this.lastName = userBuilder.getLastName();
+  public User(final UserBuilder userBuilder) {
+    this.firstName = userBuilder.getFirstName();
+    this.lastName = userBuilder.getLastName();
     this.password = userBuilder.getPassword();
-		this.email = userBuilder.getEmail();
+    this.email = userBuilder.getEmail();
     this.roles = userBuilder.getRoles();
-	}
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -102,4 +99,5 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
 }

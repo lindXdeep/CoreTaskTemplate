@@ -28,54 +28,55 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
   private final UserRepository userRepo;
 
-	@Override
-	@Transactional
-	public void add(User user) {
+  @Override
+  @Transactional
+  public void add(final User user) {
 
     userRepo.save(user);
-	}
-
-	@Override
-	public List<User> listUsers() {
-
-    return userRepo.findAll();
-	}
-
-	@Override
-	public User getUserById(Long id) {
-
-    return userRepo.findById(id).stream().findAny().orElse(null);
-	}
-
-	@Override
-	@Transactional
-	public void update(User user) {
-
-    userRepo.save(user);
-	}
-
-	@Override
-	@Transactional
-	public void delete(User user) {
-
-    userRepo.delete(user);
-	}
-
-	@Override
-	public User getUserByEmail(String email) {
-
-    return userRepo.findByEmail(email);
-	}
+  }
 
   @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    
+  public List<User> listUsers() {
+
+    return userRepo.findAll();
+  }
+
+  @Override
+  public User getUserById(final Long id) {
+
+    return userRepo.findById(id).stream().findAny().orElse(null);
+  }
+
+  @Override
+  @Transactional
+  public void update(final User user) {
+
+    userRepo.save(user);
+  }
+
+  @Override
+  @Transactional
+  public void delete(final User user) {
+
+    userRepo.delete(user);
+  }
+
+  @Override
+  public User getUserByEmail(final String email) {
+
+    return userRepo.findByEmail(email);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+
     User user = getUserByEmail(email);
 
-    if(user == null){
+    if (user == null) {
       throw new UsernameNotFoundException("user not found");
     }
-    
+
     return user;
   }
+
 }

@@ -21,36 +21,35 @@ import io.lindx.task.service.UserService;
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
-  private UserService userService;  
+  private UserService userService;
 
   @Autowired
-  public SuccessUserHandler(UserService userService) {
+  public SuccessUserHandler(final UserService userService) {
     this.userService = userService;
   }
 
   @Override
-  public void onAuthenticationSuccess( HttpServletRequest request, 
-                                       HttpServletResponse response,
-                                       Authentication authentication
-                                      ) throws IOException, ServletException {
-    
+  public void onAuthenticationSuccess(final HttpServletRequest request, 
+                                      final HttpServletResponse response,
+                                      final Authentication authentication) 
+                                      throws IOException, ServletException {
+
     Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    
+
     User user = null;
 
     if (principal instanceof UserDetails) {
-    
-      user = userService.getUserByEmail(((UserDetails)principal).getUsername());
-    }     
 
+      user = userService.getUserByEmail(((UserDetails) principal).getUsername());
+    }
 
-    if(roles.contains("ROLE_ADMIN")){
+    if (roles.contains("ROLE_ADMIN")) {
       response.sendRedirect("/admin");
-    } else{
+    } else {
       response.sendRedirect("/user/" + user.getId());
     }
   }
+
 }

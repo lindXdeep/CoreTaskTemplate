@@ -23,34 +23,35 @@ public class HelloController {
 
   private User admin;
 
-	private final UserService userService;
+  private final UserService userService;
 
-	@GetMapping(value = "/")
-	public String printwelcome(ModelMap model) {
+  @GetMapping(value = "/")
+  public String printwelcome(final ModelMap model) {
 
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    String username = principal instanceof UserDetails ? 
-                ((UserDetails)principal).getUsername() : principal.toString();
+    String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername()
+        : principal.toString();
 
-		List<String> messages = new ArrayList<>();
+    List<String> messages = new ArrayList<>();
 
-		messages.add("hello!");
-		messages.add("i'm spring mvc application");
-		messages.add("5.2.0 version by sep'19 ");
+    messages.add("hello!");
+    messages.add("i'm spring mvc application");
+    messages.add("5.2.0 version by sep'19 ");
 
-		messages.stream().forEach(s -> Util.getLogger().info(s));
+    messages.stream().forEach(s -> Util.getLogger().info(s));
 
-		model.addAttribute("messages", messages);
+    model.addAttribute("messages", messages);
 
     admin = userService.getUserByEmail("admin@admin");
     model.addAttribute("setadmin", admin == null ? false : true);
     model.addAttribute("admin", admin);
-    
-    model.addAttribute("login", principal instanceof UserDetails? true : false);
-    
-    model.addAttribute("principal", !username.equals("anonymousUser") ? 
-                                 userService.getUserByEmail(username) : null);
-		return "index";
-	}
+
+    model.addAttribute("login", principal instanceof UserDetails ? true : false);
+
+    model.addAttribute("principal",
+        !username.equals("anonymousUser") ? userService.getUserByEmail(username) : null);
+    return "index";
+  }
+
 }

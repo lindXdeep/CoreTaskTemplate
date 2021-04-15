@@ -14,6 +14,13 @@ import org.springframework.stereotype.Component;
 
 import io.lindx.task.security.SuccessUserHandler;
 
+/**
+ * SecurityConfig extends {@link WebSecurityConfigurerAdapter}.
+ *
+ * @author Linder Igor
+ * @version 1.0
+ * @since 2021-04-15
+ */
 @Component
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,60 +29,63 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private SuccessUserHandler successUserHandler;
 
   @Autowired
-  public SecurityConfig( UserDetailsService userDetailsService, 
-                        SuccessUserHandler successUserHandler) {
+  public SecurityConfig(final UserDetailsService userDetailsService, 
+                        final SuccessUserHandler successUserHandler) {
     this.userDetailsService = userDetailsService;
     this.successUserHandler = successUserHandler;
   }
-  
 
   @Override
-  public void configure(WebSecurity web) throws Exception {
-      web
-        .ignoring()
-          .antMatchers("/img/**", "/css/**")
-          .antMatchers("/setadmin");          // set default admin/admin in db
+  public void configure(final WebSecurity web) throws Exception {
+    web
+      .ignoring()
+        .antMatchers("/img/**", "/css/**")
+        .antMatchers("/setadmin"); // set default admin/admin in db
   }
 
   @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    
-    http
-      .authorizeRequests()
-        .antMatchers("/").permitAll()
-        .antMatchers("/login").anonymous()
-        .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
-        .antMatchers("/user/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-        .anyRequest().authenticated();
-      
-    http
-      .formLogin()
-        .loginPage("/login")
-        .loginProcessingUrl("/login/process")
-        .usernameParameter("email")
-        .passwordParameter("password")
-        .failureUrl("/login?error=true")
-        .defaultSuccessUrl("/", true)
-        .successHandler(successUserHandler);
+  protected void configure(final HttpSecurity http) throws Exception {
 
     http
-      .logout()
-        .logoutUrl("/logout")
-;
+        .authorizeRequests()
+          .antMatchers("/").permitAll()
+          .antMatchers("/login").anonymous()
+          .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
+          .antMatchers("/user/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+          .anyRequest().authenticated();
 
     http
-      .exceptionHandling()
-        .accessDeniedPage("/");
+        .csrf()
+          .disable();
+          
+    http
+        .formLogin()
+          .loginPage("/login")
+            .loginProcessingUrl("/login/process")
+            .usernameParameter("email")
+            .passwordParameter("password")
+          .failureUrl("/login?error=true")
+          .defaultSuccessUrl("/", true)
+          .successHandler(successUserHandler);
+
+    http
+        .logout()
+          .logoutUrl("/logout");
+
+    http
+        .exceptionHandling()
+          .accessDeniedPage("/");
   }
 
   @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    auth
+        .userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
   }
 
   @Bean
   public static PasswordEncoder passwordEncoder() {
-      return NoOpPasswordEncoder.getInstance();
+    return NoOpPasswordEncoder.getInstance();
   }
 }

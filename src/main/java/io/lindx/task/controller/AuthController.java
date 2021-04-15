@@ -23,61 +23,59 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AuthController {
 
-	private final UserService userService;
+  private final UserService userService;
 
-	@RequestMapping("/login")
-	public String sign_in(@RequestParam(name = "error", required = false) final Boolean error,
-                        final Model model) {
+  @RequestMapping("/login")
+  public String signin(@RequestParam(name = "error", required = false) final Boolean error, final Model model) {
 
-    if(Boolean.TRUE.equals(error)){
+    if (Boolean.TRUE.equals(error)) {
       model.addAttribute("error", true);
-    }   
+    }
 
-		return "/auth/sign_in.html";
-	}
+    return "/auth/sign_in.html";
+  }
 
   @GetMapping("/logout")
-  public String logout(HttpServletRequest request){
+  public String logout(final HttpServletRequest request) {
 
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    
-    if(auth != null){
+
+    if (auth != null) {
       request.getSession().invalidate();
     }
-    
+
     return "redirect:/login";
   }
 
   /**
-   * service method
+   * service method.
    * @return
    */
   @GetMapping("/setadmin")
-  public String setadmin(
-        @RequestParam(name = "n", defaultValue = "admin",       required = false) final String name,
-        @RequestParam(name = "l", defaultValue = "admin",       required = false) final String last,
-        @RequestParam(name = "m", defaultValue = "admin@admin", required = false) final String mail,
-        @RequestParam(name = "p", defaultValue = "admin",       required = false) final String pass,
-        final ModelMap model
-  ){
-      
-    if(userService.getUserByEmail(mail) != null) {
+  public String setadmin(@RequestParam(name = "n", defaultValue = "admin", required = false) final String name,
+      @RequestParam(name = "l", defaultValue = "admin", required = false) final String last,
+      @RequestParam(name = "m", defaultValue = "admin@admin", required = false) final String mail,
+      @RequestParam(name = "p", defaultValue = "admin", required = false) final String pass,
+      final ModelMap model) {
+
+    if (userService.getUserByEmail(mail) != null) {
 
       return "redirect:/";
     }
 
     Role role = new Role();
-     role.setTitle("ROLE_ADMIN");
+    role.setTitle("ROLE_ADMIN");
 
-     User admin = new User();
-      admin.setFirstName(name);
-      admin.setLastName(last);
-      admin.setEmail(mail);
-      admin.setPassword(pass);
-      admin.setRoles(Collections.singleton(role));
+    User admin = new User();
+    admin.setFirstName(name);
+    admin.setLastName(last);
+    admin.setEmail(mail);
+    admin.setPassword(pass);
+    admin.setRoles(Collections.singleton(role));
 
-      userService.add(admin);
-      
+    userService.add(admin);
+
     return "redirect:/login";
   }
+
 }

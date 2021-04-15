@@ -13,16 +13,16 @@ import io.lindx.task.model.User;
  */
 public interface UserService {
 
-	void add(User user);
+  void add(User user);
 
-	List<User> listUsers();
+  List<User> listUsers();
 
-	User getUserById(Long id);
+  User getUserById(Long id);
 
-	User getUserByEmail(String email);
+  User getUserByEmail(String email);
 
-	void update(User user);
+  void update(User user);
 
-	void delete(User user);
+  void delete(User user);
 
 }

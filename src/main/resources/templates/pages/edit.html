@@ -30,9 +30,11 @@
         </ol>
       </nav>
 
-      <form th:method="patch" th:action="@{
-                                          /admin/user/{id}(id = ${user.getId()})
-                                            }" th:object="${user}">
+      <form th:method="patch" 
+            th:action="@{
+                          /admin/user/{id}(id = ${user.getId()})
+                        }" 
+            th:object="${user}">
 
         <div style="float: left; text-align: center;">
           <img src="/img/user_new.png" alt="Admin" width="70%" style="size: 70%;">
@@ -84,11 +86,6 @@
             </div>
           </div>
           <hr>
-          <div>
-            <div class="col" style="text-align: left;">
-              <a th:href="@{/car/{id} (id=${user.getCar().getId()}) }" th:text="${user.getCar().getModel() + ' ' + user.getCar().getSeries()}"> car </a>
-            </div>
-          </div>
         </div>
       </form>
     </div>

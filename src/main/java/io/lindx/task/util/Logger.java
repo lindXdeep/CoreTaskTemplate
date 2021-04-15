@@ -18,36 +18,37 @@ import org.springframework.stereotype.Service;
 @Service
 public class Logger {
 
-	private String pathLogConfig = "./src/main/resources/log.properties";
+  private String pathLogConfig = "./src/main/resources/log.properties";
 
-	private String pathOutLog = "./log";
+  private String pathOutLog = "./log";
 
-	private FileOutputStream out = null;
+  private FileOutputStream out = null;
 
-	public Logger() {
-	}
+  public Logger() {
+  }
 
-	public void readConfiguration() {
+  /**
+   * Reading config file.
+   */
+  public void readConfiguration() {
 
-		try (FileInputStream logConfig = new FileInputStream(pathLogConfig)) {
+    try (FileInputStream logConfig = new FileInputStream(pathLogConfig)) {
 
-			LogManager.getLogManager().readConfiguration(logConfig);
+      LogManager.getLogManager().readConfiguration(logConfig);
 
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
-		File logFolder = new File(pathOutLog);
+    File logFolder = new File(pathOutLog);
 
-		if (!new File(pathOutLog).exists()) {
-			try {
-				logFolder.mkdir();
-			}
-			catch (Exception e) {
-				System.err.println("Can't create " + logFolder.getName() + " folder");
-			}
-		}
-	}
+    if (!new File(pathOutLog).exists()) {
+      try {
+        logFolder.mkdir();
+      } catch (Exception e) {
+        System.err.println("Can't create " + logFolder.getName() + " folder");
+      }
+    }
+  }
 
 }

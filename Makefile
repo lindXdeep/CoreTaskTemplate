@@ -17,20 +17,17 @@ format-spring:
 
 clean:
 	./mvnw clean
-	rm -R ${CATALINA_BASE}/webapps/myapp/*
 
 compile:
 	./mvnw compiler:compile
 
-deploy:
-	./mvnw package war:war
-
-redeploy:
-	rm -R ${CATALINA_BASE}/webapps/myapp/*
-	./mvnw package war:war
-
 build:
-	./mvnw package war:exploded 
+	./mvnw package
+
+rebuild: clean build
+
+run:
+	./mvnw spring-boot:run
 
 open-chrome:
 	google-chrome --incognito --new-window http://localhost:8080
@@ -38,15 +35,14 @@ open-chrome:
 open-firefox:
 	firefox --incognito --new-window http://localhost:8080
 
-browse:
-	browse http://localhost:8080
-
-code:
-	code-oss $@
-
+open: open-chrome
 
 lint: lint-default lint-google lint-spring
 
-build-execute: lint format-spring build open-chrome
+run_browse:
+	./open-browser.sh & make run
 
-open: open-chrome
+build-execute: lint rebuild run_browse
+
+code:
+	code-oss $@

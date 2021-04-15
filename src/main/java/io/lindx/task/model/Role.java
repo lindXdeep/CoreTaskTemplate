@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Role
+ * Role.
  */
 
 @Data
@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "roles")
-public class Role implements GrantedAuthority{
+public class Role implements GrantedAuthority {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,4 +46,5 @@ public class Role implements GrantedAuthority{
   public String getAuthority() {
     return title;
   }
+
 }
