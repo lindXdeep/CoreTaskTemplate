@@ -6,3 +6,8 @@
 
 ![Code Time](https://img.shields.io/endpoint?style=flat&url=https://codetime-api.datreks.com/badge/870?logoColor=white%26project=jm-core-task-template%26recentMS=0%26showProject=false)
 
+# how to build and run?
+
+```bash
+make
+```
