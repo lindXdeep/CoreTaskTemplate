@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Controller</title>
+  <link href="/css/main.css" th:href="@{/css/main.css}"  rel="stylesheet" />
+</head>
+
+<body>
+  <header style="position: relative; padding: 1%;">
+
+    <div style="float: left; width: 48%;">
+      <a id="btn" href="/">Main</a>
+    </div>
+    <div style="float: left; width: 48%;">
+
+      <div style="text-align: right;">
+
+        <div th:if="!${login}">
+          <a id="btn" href="/login">Sign in</a>
+        </div>
+
+        <div th:if="${login}">
+          <a id="btn" href="/logout">Logout</a>
+          <a id="pic" th:href="@{/user/{id} ( id=${principal.getId()} ) }"><img src="/img/icon_user.png" width="65" height="65" alt=""></a>
+        </div>
+        
+      </div>
+
+    </div>
+
+  </header>
+  <div id="outer">
+    <div class="inner">
+      <div th:each=" msg : ${messages}" style="padding-top: 5%;">
+        <p style="font-size: x-large;" th:text="${msg}">message</p>
+      </div>
+      
+      <div th:if="${!setadmin}" >
+        <P style="padding-top: 10%; color: #FFD6CD">
+          There is no administrator in the system, you can <a href="/setadmin"> set default admin</a>
+        </P>
+      </div>
+      <div th:if="${setadmin}" style="padding-top: 10%">
+        <a id="btn-1" href="/admin" th:text=" 'Go to, ' + ${admin.firstName}">Admin</a>
+
+        <div style="text-align: left; padding-top: 10%; font-size: x-small;">
+          <P>login/pass for admin:</P>
+          <P th:text="${admin.email}">login</P>
+          <P th:text="${admin.password}">pass</P>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
