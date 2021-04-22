@@ -75,7 +75,6 @@ public class AuthController {
 
     userService.add(admin);
 
-    return "redirect:/login";
+    return "redirect:/";
   }
-
 }

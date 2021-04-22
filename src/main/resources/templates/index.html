@@ -26,7 +26,8 @@
         <a href="https://github.com/lindXdeep/" class="navbar-brand">lindx</a>
       </div>
 
-      <div class="navbar-collapse collapse">
+      <div th:if="!${login}" class="navbar-collapse collapse">
+
         <form action="" method="post" class="navbar-form navbar-right">
           <div class="form-group">
             <input type="email" name="email" id="email" class="form-control" placeholder="Email">
@@ -38,16 +39,50 @@
         </form>
       </div>
 
+      <div th:if="${login}" class="navbar-collapse collapse">
+        <div class="navbar-form navbar-right">
+          <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+          <a th:href="@{/user/{id} (id=${principal.getId()}) }">
+            <img src="/img/icon_user.png" width="45" height="45" alt="">
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <div class="container-fluid jumbotron">
     <div class="row top-name center-block text-center">
+
+      <div th:each=" msg : ${messages}" class="col">
+        <p th:text="${msg}" style="font-size: x-large;">message</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div th:if="${!setadmin}" class="row top-name center-block text-center">
       <div class="col">
-        <h1 class="display-4">hello!</h1>
-        <p class="lead h3"><strong>i'm spring mvc application!</strong></p>
-        <hr class="my-4">
-        <p>5.2.0 version by sep'19</p>
+        <h3 class="bg-warning">
+          There is no administrator in the system, you can
+          <a href="/setadmin" class="text-success"> <strong>set default admin</strong></a>
+        </h3>
+      </div>
+    </div>
+    <div th:if="${setadmin}" class="row top-name center-block text-center">
+
+      <div class="col">
+        <a href="/admin" th:text=" 'Go to, ' + ${admin.firstName}" class="btn btn-default btn-lg">Admin</a>
+      </div>
+
+      <div class="col text-left">
+        <br>
+        <P>Admin credentals is:</P>
+        <blockquote class="blockquote">
+          <P th:text="'Email: ' + ${admin.email}">login</P>
+          <P th:text="'Pass: ' + ${admin.password}">pass</P>
+        </blockquote>
       </div>
     </div>
   </div>
