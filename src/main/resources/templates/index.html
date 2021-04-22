@@ -28,7 +28,7 @@
 
       <div th:if="!${login}" class="navbar-collapse collapse">
 
-        <form action="" method="post" class="navbar-form navbar-right">
+        <form th:method="POST" th:action="@{/login/process}" class="navbar-form navbar-right">
           <div class="form-group">
             <input type="email" name="email" id="email" class="form-control" placeholder="Email">
           </div>

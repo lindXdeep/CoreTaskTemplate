@@ -18,3 +18,31 @@
 .lin-5 {
   background-color: purple;
 }
+
+.bloc {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  border: none;
+}
+
+.bloc select {
+  overflow: hidden;
+  padding: 0px;
+  margin: -5px -20px -5px -5px;
+}
+
+.col-centered{
+  margin: 0 auto;
+  float: none;
+}
+
+.row-centered{
+  margin-top: 10%;
+  margin-bottom: auto;
+  float: none;
+}
+
+body {
+  background-color: whitesmoke;
+}
