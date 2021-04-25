@@ -69,6 +69,7 @@ public class AuthController {
     User admin = new User();
     admin.setFirstName(name);
     admin.setLastName(last);
+    admin.setAge(1970);
     admin.setEmail(mail);
     admin.setPassword(pass);
     admin.setRoles(Collections.singleton(role));

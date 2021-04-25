@@ -51,6 +51,9 @@ public class User implements UserDetails {
   @Column(name = "last_name", length = 150, nullable = false)
   private String lastName;
 
+  @Column(name = "age", length = 150, nullable = false)
+  private Integer age;
+
   @Column(name = "email", length = 150, nullable = false, unique = true)
   private String email;
 
@@ -65,6 +68,7 @@ public class User implements UserDetails {
   public User(final UserBuilder userBuilder) {
     this.firstName = userBuilder.getFirstName();
     this.lastName = userBuilder.getLastName();
+    this.age = userBuilder.getAge();
     this.password = userBuilder.getPassword();
     this.email = userBuilder.getEmail();
     this.roles = userBuilder.getRoles();

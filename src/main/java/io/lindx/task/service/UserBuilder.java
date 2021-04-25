@@ -24,6 +24,8 @@ public class UserBuilder {
 
   private String lastName;
 
+  private Integer age;
+
   private String email;
 
   private String password;
@@ -37,6 +39,11 @@ public class UserBuilder {
 
   public UserBuilder lastName(final String lastName) {
     this.lastName = lastName;
+    return this;
+  }
+
+  public UserBuilder age(final Integer age) {
+    this.age = age;
     return this;
   }
 

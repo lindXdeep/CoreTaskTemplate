@@ -4,28 +4,271 @@
 <head>
   <meta charset="UTF-8">
   <title>Hello Controller</title>
-  <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
+  <link rel="stylesheet" href="/css/modal.css" th:href="@{/css/modal.css}" />
+  <link rel="stylesheet" href="/css/light.css" th:href="@{/css/light.css}" />
+
+  <title>Admin panel</title>
 </head>
 
 <body>
-  <header style="position: relative; padding: 1%;">
-
-    <div style="float: left; width: 48%;">
-      <a id="btn" href="/">Main</a>
-    </div>
-    <div style="float: left; width: 48%;">
-      <div style="text-align: right;">
-        <div th:if="!${login}">
-          <a id="btn" href="/login">Sign in</a>
-        </div>
+  <div class="navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- TODO:  Доптсать получения ролей по юзеру -->
+        <a href="#" class="navbar-brand"><strong style="color: white;">user@user</strong> with roles: USER</a>
+      </div>
+      <div class="navbar-right">
         <div th:if="${login}">
           <a id="btn" href="/logout">Logout</a>
-          <a id="pic" th:href="@{/user/{id} ( id=${principal.getId()} ) }"><img src="/img/icon_user.png" width="65" height="65" alt=""></a>
+          <a id="pic" th:href="@{/user/{id} ( id=${principal.getId()} ) }"><img src="/img/icon_user.png" width="45" height="45" alt=""></a>
         </div>
       </div>
     </div>
-    
-  </header>
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <aside class="col-sm-2 col-md-2 col-lg-2">
+        <div class="row">
+          <br>
+          <ul class="nav nav-stacked nav-pills" role="tablist">
+            <li class="active">
+              <a id="btn-login" href="#admin" role="tab" data-toggle="pill"> Admin </a>
+            </li>
+            <li>
+              <a href="#user" role="tab" data-toggle="pill"> User </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="col-sm-10 col-md-10 col-lg-10" style="background-color: whitesmoke;">
+
+        <div class="row ">
+          <div class="tab-content col col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+            <!-- TODO: Admin panel -->
+            <div role="tabpanel" class="tab-pane active fade in" id="admin">
+
+              <div class="row">
+                <div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <h1><b>Admin Panel</b></h1>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#allusers" data-toggle="pill">Users table</a></li>
+                    <li><a id="btn-login" href="#adduser" data-toggle="pill">Add User</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- TODO: User tablle and Add user tabs -->
+              <div class="tab-content row">
+
+                <!-- TODO: All users pane -->
+                <div role="tabpanel" id="allusers" class="tab-pane active fade in col-sm-12 col-md-12 col-lg-12">
+
+                  <div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>All users</strong></div>
+                      <div class="panel-body">
+
+                        <div class="table-responsive">
+                          <table class="table table-hover table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Role</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each=" user : ${users}">
+
+                                <td>
+                                  <span th:text="${user.getId()}">id</span>
+                                </td>
+                                <td>
+                                  <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getFirstName()}">name</a>
+                                </td>
+                                <td>
+                                  <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getLastName()}">last</a>
+                                </td>
+                                <td>
+                                  <span th:text="${user.getAge()}">age</span>
+                                </td>
+                                <td>
+                                  <span th:text="${user.getEmail()}">email</span>
+                                </td>
+                                <td>
+                                  <span th:text="${user.getPassword()}">pass</span>
+                                </td>
+
+                                <td>
+                                  <div class="btn-edit col">
+                                    <a th:href="@{/admin/user/{id}/edit (id= ${user.getId()}) }">
+                                      <img src="/img/icon_edit_b.png" alt="Edit" style="width: 24px;" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    </a>
+                                  </div>
+                                </td>
+
+                                <td>
+                                  <div class="btn-del col">
+                                    <form th:method="delete" th:action="@{/admin/user/{id} (id = ${user.getId()})}">
+                                      <input id="pic" type="image" name="submit" src="/img/del_b.png" border="0" alt="Delete" style="width: 24px;" data-toggle="tooltip" data-placement="top" title="Delete" />
+                                    </form>
+                                  </div>
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- TODO: Add user pane -->
+                <div role="tabpanel" id="adduser" class="tab-pane fade col-sm-12 col-md-12 col-lg-12">
+
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading"><strong>Add new user</strong></div>
+                    <div class="panel-body">
+
+
+                      <div class="row top-name center-block text-center">
+                        <div class="col-4 col-sm-6 col-md-5 col-lg-4 col-centered">
+
+                          <form>
+
+                            <div class="form-group ">
+                              <label for="name">First name</label>
+                              <input type="text" class="form-control text-center" id="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                              <label for="last">Last name</label>
+                              <input type="text" class="form-control text-center" id="last" placeholder="Last name">
+                            </div>
+                            <div class="form-group">
+                              <label for="age">Age</label>
+                              <input type="number" class="form-control text-center" id="age" placeholder="18">
+                            </div>
+                            <div class="form-group">
+                              <label for="email">Email</label>
+                              <input type="email" class="form-control text-center" id="email" placeholder="email@email">
+                            </div>
+                            <div class="form-group">
+                              <label for="password">Password</label>
+                              <input type="text" class="form-control text-center" id="password" placeholder="password">
+                            </div>
+                            <div class="form-group">
+                              <label for="password">Role</label>
+                              <select name="role" size="2" class="form-control text-center">
+                                    <option value="Admin">ADMIN</option>
+                                    <option value="User">USER</option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                              <div class="col">
+                                <input type="submit" class="btn btn-success btn-lg" value="Add new user">
+                              </div>
+                            </div>
+
+                          </form>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <!-- TODO:User panel -->
+            <div role="tabpanel" class="tab-pane fade" id="user">
+
+              <div class="row">
+                <div class="col col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <h1><strong>User information-page</strong></h1>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading"><strong>About user</strong></div>
+
+                <div class="panel-body">
+
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>id</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Age</th>
+                          <th>Email</th>
+                          <th>Password</th>
+                          <th>Role</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Tom</td>
+                          <td>johnson</td>
+                          <td>33</td>
+                          <td>user@user</td>
+                          <td>sdfgrewghhf</td>
+                          <td>ROLE_USER</td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+      </main>
+
+    </div>
+  </div>
+  </div>
+
+  <!--
 
   <div id="outer">
     <div class="inner">
@@ -38,47 +281,19 @@
         </p>
       </div>
 
-      <div th:if="${users != null}" id="main">
-        <table>
-
-          <head>
-            <tr>
-              <th>id</th>
-              <th>First name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Password</th>
-            </tr>
-          </head>
-
-          <body>
-            <tr th:each=" user : ${users}">
-              <td>
-                <span th:text="${user.getId()}">id</span>
-              </td>
-              <td>
-                <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getFirstName()}">name</a>
-              </td>
-              <td>
-                <a th:href="@{/user/{id} ( id=${user.getId()} ) }" th:text="${user.getLastName()}">last</a>
-              </td>
-              <td>
-                <span th:text="${user.getEmail()}">email</span>
-              </td>
-              <td>
-                <span th:text="${user.getPassword()}">pass</span>
-              </td>
-              <td>
-                <form th:method="delete" th:action="@{/admin/user/{id} (id = ${user.getId()})}">
-                  <input id="pic" type="image" name="submit" src="/img/del0.png" border="0" alt="Submit" style="width: 24px;" />
-                </form>
-              </td>
-            </tr>
-          </body>
-        </table>
-      </div>
     </div>
-  </div>
+  </div> -->
+
+  <script type="text/javascript" src="/js/jquery/jquery-3.6.0.min.js" th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
+  <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+  <script type="text/javascript" src="/js/modal.js" th:src="@{/js/modal.js}"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+
 </body>
 
 </html>
