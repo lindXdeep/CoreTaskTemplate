@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(final WebSecurity web) throws Exception {
     web
       .ignoring()
-        .antMatchers("/img/**", "/css/**")
+        .antMatchers("/img/**", "/css/**", "/js/**")
         .antMatchers("/setadmin"); // set default admin/admin in db
   }
 
