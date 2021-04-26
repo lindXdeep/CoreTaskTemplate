@@ -51,7 +51,7 @@ public class User implements UserDetails {
   @Column(name = "last_name", length = 150, nullable = false)
   private String lastName;
 
-  @Column(name = "age", length = 150, nullable = false)
+  @Column(name = "age", length = 150)
   private Integer age;
 
   @Column(name = "email", length = 150, nullable = false, unique = true)
@@ -61,8 +61,11 @@ public class User implements UserDetails {
   private String password;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+  @JoinTable(
+        name = "user_roles", 
+        joinColumns        = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+      )
   private Set<Role> roles;
 
   public User(final UserBuilder userBuilder) {

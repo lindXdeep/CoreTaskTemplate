@@ -145,43 +145,44 @@
                 <!-- TODO: Add user pane -->
                 <div role="tabpanel" id="adduser" class="tab-pane fade col-sm-12 col-md-12 col-lg-12">
 
-
                   <div class="panel panel-default">
                     <div class="panel-heading"><strong>Add new user</strong></div>
                     <div class="panel-body">
 
-
                       <div class="row top-name center-block text-center">
                         <div class="col-4 col-sm-6 col-md-5 col-lg-4 col-centered">
 
-                          <form>
+                          <form th:method="post" th:action="@{/admin/users/create}" th:object="${user}">
 
                             <div class="form-group ">
                               <label for="name">First name</label>
-                              <input type="text" class="form-control text-center" id="name" placeholder="Name">
+                              <input th:value="${user.firstName}" name="firstName" type="text" class="form-control text-center" id="name" placeholder="Name">
+
                             </div>
                             <div class="form-group">
                               <label for="last">Last name</label>
-                              <input type="text" class="form-control text-center" id="last" placeholder="Last name">
+                              <input th:value="${user.lastName}" name="lastName" type="text" class="form-control text-center" id="last" placeholder="Last name">
                             </div>
                             <div class="form-group">
                               <label for="age">Age</label>
-                              <input type="number" class="form-control text-center" id="age" placeholder="18">
+                              <input th:value="${user.age}" name="age" type="number" class="form-control text-center" id="age" placeholder="18">
                             </div>
                             <div class="form-group">
                               <label for="email">Email</label>
-                              <input type="email" class="form-control text-center" id="email" placeholder="email@email">
+                              <input th:value="${user.email}" name="email" type="email" class="form-control text-center" id="email" placeholder="email@email">
                             </div>
                             <div class="form-group">
                               <label for="password">Password</label>
-                              <input type="text" class="form-control text-center" id="password" placeholder="password">
+                              <input th:value="${user.password}" name="password" type="text" class="form-control text-center" id="password" placeholder="password">
                             </div>
+
                             <div class="form-group">
-                              <label for="password">Role</label>
-                              <select name="role" size="2" class="form-control text-center">
-                                    <option value="Admin">ADMIN</option>
-                                    <option value="User">USER</option>
-                                </select>
+                              <label for="role">Role</label>
+                              <select name="select_role" size="2" class="form-control text-center">
+                                  <option th:each="role : ${allroles}" 
+                                          th:value="${role.getTitle()}"
+                                          th:text="${role.getAuthority() == 'ROLE_ADMIN'} ? 'ROLE_ADMIN' : 'ROLE_USER'" />
+                              </select>
                             </div>
 
                             <div class="row">
