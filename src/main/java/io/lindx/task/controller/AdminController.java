@@ -35,8 +35,7 @@ public class AdminController {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     model.addAttribute("users", userService.listUsers());
-    model.addAttribute("allroles", roleService.getAllRoles());
-
+   
     model.addAttribute("user", new User());
 
     model.addAttribute("login", principal instanceof UserDetails ? true : false);
@@ -78,24 +77,33 @@ public class AdminController {
   }
 
   @GetMapping("/admin/user/{id}/edit")
-  public String edit(final @PathVariable("id") Long id, final ModelMap model) {
-
+  public String edit(final @PathVariable("id") Long id, 
+                     final ModelMap model) {
+    
     User user = userService.getUserById(id);
-
+   
     model.addAttribute("user", user);
 
     return "pages/edit";
   }
 
   @PatchMapping("/admin/user/{id}")
-  public String update(final @ModelAttribute User user, final @PathVariable("id") Long id,
-      final RedirectAttributes redirectAttributes) {
+  public String update(final @ModelAttribute User user, 
+                       final @PathVariable("id") Long id,
+                       final RedirectAttributes redirectAttributes,
+                       final @RequestParam(value = "select_role", required = false) String selectedRole) {
+
+    Role role = new Role();
+    role.setTitle(selectedRole);  
+
+    user.setRoles(Collections.singleton(role));
+   
 
     userService.update(user);
 
     redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg", "User: " + user.getId() + " Updated!");
 
-    return "redirect:/user/{id}";
+    return "redirect:/admin";
   }
 
   @DeleteMapping("/admin/user/{id}")
@@ -106,7 +114,7 @@ public class AdminController {
 
     redirectAttributes.addAttribute("id", user.getId()).addFlashAttribute("msg", "User: " + user.getId() + " Delete!");
 
-    return "redirect:/admin/users";
+    return "redirect:/admin";
   }
 
   @GetMapping("/admin/users")

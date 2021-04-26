@@ -5,18 +5,40 @@
   <meta charset="UTF-8">
   <title>Hello Controller</title>
   <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
-  <link rel="stylesheet" href="/css/modal.css" th:href="@{/css/modal.css}" />
+  <link rel="stylesheet" href="/css/modal-edit.css" th:href="@{/css/modal-edit.css}" />
   <link rel="stylesheet" href="/css/light.css" th:href="@{/css/light.css}" />
 
   <title>Admin panel</title>
 </head>
 
+<div class="win-block-edit" id="win-block-edit">
+</div>
+
+<div class="contaner">
+  <div class="modal-edit" id="modal-edit" th:fragment="view">
+
+    <div class="header">
+      <div>
+        <h1><span class="modal-close" id="btn-close">&times;</span></h1>
+        <h3><strong>Edit user</strong></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <body>
   <div class="navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <!-- TODO:  Доптсать получения ролей по юзеру -->
-        <a href="#" class="navbar-brand"><strong style="color: white;">user@user</strong> with roles: USER</a>
+
+        <a href="#" class="navbar-brand">
+
+          <strong style="color: white;" th:text="${principal.getEmail()}">user@user</strong>
+
+          <span th:text="' with roles: ' + ${principal.getRoles().toString()}"></span>
+
+        </a>
       </div>
       <div class="navbar-right">
         <div th:if="${login}">
@@ -113,19 +135,27 @@
                                 <td>
                                   <span th:text="${user.getPassword()}">pass</span>
                                 </td>
+                                <td>
+                                  <span th:text="${user.getRoles().toString()}"></span>
+                                </td>
+                                <td>
+                                  <a th:onclick="'getPropId(\'' +  ${user.getId()}  + '\');'">btn1</a>
+                                  <a th:onclick="'javascript:viewUser(\'' + ${user.getId()} +'\');'">btn2</a>
+                                </td>
 
                                 <td>
-                                  <div class="btn-edit col">
+                                  <div class="col">
                                     <a th:href="@{/admin/user/{id}/edit (id= ${user.getId()}) }">
-                                      <img src="/img/icon_edit_b.png" alt="Edit" style="width: 24px;" data-toggle="tooltip" data-placement="top" title="Edit">
+                                      <img src="/img/icon_edit_b.png" title="Edit" alt="Edit" data-toggle="tooltip" data-placement="top" style="width: 24px;">
                                     </a>
                                   </div>
                                 </td>
 
                                 <td>
                                   <div class="btn-del col">
+
                                     <form th:method="delete" th:action="@{/admin/user/{id} (id = ${user.getId()})}">
-                                      <input id="pic" type="image" name="submit" src="/img/del_b.png" border="0" alt="Delete" style="width: 24px;" data-toggle="tooltip" data-placement="top" title="Delete" />
+                                      <input type="image" name="submit" src="/img/del_b.png" border="0" title="Delete" alt="Delete" data-toggle="tooltip" data-placement="top" style="width: 24px;" />
                                     </form>
                                   </div>
                                 </td>
@@ -179,9 +209,8 @@
                             <div class="form-group">
                               <label for="role">Role</label>
                               <select name="select_role" size="2" class="form-control text-center">
-                                  <option th:each="role : ${allroles}" 
-                                          th:value="${role.getTitle()}"
-                                          th:text="${role.getAuthority() == 'ROLE_ADMIN'} ? 'ROLE_ADMIN' : 'ROLE_USER'" />
+                                <option th:value="'ROLE_ADMIN'" th:text="ROLE_ADMIN"></option>
+                                <option th:value="'ROLE_USER'" th:text="ROLE_USER"></option>
                               </select>
                             </div>
 
@@ -235,13 +264,27 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>1</td>
-                          <td>Tom</td>
-                          <td>johnson</td>
-                          <td>33</td>
-                          <td>user@user</td>
-                          <td>sdfgrewghhf</td>
-                          <td>ROLE_USER</td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getId()}"></a>
+                          </td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getFirstName()}"></a>
+                          </td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getLastName()}"></a>
+                          </td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getAge()}"></a>
+                          </td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getEmail()}"></a>
+                          </td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getPassword()}"></a>
+                          </td>
+                          <td>
+                            <a th:href="@{/user/{id} ( id=${principal.getId()} ) }" th:text="${principal.getRoles().toString()}"></a>
+                          </td>
                         </tr>
 
 
@@ -285,9 +328,9 @@
     </div>
   </div> -->
 
-  <script type="text/javascript" src="/js/jquery/jquery-3.6.0.min.js" th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
-  <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-  <script type="text/javascript" src="/js/modal.js" th:src="@{/js/modal.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/modal_edit.js}"></script>
 
   <script>
     $(document).ready(function() {

@@ -3,91 +3,62 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Edit</title>
-  <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" />
+  <title>Edit user</title>
+
 </head>
 
 <body>
-  <header style="position: relative; padding: 1%;">
 
-    <div style="float: left; width: 48%;">
-      <a id="btn" href="/">Main</a>
-      <a id="btn" href="/admin/users">All Users</a>
-    </div>
-    
-  </header>
-
-  <div id="container">
+  <div id="container" th:fragment="view">
     <div id="main-body">
-      <div>
-        <p th:text="${msg}" style="font-size: x-large; font-family: 'Courier New', Courier, monospace;"> msg </p>
-      </div>
-      <nav aria-label="lindx" id="header">
-        <ol class="lindx">
-          <li class="lindx-item"> <a href="/">Main</a></li>
-          <li class="lindx-item"> <a href="/users">User</a></li>
-          <li class="lindx-item" th:text="' id: ' + ${user.getId()}"> User </li>
-        </ol>
-      </nav>
+ 
+      <form th:method="patch" th:action="@{
+                                /admin/user/{id}(id = ${user.getId()})
+                              }" th:object="${user}">
+                            
+        <div class="form-group ">
+          <label for="name">First name</label>
+          <input th:value="${user.firstName}" name="firstName" id="name" type="text" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="last">Last name</label>
+          <input th:value="${user.lastName}" name="lastName" id="last" type="text" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input th:value="${user.age}" name="age" id="age" type="number" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input th:value="${user.email}" name="email" id="email" type="email" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input th:value="${user.password}" name="password" id="password" type="text" class="form-control text-center">
+        </div>
+  
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select name="select_role" size="2" class="form-control text-center">
+            <option th:value="'ROLE_ADMIN'" th:text="ROLE_ADMIN"></option>
+            <option th:value="'ROLE_USER'" th:text="ROLE_USER"></option>
+          </select>
+        </div>
 
-      <form th:method="patch" 
-            th:action="@{
-                          /admin/user/{id}(id = ${user.getId()})
-                        }" 
-            th:object="${user}">
-
-        <div style="float: left; text-align: center;">
-          <img src="/img/user_new.png" alt="Admin" width="70%" style="size: 70%;">
-          <div style="text-align: left; padding-top: 10%;">
-            <h3>
-              <p th:text="${user.getFirstName() + ' ' + user.getLastName()}"> owner </p>
-            </h3>
-            <p>Full Stack Developer</p>
-            <a id="btn-1" th:href="@{
-                                    /user/{id}(id = ${user.getId()})
-                                        }">Cancel</a>
-            <button id="btn" type="submit">Update</button>
+        <div class="row">
+          <div class="col" style="float: right; margin-right: 20px;">
+  
+            <a id="cancel" type="submit" class="btn btn-success btn-md">Close
+            </a>
+  
+            <button type="submit" class="btn btn-primary btn-md">Edit
+            </button>
+  
           </div>
         </div>
-        <div style="float: left; padding-left: 50px;">
-          <div>
-            <div style="text-align: left;">
-              <h3>First Name</h3>
-            </div>
-            <div class="col">
-              <input type="text" th:value="${user.firstName}" name="firstName" id="input" />
-            </div>
-          </div>
-          <hr>
-          <div>
-            <div style="text-align: left;">
-              <h3>Last Name</h3>
-            </div>
-            <div class="col" id="input">
-              <input type="text" th:value="${user.lastName}" name="lastName" id="input" />
-            </div>
-          </div>
-          <hr>
-          <div>
-            <div style="text-align: left;">
-              <h3>Email</h3>
-            </div>
-            <div class="col">
-              <input type="text" th:value="${user.email}" name="email" id="input" />
-            </div>
-          </div>
-          <hr>
-          <div>
-            <div style="text-align: left;">
-              <h3>Password</h3>
-            </div>
-            <div class="col">
-              <input type="text" th:value="${user.password}" name="password" id="input" />
-            </div>
-          </div>
-          <hr>
-        </div>
+
       </form>
+
     </div>
   </div>
 </body>
