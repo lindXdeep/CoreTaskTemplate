@@ -11,23 +11,91 @@
   <title>Admin panel</title>
 </head>
 
-<div class="win-block-edit" id="win-block-edit">
-</div>
-
-<div class="contaner">
-  <div class="modal-edit" id="modal-edit" th:fragment="view">
-
-    <div class="header">
-      <div>
-        <h1><span class="modal-close" id="btn-close">&times;</span></h1>
-        <h3><strong>Edit user</strong></h3>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <body>
+  <div class="myForm">
+    <form action="#"
+          method="patch" 
+          th:action="@{   /admin/user/{id}( id = ${user.getId()} ) }">
+
+      <div id="myModal" aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit user
+              </h5>
+              <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="modal-firstName">First name</label>
+                <input id="modal-firstName" 
+                        class="form-control text-center input-md" 
+                        name="firstName" 
+                        type="text">
+              </div>
+    
+              <div class="form-group">
+                <label for="modal-lastName">Last name</label>
+                <input id="modal-lastName"
+                        class="form-control text-center input-md"  
+                        name="lastName" 
+                        type="text">
+              </div>
+    
+              <div class="form-group">
+                <label for="modal-age">Age</label>
+                <input id="modal-age" 
+                        class="form-control text-center input-md"  
+                        name="age" 
+                        type="text">
+              </div>
+    
+              <div class="form-group">
+                <label for="modal-email">Email</label>
+                <input id="modal-email" 
+                        class="form-control text-center input-md"  
+                        name="email" 
+                        type="text">
+              </div>
+    
+              <div class="form-group">
+                <label for="modal-password">Email</label>
+                <input id="modal-password" 
+                        class="form-control text-center input-md"  
+                        name="password" 
+                        type="text">
+              </div>
+    
+              <div class="form-group">
+                <label for="modal-roles">Role</label>
+                <select id="modal-roles" 
+                        class="form-control text-center"
+                        name="select_role" size="2">
+                    <option th:value="'ROLE_ADMIN'" th:text="ROLE_ADMIN"></option>
+                    <option th:value="'ROLE_USER'" th:text="ROLE_USER" selected></option>
+                  </select>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+
+<!--  -->
+
   <div class="navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -139,8 +207,32 @@
                                   <span th:text="${user.getRoles().toString()}"></span>
                                 </td>
                                 <td>
-                                  <a th:onclick="'getPropId(\'' +  ${user.getId()}  + '\');'">btn1</a>
-                                  <a th:onclick="'javascript:viewUser(\'' + ${user.getId()} +'\');'">btn2</a>
+
+                                  <button type="button" class="btn btn-primary"
+                                          data-target="#myModal" data-toggle="modal"
+
+                                          th:data-userId="${user.id}"
+                                          th:data-firstName="${user.firstName}"
+                                          th:data-lastName="${user.lastName}"
+                                          th:data-age="${user.age}"
+                                          th:data-email="${user.email}"
+                                          th:data-password="${user.password}"
+                                          th:data-roles="${user.roles}"
+                                        
+
+                                          onclick="fillingModal(
+                                            this.getAttribute('data-userId'), 
+                                            this.getAttribute('data-firstName'), 
+                                            this.getAttribute('data-lastName'),
+                                            this.getAttribute('data-age'),
+                                            this.getAttribute('data-email'),
+                                            this.getAttribute('data-password'),
+                                            this.getAttribute('data-roles'),
+                                          );"
+                                          
+                                          >Edit </button>
+
+                                          
                                 </td>
 
                                 <td>
@@ -337,7 +429,5 @@
       $('[data-toggle="tooltip"]').tooltip();
     });
   </script>
-
 </body>
-
 </html>

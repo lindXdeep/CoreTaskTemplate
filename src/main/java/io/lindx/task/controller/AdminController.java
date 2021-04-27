@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import io.lindx.task.model.Role;
@@ -77,6 +78,7 @@ public class AdminController {
   }
 
   @GetMapping("/admin/user/{id}/edit")
+  @ResponseBody
   public String edit(final @PathVariable("id") Long id, 
                      final ModelMap model) {
     

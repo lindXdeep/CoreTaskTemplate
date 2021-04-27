@@ -11,11 +11,18 @@
 
   <div id="container" th:fragment="view">
     <div id="main-body">
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" '
+        
+        th:href="@{/delete/{id}(id=${row.id})}" th:method="delete">Remove</button>
+    </div>
  
-      <form th:method="patch" th:action="@{
-                                /admin/user/{id}(id = ${user.getId()})
-                              }" th:object="${user}">
-                            
+      <form th:method="patch" 
+            th:action="@{/admin/user/{id}(id = ${user.getId()})}" 
+            th:object="${user}">
+             
         <div class="form-group ">
           <label for="name">First name</label>
           <input th:value="${user.firstName}" name="firstName" id="name" type="text" class="form-control text-center">
