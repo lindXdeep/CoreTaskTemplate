@@ -9,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +35,7 @@ public class AdminController {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     model.addAttribute("users", userService.listUsers());
-   
+
     model.addAttribute("user", new User());
 
     model.addAttribute("login", principal instanceof UserDetails ? true : false);
@@ -61,9 +60,8 @@ public class AdminController {
   }
 
   @PostMapping("/admin/users/create")
-  public String newUser(final @ModelAttribute User user, 
-                        final RedirectAttributes redirectAttributes,
-                        final @RequestParam(value = "select_role", required = false) String selectedRole) {
+  public String newUser(final @ModelAttribute User user, final RedirectAttributes redirectAttributes,
+      final @RequestParam(value = "select_role", required = false) String selectedRole) {
 
     Role role = new Role();
     role.setTitle(selectedRole);
@@ -80,22 +78,18 @@ public class AdminController {
   @GetMapping("/admin/user/edit")
   @ResponseBody
   public User edit(final Long id) {
-    
+
     return userService.getUserById(id);
   }
 
-
-  @PatchMapping("/admin/user/{id}")
-  public String update(final @ModelAttribute User user, 
-                       final @PathVariable("id") Long id,
-                       final RedirectAttributes redirectAttributes,
-                       final @RequestParam(value = "select_role", required = false) String selectedRole) {
+  @PostMapping("/admin/user")
+  public String update(final User user, final RedirectAttributes redirectAttributes,
+      final @RequestParam(value = "select_role", required = false) String selectedRole) {
 
     Role role = new Role();
-    role.setTitle(selectedRole);  
+    role.setTitle(selectedRole);
 
     user.setRoles(Collections.singleton(role));
-   
 
     userService.update(user);
 

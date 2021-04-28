@@ -1,7 +1,21 @@
 
-$(document).ready(function(){
+$(document).ready(function () {
 
   $('.table .btn-edit').on('click', function (event) {
+
+    event.preventDefault();           // отменить действие браузера по умолчанию 
+
+    var href = $(this).attr('href');
+
+    jQuery.get(href, function (user, status) {
+      $('.formEdit #id').val(user.id);
+      $('.formEdit #firstName').val(user.firstName);
+      $('.formEdit #lastName').val(user.lastName);
+      $('.formEdit #age').val(user.age);
+      $('.formEdit #email').val(user.email);
+      $('.formEdit #password').val(user.password);
+      $('.formEdit #roles').val(user.title);
+    });
 
     $('.formEdit #exampleModal').modal();
   });
@@ -32,7 +46,7 @@ $(document).ready(function(){
 // $('.allusers .mybtn-edit').on('click', function (event) {
 
 //   event.preventDefault();
-  
+
 //   alert('asdas');
 
 // });

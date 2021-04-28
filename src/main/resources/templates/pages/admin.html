@@ -14,7 +14,7 @@
 <body>
   <!-- Modal  -->
   <div class="formEdit">
-    <form action="#" method="POST">
+    <form action="#" method="POST" th:action="@{/admin/user}">
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -29,49 +29,62 @@
             </div>
 
             <div class="modal-body">
+
               <div class="form-group">
-                <label for="modal-firstName">First name</label>
-                <input id="modal-firstName" 
-                        class="form-control text-center input-md" 
-                        name="firstName" 
-                        type="text">
+                <label for="id">First name</label>
+                <input id="id" name="id" 
+                       class="form-control text-center input-md" 
+                       type="text"
+                       value="">
+              </div>
+
+              <div class="form-group">
+                <label for="firstName">First name</label>
+                <input id="firstName" name="firstName" 
+                       class="form-control text-center input-md" 
+                       type="text"
+                       value="">
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input id="lastName"
+                       class="form-control text-center input-md"  
+                       name="lastName" 
+                       type="text"
+                       value="">
               </div>
     
               <div class="form-group">
-                <label for="modal-lastName">Last name</label>
-                <input id="modal-lastName"
-                        class="form-control text-center input-md"  
-                        name="lastName" 
-                        type="text">
+                <label for="age">Age</label>
+                <input id="age" 
+                       class="form-control text-center input-md"  
+                       name="age" 
+                       type="text"
+                       value="">
               </div>
     
               <div class="form-group">
-                <label for="modal-age">Age</label>
-                <input id="modal-age" 
-                        class="form-control text-center input-md"  
-                        name="age" 
-                        type="text">
+                <label for="email">Email</label>
+                <input id="email" 
+                       class="form-control text-center input-md"  
+                       name="email" 
+                       type="text"
+                       value="">
               </div>
     
               <div class="form-group">
-                <label for="modal-email">Email</label>
-                <input id="modal-email" 
-                        class="form-control text-center input-md"  
-                        name="email" 
-                        type="text">
+                <label for="password">Password</label>
+                <input id="password" 
+                       class="form-control text-center input-md"  
+                       name="password" 
+                       type="text"
+                       value="">
               </div>
     
               <div class="form-group">
-                <label for="modal-password">Email</label>
-                <input id="modal-password" 
-                        class="form-control text-center input-md"  
-                        name="password" 
-                        type="text">
-              </div>
-    
-              <div class="form-group">
-                <label for="modal-roles">Role</label>
-                <select id="modal-roles" 
+                <label for="roles">Role</label>
+                <select id="roles" 
                         class="form-control text-center"
                         name="select_role" size="2">
                     <option th:value="'ROLE_ADMIN'" th:text="ROLE_ADMIN"></option>
@@ -204,7 +217,7 @@
                                 <td>
                                   <span th:text="${user.getRoles().toString()}"></span>
                                 </td>
-                            
+
                                 <td>
                                   <div class="col">
                                     <a class="btn-edit" th:href="@{/admin/user/edit (id= ${user.getId()}) }">
@@ -390,7 +403,7 @@
     </div>
   </div> -->
 
-  <script type="text/javascript" src="/js/jquery/jquery-3.4.1.slim.min.js" th:src="@{/js/jquery/jquery-3.4.1.slim.min.js}"></script>
+  <script type="text/javascript" src="/js/jquery/jquery-3.5.1.min.js" th:src="@{/js/jquery/jquery-3.5.1.min.js}"></script>
   <script type="text/javascript" src="/js/bootstrap/bootstrap-3.4.1.min.js" th:src="@{/js/bootstrap/bootstrap-3.4.1.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/modal_edit.js}"></script>
 
