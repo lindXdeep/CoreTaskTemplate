@@ -77,17 +77,13 @@ public class AdminController {
     return "redirect:/user/{id}";
   }
 
-  @GetMapping("/admin/user/{id}/edit")
+  @GetMapping("/admin/user/edit")
   @ResponseBody
-  public String edit(final @PathVariable("id") Long id, 
-                     final ModelMap model) {
+  public User edit(final Long id) {
     
-    User user = userService.getUserById(id);
-   
-    model.addAttribute("user", user);
-
-    return "pages/edit";
+    return userService.getUserById(id);
   }
+
 
   @PatchMapping("/admin/user/{id}")
   public String update(final @ModelAttribute User user, 

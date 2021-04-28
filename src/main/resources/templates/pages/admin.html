@@ -4,21 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Hello Controller</title>
-  <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
-  <link rel="stylesheet" href="/css/modal-edit.css" th:href="@{/css/modal-edit.css}" />
+
+  <link rel="stylesheet" href="/css/bootstrap/bootstrap-3.4.1.min.css" th:href="@{/css/bootstrap/bootstrap-3.4.1.min.css}" />
   <link rel="stylesheet" href="/css/light.css" th:href="@{/css/light.css}" />
 
   <title>Admin panel</title>
 </head>
 
 <body>
-  <div class="myForm">
-    <form action="#"
-          method="patch" 
-          th:action="@{   /admin/user/{id}( id = ${user.getId()} ) }">
+  <!-- Modal  -->
+  <div class="formEdit">
+    <form action="#" method="POST">
 
-      <div id="myModal" aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog" role="document">
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
           <div class="modal-content">
 
             <div class="modal-header">
@@ -79,7 +78,6 @@
                     <option th:value="'ROLE_USER'" th:text="ROLE_USER" selected></option>
                   </select>
               </div>
-
             </div>
 
             <div class="modal-footer">
@@ -91,10 +89,10 @@
         </div>
       </div>
 
+    </form>
 
   </div>
-
-<!--  -->
+  <!--  -->
 
   <div class="navbar-inverse">
     <div class="container-fluid">
@@ -206,38 +204,10 @@
                                 <td>
                                   <span th:text="${user.getRoles().toString()}"></span>
                                 </td>
-                                <td>
-
-                                  <button type="button" class="btn btn-primary"
-                                          data-target="#myModal" data-toggle="modal"
-
-                                          th:data-userId="${user.id}"
-                                          th:data-firstName="${user.firstName}"
-                                          th:data-lastName="${user.lastName}"
-                                          th:data-age="${user.age}"
-                                          th:data-email="${user.email}"
-                                          th:data-password="${user.password}"
-                                          th:data-roles="${user.roles}"
-                                        
-
-                                          onclick="fillingModal(
-                                            this.getAttribute('data-userId'), 
-                                            this.getAttribute('data-firstName'), 
-                                            this.getAttribute('data-lastName'),
-                                            this.getAttribute('data-age'),
-                                            this.getAttribute('data-email'),
-                                            this.getAttribute('data-password'),
-                                            this.getAttribute('data-roles'),
-                                          );"
-                                          
-                                          >Edit </button>
-
-                                          
-                                </td>
-
+                            
                                 <td>
                                   <div class="col">
-                                    <a th:href="@{/admin/user/{id}/edit (id= ${user.getId()}) }">
+                                    <a class="btn-edit" th:href="@{/admin/user/edit (id= ${user.getId()}) }">
                                       <img src="/img/icon_edit_b.png" title="Edit" alt="Edit" data-toggle="tooltip" data-placement="top" style="width: 24px;">
                                     </a>
                                   </div>
@@ -420,8 +390,8 @@
     </div>
   </div> -->
 
-  <script type="text/javascript" th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+  <script type="text/javascript" src="/js/jquery/jquery-3.4.1.slim.min.js" th:src="@{/js/jquery/jquery-3.4.1.slim.min.js}"></script>
+  <script type="text/javascript" src="/js/bootstrap/bootstrap-3.4.1.min.js" th:src="@{/js/bootstrap/bootstrap-3.4.1.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/modal_edit.js}"></script>
 
   <script>
@@ -430,4 +400,5 @@
     });
   </script>
 </body>
+
 </html>
