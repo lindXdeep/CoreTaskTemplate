@@ -1,4 +1,9 @@
 
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+
 $(document).ready(function () {
 
   $('.table .btn-edit').on('click', function (event) {
