@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/css/bootstrap/bootstrap-3.4.1.min.css" th:href="@{/css/bootstrap/bootstrap-3.4.1.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/modal.css}" />
+
+  <title>Нello Controller</title>
+
+  <script>
+    let login = "[[${login}]]";
+  </script>
+
+</head>
+
+<body>
+
+  <div class="win-block" id="win-block">
+  </div>
+
+  <div class="contaner modal-login" id="modal-login">
+
+    <div class="header">
+      <div>
+        <h1><span class="modal-close" id="btn-close">&times;</span></h1>
+        <h1><strong>Please sign in</strong></h1>
+      </div>
+    </div>
+
+    <div class="modal-login-body">
+
+      <form th:method="POST" th:action="@{/login/process}">
+        <div class="form-group">
+          <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-secondary btn-block">Sign in</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="navbar navbar-inverse fixed-top">
+    <div class="container">
+
+      <div class="navbar-header">
+
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+				</button>
+
+      </div>
+
+      <div th:if="!${login}" class="navbar-collapse collapse">
+
+        <form th:method="POST" th:action="@{/login/process}" class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-success">Sign in</button>
+        </form>
+      </div>
+
+      <div th:if="${login}" class="navbar-collapse collapse">
+        <div class="navbar-form navbar-right">
+          <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+          <a th:href="@{/user/{id} (id=${principal.getId()}) }">
+            <img src="/img/icon_user.png" width="45" height="45" alt="">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-fluid jumbotron">
+    <div class="row top-name center-block text-center">
+
+      <div th:each=" msg : ${messages}" class="col">
+        <p th:text="${msg}" style="font-size: x-large;">message</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div th:if="${!setadmin}" class="row top-name center-block text-center">
+      <div class="col">
+        <h3 class="bg-warning">
+          There is no administrator in the system, you can
+          <a href="/setadmin" class="text-success"> <strong>set default admin</strong></a>
+        </h3>
+      </div>
+    </div>
+    <div th:if="${setadmin}" class="row top-name center-block text-center">
+
+      <div class="col">
+        <a id="btn-login" th:text=" 'Go to, ' + ${admin.firstName}" class="btn btn-default btn-lg">Admin</a>
+      </div>
+
+      <div class="col text-left">
+        <br>
+        <P>Admin credentals is:</P>
+        <blockquote class="blockquote">
+          <P th:text="'Email: ' + ${admin.email}">login</P>
+          <P th:text="'Pass: ' + ${admin.password}">pass</P>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/modal_login.js}"></script>
+
+</body>
+
+</html>

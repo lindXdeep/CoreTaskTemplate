@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>Edit user</title>
+
+</head>
+
+<body>
+
+  <div id="container" th:fragment="view">
+    <div id="main-body">
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" '
+        
+        th:href="@{/delete/{id}(id=${row.id})}" th:method="delete">Remove</button>
+    </div>
+ 
+      <form th:method="patch" 
+            th:action="@{/admin/user/{id}(id = ${user.getId()})}" 
+            th:object="${user}">
+             
+        <div class="form-group ">
+          <label for="name">First name</label>
+          <input th:value="${user.firstName}" name="firstName" id="name" type="text" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="last">Last name</label>
+          <input th:value="${user.lastName}" name="lastName" id="last" type="text" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input th:value="${user.age}" name="age" id="age" type="number" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input th:value="${user.email}" name="email" id="email" type="email" class="form-control text-center">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input th:value="${user.password}" name="password" id="password" type="text" class="form-control text-center">
+        </div>
+  
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select name="select_role" size="2" class="form-control text-center">
+            <option th:value="'ROLE_ADMIN'" th:text="ROLE_ADMIN"></option>
+            <option th:value="'ROLE_USER'" th:text="ROLE_USER"></option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="col" style="float: right; margin-right: 20px;">
+  
+            <a id="cancel" type="submit" class="btn btn-success btn-md">Close
+            </a>
+  
+            <button type="submit" class="btn btn-primary btn-md">Edit
+            </button>
+  
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</body>
+
+</html>

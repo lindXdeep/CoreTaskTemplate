@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/css/bootstrap/bootstrap-4.5.3.css" th:href="@{/css/bootstrap/bootstrap-4.5.3.css}" />
+  <link rel="stylesheet" href="/css/light.css" th:href="@{/css/light.css}" />
+
+  <title>Sign in</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col text-right">
+        <br>
+        <a th:href="@{/}">
+          <img src="/img/logout.png" alt="logout" srcset="" width="45" height="45">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="row row-centered">
+      <div class="col col-sm-4 col-md-4 col-lg-4 col-xl-4 col-centered">
+        <div class="row text-center">
+
+          <form th:method="POST" th:action="@{/login/process}">
+            <div class="col">
+              <h1>Please sign in</h1>
+            </div>
+            <div class="form-group">
+              <div class="col">
+                <input type="email" name="email" placeholder="Email" class="form-control">
+              </div>
+              <div class="col mb-4">
+                <input type="password" name="password" placeholder="Password" class="form-control">
+              </div>
+            </div>
+
+            <div class="col">
+              <input type="submit" name="login" id="login" class="btn btn-primary form-control" value="Sign in">
+            </div>
+
+            <br>
+
+            <div class="col mb-4" th:if="${error}">
+              <p style="background-color: #FFD6CD; color: #ff0000; text-align: center;">Bad Credentials</p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
